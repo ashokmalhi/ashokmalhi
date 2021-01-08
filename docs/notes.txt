@@ -1,0 +1,58 @@
+https://analyze.fieldwiz.com/
+user: ashokmalhi11@gmail.com
+Pass: ashok123
+
+https://api.asi.swiss/doc/getting_started.html
+
+https://api.asi.swiss/doc/
+
+https://demo.gametraka.com/gt4/timeline
+
+https://demo.gametraka.com/dashboard/
+
+Client_id: AI2vcrwIMxtvVByBrx5FlhGShiXTxXX7DNzbZI6Y
+
+
+Client_secret: 375WOuOZaXXZAOQtDkFYkUlVb5xGsH6eWxgfO28qR18sETLSedocLstCksHwqfsyBrGUFMELKEVJSeFmdyLMxcoGEBCPZ4soo8obtK5A2nLxyJoR91QitiZOQ1pLiv5r
+
+
+
+Username : taimoorehtisham@gmail.com
+
+Password : CxQWczU8Q5
+
+code=2QTzFQabqOCC14qEHKQ4cIb1blKLLa
+
+"access_token": "xdIKRd5awYY6TYUS8iQJviOJBrr1j5",
+    "expires_in": 36000,
+    "token_type": "Bearer",
+    "scope": "all",
+    "refresh_token": "f0btMbJO7r0DbHodswAGfijPnfPJx0"
+
+
+https://api.asi.swiss/oauth2/authorize/?scope=all&client_id=AI2vcrwIMxtvVByBrx5FlhGShiXTxXX7DNzbZI6Y&response_type=code&redirect_url=http://afl.softoceans.com
+
+"id": 97,
+    "username": "taimoorehtisham@gmail.com",
+    "email": "taimoorehtisham@gmail.com",
+    "external_id": null,
+    "manager_profile": {
+        "id": 23,
+        "first_name": "Taimoor",
+        "last_name": "Ehtisham"
+    }
+
+Manager:
+Your account on ASI platform has been created. Here is your credentials :
+
+Username : hasnainshaikh.r+1@gmail.com
+Password : fpSNepSWtb
+
+Athlete:
+
+Username : hasnainshaikh.r@gmail.com
+Password : RgzeaMGCxj
+
+Activate your accout using this link : http://api.asi.swiss/activate/
+
+Athletes will give permissions to access their data.
