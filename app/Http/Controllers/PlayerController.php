@@ -14,6 +14,46 @@ class PlayerController extends Controller
     public function index()
     {
         //
+        $json = '[
+            {
+                "id": 1,
+                "username": "jon.doe@example.com",
+                "email": "jon.doe@example.com",
+                "external_id": "1",
+                "athlete_profile": {
+                    "id": 1,
+                    "external_id": "e6195b18-2515-410d-a48e-1009d12f2320",
+                    "first_name": "Usain",
+                    "last_name": "Bolt",
+                    "gender": "M",
+                    "weight": 94,
+                    "height": 1.95,
+                    "birth_date": "1986-08-21",
+                    "max_heart_rate": 140
+                }
+            },
+            {
+                "id": 2,
+                "username": "md_test@gmail.com",
+                "email": "md_test@gmail.com",
+                "external_id": "2",
+                "athlete_profile": {
+                    "id": 2,
+                    "external_id": "e6195b18-2515-410d-a48e-1009d12f2321",
+                    "first_name": "Maha",
+                    "last_name": "Dev",
+                    "gender": "M",
+                    "weight": 85,
+                    "height": 7.2,
+                    "birth_date": "1986-08-20",
+                    "max_heart_rate": 125
+                }
+            }
+        ]';
+        
+        $data['players'] = json_decode($json,true);
+        
+        return view('players.list',compact('data'));
     }
 
     /**
@@ -24,6 +64,7 @@ class PlayerController extends Controller
     public function create()
     {
         //
+        return view('players.create');
     }
 
     /**

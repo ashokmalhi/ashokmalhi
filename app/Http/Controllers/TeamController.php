@@ -14,6 +14,7 @@ class TeamController extends Controller
     public function index()
     {
         //
+        return view('teams.list');
     }
 
     /**
@@ -24,6 +25,7 @@ class TeamController extends Controller
     public function create()
     {
         //
+        return view('teams.create');
     }
 
     /**

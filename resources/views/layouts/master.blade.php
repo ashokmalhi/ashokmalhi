@@ -8,14 +8,14 @@
         <meta name="generator" content="Hugo 0.79.0">
         <title>Dashboard</title>
         <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="{{URL::to('css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{URL::to('css/style.css')}}" rel="stylesheet">
     </head>
     <body>
         <div class="container-fluid ">
             <div class="row fullpage">
                 <div class="col-md-2 darkblack p-4">
-                    <div class="logo"><img src="images/logo.svg" alt=""></div>
+                    <div class="logo"><img src="{{URL::to('images/logo.svg')}}" alt=""></div>
                 </div>
                 <div class="col-md-10">
                     <div class="row">
@@ -27,8 +27,8 @@
                 </div>
             </div>
         </div>
-        <script src='js/jquery.min.js'></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="{{URL::to('js/jquery.min.js')}}"></script>
+        <script src="{{URL::to('js/bootstrap.min.js')}}"></script>
+        <script src="{{URL::to('js/main.js')}}"></script>
     </body>
 </html>
