@@ -7,9 +7,7 @@
         <meta name="author" content="">
         <meta name="generator" content="Hugo 0.79.0">
         <title>Dashboard</title>
-        <!-- Bootstrap core CSS -->
-        <link href="{{URL::to('css/bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{URL::to('css/style.css')}}" rel="stylesheet">
+        <link href="{{URL::to('css/master.css')}}" rel="stylesheet">
     </head>
     <body>
         <div class="container-fluid ">
@@ -27,8 +25,6 @@
                 </div>
             </div>
         </div>
-        <script src="{{URL::to('js/jquery.min.js')}}"></script>
-        <script src="{{URL::to('js/bootstrap.min.js')}}"></script>
-        <script src="{{URL::to('js/main.js')}}"></script>
+        <script src="{{URL::to('js/master.js')}}"></script>
     </body>
 </html>

@@ -25,6 +25,7 @@ Route::resource('/teams', 'TeamController');
 
 Route::resource('/players', 'PlayerController');
 
+Route::get('chart', 'LoginController@chart');
 
 $router->group(['middleware' => ['webAuth']], function () use ($router) {
     

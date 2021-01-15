@@ -14,4 +14,11 @@ class LoginController extends Controller
         
         return view('login');
     }
+    
+    public function  chart(){
+        
+        return view('chart');
+    }
+    
+    
 }
