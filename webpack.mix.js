@@ -25,5 +25,8 @@ mix.scripts([
     'public/js/jquery.min.js',
     'public/js/bootstrap.min.js',
     'public/js/main.js',
+    'public/js/chart.js/Chart.min.js',
+    'public/js/charts.js',
+
     
 ], 'public/js/master.js').version();

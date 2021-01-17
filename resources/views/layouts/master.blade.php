@@ -26,5 +26,6 @@
             </div>
         </div>
         <script src="{{URL::to('js/master.js')}}"></script>
+         @yield('scripts')
     </body>
 </html>
