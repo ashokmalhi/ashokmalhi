@@ -82,8 +82,11 @@ function drawChart(charts) {
     //charts => array of charts want to draw
     charts.forEach((element, index) => {
         var ctx = document.getElementById(element.el);
-        if(element.gt == "bar"){
+        if(element.gt == "bar" && element.el != "stackChart"){
             var graphConfig = barChart();
+        }
+        else if(element.el == "stackChart"){
+            var graphConfig = stackedColumn();
         }
         else{
             var graphConfig = getConfig();
@@ -226,6 +229,59 @@ function barChart(){
                 },
             ],
         },
+    }
+    return config;
+}
+
+function stackedColumn(){
+    var config = {
+        type: 'bar',
+        data: {
+          labels: [],
+          datasets: [
+            {
+                label: "Walk",
+                data: [],
+                backgroundColor: [
+                        'rgb(0, 183, 236)',
+                        'rgb(0, 183, 236)',
+                        'rgb(0, 183, 236)'
+
+                ],
+                borderWidth: 3,
+            },
+            {
+                label: "Jog",
+                data: [],
+                backgroundColor: [
+                        'rgb(255, 221, 0)',
+                        'rgb(255, 221, 0)',
+                        'rgb(255, 221, 0)'
+                ],
+                borderWidth: 3,
+            },
+            {
+                label: "Run",
+                data: [],
+                backgroundColor: [
+                        "rgb(255, 140, 0)",
+                        "rgb(255, 140, 0)",
+                        "rgb(255, 140, 0)",
+                    
+                ],
+                borderWidth: 3,
+            },
+        ],
+        },
+        options: {
+          scales: {
+            xAxes: [{ stacked: true,
+                maxBarThickness: 5 }],
+            yAxes: [{ stacked: true,
+             }]
+          },
+        },
+        
     }
     return config;
 }

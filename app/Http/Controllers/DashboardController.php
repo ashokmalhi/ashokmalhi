@@ -30,6 +30,13 @@ class DashboardController extends Controller
         $count1 = 7;
         $response['value'][0] = $count1;
         array_push($result,$response);
+
+        $label   = array(
+            'label'=>array('Walk', 'Jog', 'Run'),
+            'value'=>array(3,2,1)
+            );
+
+        array_push($result,$label);
         return $result;
     }
 }
