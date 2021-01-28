@@ -3,82 +3,96 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Team;
+use App\Models\TeamPlayer;
+use Image;
+use Illuminate\Support\Facades\Storage;
 
 class TeamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
         return view('teams.list');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function allTeams(Request $request){
+
+        $input = $request->all();
+        $limit = $request->input('length');
+        $start = $request->input('start');
+
+        $data = array();
+        
+        $teams = Team::getAllTeams($input)->offset($start)
+                ->limit($limit)
+                ->get();
+                    
+        if(!empty($teams))
+        {
+            foreach ($teams as $team)
+            {
+                $nestedData['name'] = $team->name;
+                $nestedData['image'] = "<img src='".asset('storage/'.$team->image)."' width=50 height=50>";
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval(count($teams)),
+            "recordsFiltered" => intval(count($teams)),
+            "data"            => $data
+        );
+        echo json_encode($json_data);
+    }
+
     public function create()
     {
         //
         return view('teams.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
-        //
+        $input = $request->except('_token');
+        
+        if ($request->hasFile('image')) {
+            $basePath = 'images/teams/';
+            $image = $request->file('image');
+            $fileName = time() . '.' . $image->getClientOriginalExtension();
+            $input['image'] = $basePath.$fileName;
+            $img = Image::make($image->getRealPath());
+            Storage::disk('local')->put('public/'.$basePath.'/'.$fileName, $img->stream(), 'public');
+        }
+        
+        $result = Team::addTeam($input);
+        if(isset($result->id)){
+            return redirect('/teams')->with('status', 'Team created successfully!');
+        }else{
+            return back()->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         //

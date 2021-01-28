@@ -13,37 +13,41 @@
 <div class="container-box mt-4">
     <div class="box-charts mt-3">
         
-        <table class="table">
+        <table class="table" id="teams_table">
             <thead>
                 <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Statistics Date</th>
-                    <th scope="col">Timezone</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Image</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Practice Match 1</td>
-                    <td>Practice</td>
-                    <td>Oct 31, 2018 18:57</td>
-                    <td>Europe/Zurich</td>
-                </tr>
-                <tr>
-                    <td>Practice Match 2</td>
-                    <td>Practice</td>
-                    <td>Oct 31, 2018 18:57</td>
-                    <td>Europe/Zurich</td>
-                </tr>
-                <tr>
-                    <td>Practice Match 3</td>
-                    <td>Practice</td>
-                    <td>Oct 31, 2018 18:57</td>
-                    <td>Europe/Zurich</td>
-                </tr>
             </tbody>
         </table>
     </div>
 </div>
+@section('scripts')
+<script>
+$(document).ready(function () {
+      
+      var utable = $('#teams_table').DataTable({
+        "bSort": false,
+        "bFilter": false,
+        "iDisplayLength": 25,
+        "processing": true,
+        "serverSide": true,
+        "ajax":{
+            "url": "{{ url('/all_teams') }}",
+            "dataType": "json",
+            "type": "POST",
+            "data":{ _token: "{{csrf_token()}}"}
+        },
+        "columns": [
+            { "data": "name" },
+            { "data": "image" },
+        ]
+      });
+    });
+</script>
+@endsection
 @stop
 

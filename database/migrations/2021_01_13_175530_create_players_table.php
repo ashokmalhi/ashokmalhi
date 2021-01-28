@@ -17,8 +17,7 @@ class CreatePlayersTable extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('sensor_no');
-            $table->integer('position');
+            $table->string('email');
             $table->integer('player_no')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('image_path', 200)->nullable();
