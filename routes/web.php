@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::get('login', 'LoginController@login');
 Route::get('dashboard', 'DashboardController@dashboard');
 Route::get('dashboard1', 'DashboardController@dashboard1');
+Route::get('dashoboardStats','DashboardController@getStats')->name('stats');
 
 Route::resource('/teams', 'TeamController');
 
