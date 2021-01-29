@@ -29,6 +29,16 @@ Route::post('all_players','PlayerController@allPlayers');
 
 Route::get('chart', 'LoginController@chart');
 
+$router->group(['prefix' => 'statistics'], function () use ($router) {
+    $router->get('/', 'StatsController@index');
+    $router->post('/all', 'StatsController@allStats');
+    $router->get('/create', 'StatsController@create');
+    $router->post('upload', 'StatsController@upload')->name('stats-upload');
+    $router->get('team/{id}', 'StatsController@showTeamStats');
+    $router->get('player/{id}', 'StatsController@showPlayerStats');
+});
+
+
 $router->group(['middleware' => ['webAuth']], function () use ($router) {
     
 });

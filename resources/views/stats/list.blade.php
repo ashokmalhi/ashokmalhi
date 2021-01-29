@@ -4,24 +4,21 @@
 <div class="container-top ">
     <div class="row">
         <div class="col-md-10">
-            <h3 class="brand-color iconic-text"><b>All Players</b></h3>
+            <h3 class="brand-color iconic-text"><b>All Stats</b></h3>
         </div>
         <div class="col-md-2"></div>
     </div>
 </div>
-    <a href="/players/create" class="btn btn-primary" style='float: right;'>Add Player</a>
+    <a href="/statistics/create" class="btn btn-primary" style='float: right;'>Add Stat</a>
 <div class="container-box mt-4">
     <div class="box-charts mt-3">
         
-        <table class="table" id="palyers_table">
+        <table class="table" id="stats_table">
             <thead>
                 <tr>
-                    <th scope="col">Player</th>
-<!--                    <th scope="col">Email</th>-->
-                    <th scope="col">Height(cm)</th>
-                    <th scope="col">Weight(kg)</th>
-                    <th scope="col">Max HR (bpm)</th>
-                    <th scope="col">Max Speed (km/h)</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">File Name</th>
+                    <th scope="col">Created At</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -34,26 +31,23 @@
 <script>
 $(document).ready(function () {
       
-      var utable = $('#palyers_table').DataTable({
+      var utable = $('#stats_table').DataTable({
         "bSort": false,
         "bFilter": false,
         "iDisplayLength": 25,
         "processing": true,
         "serverSide": true,
         "ajax":{
-            "url": "{{ url('/all_players') }}",
+            "url": "{{ url('/statistics/all') }}",
             "dataType": "json",
             "type": "POST",
             "data":{ _token: "{{csrf_token()}}"}
         },
         "columns": [
-            { "data": "player_name" },
-//            { "data": "email" },
-            { "data": "height" },
-            { "data": "weight" },
-            { "data": "max_heart_rate" },
-            { "data" : "max_speed"},
-            { "data" : "actions"}
+            { "data": "name" },
+            { "data": "file_name" },
+            { "data": "created_at" },
+            { "data": "action" },
         ]
       });
     });

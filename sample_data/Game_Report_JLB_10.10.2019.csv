@@ -1,0 +1,7 @@
+Activity Date,Sensor,Player No.,Player Name,Player Position,Time Played,Distance (km),HID Distance (>15 km/h),Distance Speed Range (0-15 km/h),Distance Speed Range (15-20 km/h),Distance Speed Range (20-25 km/h),Distance Speed Range (25-30 km/h),Distance Speed Range (>30 km/h),# of Sprints (>25 km/h),Avg. Speed (km/h),Max Speed (km/h),Max Acceleration (m/s²),# of Accelerations (>3 m/s²),# of Accelerations (>4 m/s²),# of Decelerations (>3 m/s²),# of Decelerations (>4 m/s²)
+2019-10-10T10:08:06+02:00,2,1,Hyder Bokhari,,0:54:34,0.08,0,0.08,0,0,0,0,0,3.22,5.63,0,0,0,0,0
+2019-10-10T10:08:06+02:00,1,2,Hassan Niazi,,0:54:34,0.08,0,0.08,0,0,0,0,0,5.21,5.91,0,0,0,0,0
+2019-10-10T10:08:06+02:00,14,3,Azeem Niazi,,0:54:34,5.52,0.92,4.58,0.72,0.19,0.03,0,3,6.72,27.46,4.27,36,4,49,6
+2019-10-10T10:08:06+02:00,3,4,Abdullah Jaura,,0:54:34,5.71,1.23,4.47,0.85,0.31,0.09,0,6,7.01,29.29,5.26,57,11,58,20
+2019-10-10T10:08:06+02:00,,,,,,11.39,2.15,9.21,1.57,0.5,0.12,0,9,22.16,68.29,9.53,93,15,107,26
+2019-10-10T10:08:06+02:00,,,,,,2.85,0.54,2.3,0.39,0.13,0.03,0,2.25,5.54,17.07,2.38,23.25,3.75,26.75,6.5
