@@ -136,11 +136,73 @@ class StatsController extends Controller
     }
     
     public function showTeamStats($statId){
+        $team_player = StatDetail::getStatDetailByTeamId($statId)->get();
+        return view('stats.stats', compact('statId', 'team_player'));
+    }
+    public function allTeamStats(Request $request){
+
+        $input = $request->all();
+        $limit = $request->input('length');
+        $start = $request->input('start');
+
+        $data = array();
         
-        echo $statId;
-        die;
+        $stat_details = StatDetail::getStatDetailByTeamId($input['team_id'])->offset($start)
+                ->limit($limit)
+                ->get();
+
+        if(!empty($stat_details))
+        {
+            foreach ($stat_details as $stat)
+            {
+               
+                $nestedData['sensor'] = $stat->players->sensor_no;
+                $nestedData['player_no'] = $stat->players->player_no;
+                $nestedData['player_name'] = $stat->players->first_name.' '.$stat->players_last_name;
+                $nestedData['player_position'] = $stat->players->position;
+                $nestedData['time_played'] = $stat->time_played;
+                $nestedData['distance'] = $stat->distance_km;
+                $nestedData['hid_distance'] = $stat->hid_distance_15_km;
+                $nestedData['distance_speed_range_0'] = $stat->distance_speed_range_15_km;
+                $nestedData['distance_speed_range_15'] = $stat->distance_speed_range_15_20_km;
+                $nestedData['distance_speed_range_25'] = $stat->distance_speed_range_20_25_km;
+                // $nestedData['distance_speed_range_30'] = $stat->distance_speed_range_25_30_km;
+                // $nestedData['distance_speed_range_greater_30'] = $stat->distance_speed_range_greater_30_km;
+                // $nestedData['no_of_spririts'] = $stat->no_of_spirits_greater_25_km;
+                // $nestedData['avg_speed'] = $stat->avg_speed_km;
+                // $nestedData['max_speed'] = $stat->max_speed_km;
+                // $nestedData['max_acceleration'] = $stat->max_acceleration;
+                // $nestedData['no_of_accelerations_3'] = $stat->no_of_acceleration_3;
+                // $nestedData['no_of_accelerations_4'] = $stat->no_of_acceleration_4;
+                // $nestedData['decelerations_3'] = $stat->no_of_deceleration_3;
+                // $nestedData['decelerations_4'] = $stat->no_of_deceleration_4;
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval(count($stat_details)),
+            "recordsFiltered" => intval(count($stat_details)),
+            "data"            => $data
+        );
+        echo json_encode($json_data);
+    }
+
+    public function getPlayerStats(){
         
-        return view('stats.team_stats');
+        $result = array();
+        $statId = request()->team;
+        $statDetail = StatDetail::getStatDetailByTeamId($statId)->get();
+        foreach($statDetail as $key => $player){
+            $response = array(
+                'label'=>array('00:00','00:15','00:30','00:45', '01:00', '01:15'),
+                'value'=>array(4,5,2,1,8,7)
+                );
+    
+            array_push($result,$response);
+        }
+        return $result;
     }
     
 }

@@ -36,6 +36,10 @@ $router->group(['prefix' => 'statistics'], function () use ($router) {
     $router->post('upload', 'StatsController@upload')->name('stats-upload');
     $router->get('team/{id}', 'StatsController@showTeamStats');
     $router->get('player/{id}', 'StatsController@showPlayerStats');
+    $router->get('stats', 'StatsController@show');
+    $router->post('all_team_stats', 'StatsController@allTeamStats');
+    $router->get('player_stats', 'StatsController@getPlayerStats')->name('team_stats');
+
 });
 
 
