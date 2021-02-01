@@ -109,14 +109,16 @@ class StatsController extends Controller
                   
                         $player = Player::getOrCreatePlayer($da);
                         
+                        $da['stat_id'] = $statDetails['id'];
+                        
                         if(isset($player->id)){
-                            
                             unset($da['player_no'],$da['name']);
-                            $da['stat_id'] = $statDetails['id'];
                             $da['player_id'] = $player->id;
-                            
                             StatDetail::createDetails($da);
-                            
+                        }else{
+                            unset($da['player_no'],$da['name']);
+                            $da['is_summary'] = true;
+                            StatDetail::createDetails($da);
                         }
                     }
                     

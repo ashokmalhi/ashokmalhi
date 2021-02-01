@@ -40,7 +40,7 @@ class Player extends Model
         
         $player = [];
         if(isset($input['name']) && !empty($input['name'])){
-            $player = self::where('first_name', 'like', '%'.$input['name'].'%')->where('player_no',$input['player_no'])->first();
+            $player = self::where('full_name', 'like', '%'.$input['name'].'%')->where('player_no',$input['player_no'])->first();
             if(!$player){
                 $player = self::create([
                     'first_name' => $input['name'],
