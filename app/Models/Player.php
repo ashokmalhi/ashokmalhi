@@ -12,8 +12,8 @@ class Player extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'full_name','email','player_no', 'date_of_birth', 'image_path','gender', 'height', 'weight',
-        'max_heart_rate','target_heart_rate','max_speed','track_heart_rate'
+        'first_name', 'last_name','email','player_no', 'date_of_birth', 'image_path','gender', 'height', 'weight',
+        'max_heart_rate','target_heart_rate','max_speed','track_heart_rate', 'sensor_no', 'position'
     ];
 
     /**
@@ -40,11 +40,14 @@ class Player extends Model
         
         $player = [];
         if(isset($input['name']) && !empty($input['name'])){
-            $player = self::where('full_name', 'like', '%'.$input['name'].'%')->where('player_no',$input['player_no'])->first();
+            $player = self::where('first_name', 'like', '%'.$input['name'].'%')->where('player_no',$input['player_no'])->first();
             if(!$player){
                 $player = self::create([
-                    'full_name' => $input['name'],
+                    'first_name' => $input['name'],
+                    'last_name'  => $input['name'],
                     'player_no' => $input['player_no'],
+                    'sensor_no' => $input['sensor'],
+                    'position' => 0
                 ]);
             }
         }
