@@ -29,6 +29,8 @@ class CreatePlayersTable extends Migration
             $table->float('target_heart_rate')->default(0);
             $table->float('max_speed')->default(0);
             $table->boolean('track_heart_rate')->default(false);
+            $table->string('sensor_no')->nullable();
+            $table->string('position')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
