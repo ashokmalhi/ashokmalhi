@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Player;
 use Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class PlayerController extends Controller
 {
     public function index()
     {
+//        $user = Auth::user();
+//        pd($user);
         return view('players.list');
     }
 
