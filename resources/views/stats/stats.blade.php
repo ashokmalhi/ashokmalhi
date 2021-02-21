@@ -31,7 +31,7 @@
                     <div class="tab-pane active" id="1">
                         <div class="container-box mt-4">
                             <div class="box-charts mt-3">
-                                <div class='stats_table' style="overflow:auto;">
+                                <div class='stats_table scroller' style="overflow:auto;">
                                 <table class="table" id="stats_table">
                                     <thead>
                                         <tr>

@@ -14,7 +14,7 @@
 Reference: http://jsfiddle.net/BB3JK/47/
 */
 
-$('select').each(function(){
+$('.select').each(function(){
     var $this = $(this), numberOfOptions = $(this).children('option').length;
 
     $this.addClass('select-hidden');
@@ -267,7 +267,7 @@ function stackedColumn(){
                         "rgb(255, 140, 0)",
                         "rgb(255, 140, 0)",
                         "rgb(255, 140, 0)",
-                    
+
                 ],
                 borderWidth: 3,
             },
@@ -281,7 +281,7 @@ function stackedColumn(){
              }]
           },
         },
-        
+
     }
     return config;
 }

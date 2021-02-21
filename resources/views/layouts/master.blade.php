@@ -7,7 +7,8 @@
         <meta name="author" content="">
         <meta name="generator" content="Hugo 0.79.0">
         <title>Dashboard</title>
-        <link href="{{URL::to('css/master.css')}}" rel="stylesheet">
+        <link href="{{URL::to('css/bootstrap.min.css')}}" rel="stylesheet">
+      <link href="{{URL::to('css/style.css')}}" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap4.min.css" rel="stylesheet">
     </head>
@@ -15,12 +16,12 @@
         <div class="container-fluid ">
             <div class="row fullpage">
                 <div class="col-md-2 darkblack p-4">
-                    <div class="logo"><img src="{{URL::to('images/logo.svg')}}" alt=""></div>
+                    <div class="logo"><img src="{{URL::to('images/logo.png')}}" alt=""></div>
                 </div>
                 <div class="col-md-10">
                     <div class="row">
                         @include('layouts.header')
-                        <div class="container mt-4 mb-4">
+                        <div class="container main mt-4 mb-4">
                             @yield('content')
                         </div>
                     </div>
