@@ -4,7 +4,7 @@
 <div class="container-top ">
     <div class="row">
         <div class="col-md-10">
-            <h3 class="brand-color iconic-text"><b>All Players</b></h3>
+            <h3 class="brand-color iconic-text"><b>All Players </b></h3>
         </div>
         <div class="col-md-2"></div>
     </div>
@@ -12,7 +12,7 @@
     <a href="/players/create" class="btn btn-primary" style='float: right;'>Add Player</a>
 <div class="container-box mt-4">
     <div class="box-charts mt-3">
-        
+
         <table class="table" id="palyers_table">
             <thead>
                 <tr>
@@ -33,7 +33,7 @@
 @section('scripts')
 <script>
 $(document).ready(function () {
-      
+
       var utable = $('#palyers_table').DataTable({
         "bSort": false,
         "bFilter": false,
@@ -60,4 +60,3 @@ $(document).ready(function () {
 </script>
 @endsection
 @stop
-

@@ -63,12 +63,41 @@ img.w100{width: 100%;}
 .iconic-text img {float: left;margin-right: 10px;}
 .col.charimg img {position: absolute;right: -8px;top: -40px;}
 .col.charimg {position: relative;text-align: right;min-height: 121px;}
-.box-charts {background: #141517;border-radius: 12px;overflow: hidden;}
+.box-charts {background: #141517;border-radius: 12px;overflow: hidden; padding: 10px;}
 .navigation ul {    margin: 0;    padding: 0;    list-style: none;}
 .navigation ul li{display: inline-block; padding:8px 30px; font-size: 17px;}
 .navigation ul li a{text-decoration: none;}
 .navigation ul li a:hover{color: #fff;}
-
+.canvasholder{ height: 240px;}
+.nav li:first-child {
+    border: 0;
+    border-radius: 5px 0px 0 5px;
+}
+.nav li:last-child {
+    border-radius: 0px 5px 5px 0px;
+}
+.nav li a {
+    text-decoration: none;
+    color: #fff;
+}
+.nav li.active a {
+    color: #000;
+    display: block;
+}
+.nav-tabs {
+    border-bottom: 0;
+    overflow: hidden;
+}
+.nav li {
+    background: #2F3B43;
+    padding: 10px 20px;
+    color: #fff;
+    border-left: 1px solid #000;
+}
+.nav li.active {
+    background: #FFDD03;
+    color: #000;
+}
 
 /* Tiny Scrollbar */
 .scroller {  }

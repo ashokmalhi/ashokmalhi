@@ -7,12 +7,12 @@
     }
 </style>
 @section('content')
-<div class="container">
-    <div id="exTab2" class="container">
-        <div class="panel panel-default"> 
+<div class="">
+    <div id="exTab2" class="">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel-title">
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs bolder">
                         <li class="active">
                             <a href="#1" data-toggle="tab">Overview</a>
                         </li>
@@ -46,7 +46,7 @@
                                             <th >Distance Speed Range (15-20 km/h)</th>
                                             <th >Distance Speed Range (20-25 km/h)</th>
                                             <th >Distance Speed Range (25-30 km/h)</th>
-                                            <th >Distance Speed Range (> 30 km/h)</th> 
+                                            <th >Distance Speed Range (> 30 km/h)</th>
                                             <th ># of Spirits (> 25 km/h)</th>
                                             <th >Avg. Speed (km/h)</th>
                                             <th >Max Speed (km/h)</th>
@@ -54,7 +54,7 @@
                                             <th ># of Accelerations (> 3 m/s)</th>
                                             <th ># of Accelerations (> 4 m/s)</th>
                                             <th ># of Decelerations (> 3 m/s)</th>
-                                            <th ># of Decelerations (> 4 m/s)</th> 
+                                            <th ># of Decelerations (> 4 m/s)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -106,26 +106,36 @@
                     <div class="tab-pane" id="2">
                         @foreach($team_player as $key => $player)
                         @if(!$player->is_summary)
-                        <div class="col-md-12">
+                        <div class="container-box mt-4">
+                          <div class="row">
+                            <div class="col"><h4 class="fontmedium">{{$player->players->full_name}}</h4></div>
+                            <div class="col"></div>
+                          </div>
+                        <div class="box-charts mt-3">
                             <!-- DONUT CHART -->
-                            <div class="card card-danger" style="background-color:#212529">
-                                <div class="card-header">
-                                    <h3 class="card-title" style="padding: 0;"> <span class="fa fa-bar-chart"></span>{{$player->players->full_name}}</h3>
+                            <div class="">
 
-                                </div>
-                                <div class="card-body">
+
                                     <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                    <canvas id="userType{{$key}}" style="background-color: #212529; min-height: 210px; height: 240px; max-height: 350px; max-width: 100%; display: block; width: 572px;" width="715" height="312" class="chartjs-render-monitor"></canvas>
-                                </div>
+                                    <canvas id="userType{{$key}}" class="canvasholder" class="chartjs-render-monitor"></canvas>
+
                                 <!-- /.card-body -->
                             </div>
                             <!-- /.card -->
+                        </div>
                         </div>
                         @endif
                         @endforeach
                     </div>
                     <div class="tab-pane" id="3">
-                        <h3>add clearfix to tab-content (see the css)</h3>
+                      <div class="container-box mt-4">
+                        <div class="row">
+                          <div class="col"><h4 class="fontmedium">Coming Soon</h4></div>
+                          <div class="col"></div>
+                        </div>
+                          <div class="box-charts mt-3"></div>
+                      </div>
+                        
                     </div>
                 </div>
             </div>
@@ -140,7 +150,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <!--<script>
         $(document).ready(function () {
-      
+
       var utable = $('#stats_table').DataTable({
         "bSort": false,
         "bFilter": false,
