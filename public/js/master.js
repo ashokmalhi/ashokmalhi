@@ -14,8 +14,7 @@
 Reference: http://jsfiddle.net/BB3JK/47/
 */
 
-
-$('select.custom-select').each(function(){
+$('select').each(function(){
     var $this = $(this), numberOfOptions = $(this).children('option').length;
 
     $this.addClass('select-hidden');

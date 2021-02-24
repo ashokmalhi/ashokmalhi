@@ -10,6 +10,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 a,img{ transition: all .3s ease;}
 .table{color: #fff; font-size: 12px;}
+a {color: #FFDD03;}
 tbody, td, tfoot, th, thead, tr{border:0;}
 table.table tr:nth-child(odd) td {    background: #1B1B1B;}
 table.table tr:nth-child(even) td {    background: #181717;}
@@ -29,7 +30,6 @@ body{font-family: 'hk_groteskregular', sans-serif;background: linear-gradient(12
 .logologin{margin:20px 0 0px 10px;}
 .btn-check:focus+.btn-primary, .btn-primary:focus {color: #fff;background-color: #FFDD03;border-color: #FFDD03;box-shadow: 0 0 0 0.25rem rgba(255,221,3,.5);}
 .form-control:focus {color: #212529;background-color: #fff;border-color: rgba(255,255,255,.5);outline: 0;box-shadow: 0 0 0 0.25rem rgba(255,221,3,.1);}
-a {color: #FFDD03;}
 .float-right{float: right;}
 .btn-outline-primary:hover{border-color:#fff; color: #fff; background: none;}
 .btn-primary:hover{background: #fff;border-color:#fff;color: #121314;}
@@ -66,44 +66,44 @@ a {color: #FFDD03;}
 .counts .values small {font-size: 0.5em;}
 .counts .values p {margin: 0 0 5px;}
 .counts {    margin: 0 -10px;display: flex;}
+.leftsortingtabs a:last-child {
+border-radius: 0 0 5px 5px;
+}
+.leftsortingtabs a:first-child {
+border-radius: 5px 5px 0 0;
+}
+.leftsortingtabs a {
+background: #313a3e;
+display: block;
+color: #fff;
+text-decoration: none;
+padding: 12px;
+text-transform: uppercase;
+border-bottom: 1px solid #293033;
+font-size: 12px;
+}
 img.w100{width: 100%;}
 .iconic-text img {float: left;margin-right: 10px;}
 .col.charimg img {position: absolute;right: -8px;top: -40px;}
 .col.charimg {position: relative;text-align: right;min-height: 121px;}
-.box-charts {background: #141517;border-radius: 12px;overflow: hidden; padding: 10px;}
+.box-charts {background: #141517;border-radius: 12px;overflow: hidden; padding: 20px;}
+table.dataTable{max-width: 100% !important; }
+select.custom-select {background: #2F3B43 !important;border: 0 !important;border-radius: 2px;    color: #fff !important;    height: auto !important;}
+.page-item.disabled .page-link {color: #6c757d;pointer-events: none;background-color: #2F3B43;border-color: #2F3B43;}
+.pagination {margin: 10px 0 0 !important;font-size: 14px;}
+.page-item.active .page-link{background: #000; border-color: #000;}
 .navigation ul {    margin: 0;    padding: 0;    list-style: none;}
 .navigation ul li{display: inline-block; padding:8px 30px; font-size: 17px;}
-.navigation ul li a{text-decoration: none;}
-.navigation ul li a:hover{color: #fff;}
+.navigation ul li a{text-decoration: none; color:#fff;}
+.navigation ul li a:hover{color: #FFDD03;}
 .canvasholder{ height: 240px;}
-.nav li:first-child {
-    border: 0;
-    border-radius: 5px 0px 0 5px;
-}
-.nav li:last-child {
-    border-radius: 0px 5px 5px 0px;
-}
-.nav li a {
-    text-decoration: none;
-    color: #fff;
-}
-.nav li.active a {
-    color: #000;
-    display: block;
-}
-.nav-tabs {
-    border-bottom: 0;
-    overflow: hidden;
-}
-.nav li {
-    background: #2F3B43;
-    padding: 10px 20px;
-    color: #fff;
-    border-left: 1px solid #000;
-}
-.nav li.active {
-    background: #FFDD03;
-    color: #000;
+.nav li:first-child{ border-radius: 5px 0px 0 5px;}
+.nav li:last-child {border-radius: 0px 5px 5px 0px;}
+.nav li a {text-decoration: none;color: #fff;}
+.nav li.active a {color: #000;display: block;}
+.nav-tabs {border-bottom: 0;overflow: hidden;}
+.nav li {background: #000;padding: 7px 20px 9px;color: #fff;border: 1px solid #FFDD03;}
+.nav li.active {background: #FFDD03;color: #000;
 }
 
 /* Tiny Scrollbar */
@@ -124,7 +124,7 @@ input.custom-file-input {display: inline-block;width: 130px; padding-top: 4px; p
 
 
 .select-hidden {display: none;visibility: hidden;padding-right: 10px;}
-.select {cursor: pointer;display: inline-block;position: relative;color: #2F3B43;width: 100%;height: 30px; max-width: 100%;}
+select.custom-select {cursor: pointer;display: inline-block;position: relative;color: #2F3B43;width: 100%;height: 30px; max-width: 100%;}
 .select-styled {position: absolute;top: 0;right: 0;bottom: 0;left: 0; border-radius: .15rem;background-color: #fff;padding: 1px 10px;-moz-transition: all 0.2s ease-in;-o-transition: all 0.2s ease-in;webkit-transition: all 0.2s ease-in;transition: all 0.2s ease-in;}
 .select-styled:after {content: "";width: 9px;height: 9px;border-right: 2px solid #2F3B43;border-top: 2px solid #2F3B43;transform: rotate(135deg);position: absolute;top: 8px;right: 10px;}
 .select-styled:hover {background-color: #2F3B43;}

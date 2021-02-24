@@ -6,3 +6,4 @@
 .env
 .env.backup
 /nbproject/private/
+public/mix-manifest.json
