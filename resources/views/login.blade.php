@@ -25,7 +25,7 @@
                             </ul>
                         </div>
                         <div class="loginform">
-                            <form method="post" action="/login">
+                            <form method="post" action="/login" id="loginForm">
                                 @csrf
 
                                 <h3><strong>Welcome back!</strong></h3>
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="inputfield mb-3">
                                     <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2"  value="Sign In">
-                                    <p><em><small>Having trouble signing in? <a href="">Reset Password</a></small></em></p>
+<!--                                    <p><em><small>Having trouble signing in? <a href="">Reset Password</a></small></em></p>-->
                                 </div>
                             </form>
                         </div>
@@ -57,8 +57,6 @@
         </div>
     </div>
 </div>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="js/bootstrap.min.js"></script>
-
+<script src="js/master.js"></script>
 </body>
 </html>
