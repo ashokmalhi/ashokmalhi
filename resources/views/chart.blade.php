@@ -56,10 +56,16 @@
                         suggestedMin: 0, //min
                         // suggestedMax: 1000, //max
                     },
+                    gridLines: {
+                  color: 'rgba(54, 53, 53)'
+             }
                 },
             ],
             xAxes: [{
-                barPercentage: 0.07
+                barPercentage: 0.14,
+                gridLines: {
+                  color: 'rgba(54, 53, 53)'
+             }
             }]
         }
     },
@@ -70,7 +76,7 @@
         options: {
             scales: {
                 xAxes: [{
-                    stacked: true
+                    stacked: true,
                 }],
                 yAxes: [{
                     stacked: true
