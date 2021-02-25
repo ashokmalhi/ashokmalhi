@@ -6,7 +6,7 @@
         <div class="col-md-10">
             <h3 class="brand-color iconic-text"><b>All Players </b></h3>
         </div>
-        <div class="col-md-2">  <a href="/players/create" class="btn btn-primary" style='float: right;'>Add Player</a></div>
+<!--        <div class="col-md-2">  <a href="/players/create" class="btn btn-primary" style='float: right;'>Add Player</a></div>-->
     </div>
 </div>
 
@@ -30,7 +30,7 @@
         </table>
     </div>
 </div>
-<div class="container-box mt-4">
+<!--<div class="container-box mt-4">
   <div class="row">
         <div class="col"><h4>Table</h4></div>
         <div class="col"></div>
@@ -51,7 +51,7 @@
     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab"><div class="box-charts mt-3">4</div></div>
   </div>
 </div>
-</div>
+</div>-->
 @section('scripts')
 <script>
 $(document).ready(function () {

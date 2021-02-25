@@ -40,5 +40,10 @@ class StatDetail extends Model
         // dd($statId);
         return self::with('players')->where('stat_id', $statId);
     }
+    
+    public static function getStatDetailByPlayerId($playerId){
+        // dd($statId);
+        return self::where('player_id', $playerId)->first();
+    }
 
 }
