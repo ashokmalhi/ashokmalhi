@@ -121,6 +121,8 @@
                                                 <table class="table" id="stats_table">
                                                     <thead>
                                                         <tr>
+                                                            <th >Player No</th>
+                                                            <th >Player Name</th>
                                                             <th >Time Played</th>
                                                             <th >Distance</th>
                                                             <th ># of Spirits (> 25 km/h)</th>
@@ -134,8 +136,11 @@
                                                         @foreach($team_player as $key => $stat)
                                                         <tr>
                                                             @if(!$stat->is_summary)
+                                                            <td>{{$stat->players->player_no}}</td>
+                                                            <td>{{$stat->players->full_name}}</td>
                                                             <td>{{$stat->time_played}}</td>
                                                             @else
+                                                            <td></td><td></td>
                                                             <td><strong>
                                                                     @if($key == (count($team_player)-2) )
                                                                     Total
@@ -164,6 +169,8 @@
                                                 <table class="table" id="stats_table">
                                                     <thead>
                                                         <tr>
+                                                            <th >Player No</th>
+                                                            <th >Player Name</th>
                                                             <th >HID Distance (>15 km/h)</th>
                                                             <th >Distance Speed Range (0-15 km/h)</th>
                                                             <th >Distance Speed Range (15-20 km/h)</th>
@@ -177,8 +184,11 @@
                                                         @foreach($team_player as $key => $stat)
                                                         <tr>
                                                             @if(!$stat->is_summary)
+                                                            <td>{{$stat->players->player_no}}</td>
+                                                            <td>{{$stat->players->full_name}}</td>
                                                             <td>{{$stat->hid_distance_15_km}}</td>
                                                             @else
+                                                            <td></td><td></td>
                                                             <td><strong>
                                                                     @if($key == (count($team_player)-2) )
                                                                     Total
@@ -207,6 +217,8 @@
                                                 <table class="table" id="stats_table">
                                                     <thead>
                                                         <tr>
+                                                            <th >Player No</th>
+                                                            <th >Player Name</th>
                                                             <th ># of Accelerations (> 3 m/s)</th>
                                                             <th ># of Accelerations (> 4 m/s)</th>
                                                             <th ># of Decelerations (> 3 m/s)</th>
@@ -218,8 +230,11 @@
                                                         @foreach($team_player as $key => $stat)
                                                         <tr>
                                                             @if(!$stat->is_summary)
-                                                                <td>{{$stat->no_of_acceleration_3}}</td>
+                                                            <td>{{$stat->players->player_no}}</td>
+                                                            <td>{{$stat->players->full_name}}</td>
+                                                            <td>{{$stat->no_of_acceleration_3}}</td>
                                                             @else
+                                                            <td></td><td></td>
                                                             <td><strong>
                                                                     @if($key == (count($team_player)-2) )
                                                                     Total
