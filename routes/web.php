@@ -14,35 +14,37 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
-Route::get('login', 'LoginController@login');
-Route::get('dashboard', 'DashboardController@dashboard');
-Route::get('dashboard1', 'DashboardController@dashboard1');
-Route::get('dashoboardStats','DashboardController@getStats')->name('stats');
+Route::get('login', 'LoginController@login')->name('login');
+Route::post('login', 'LoginController@doLogin');
+Route::get('logout', 'LoginController@logout');
 
-Route::resource('/teams', 'TeamController');
-Route::post('all_teams','TeamController@allTeams');
-Route::resource('/players', 'PlayerController');
-Route::post('all_players','PlayerController@allPlayers');
-
-Route::get('chart', 'LoginController@chart');
-
-$router->group(['prefix' => 'statistics'], function () use ($router) {
-    $router->get('/', 'StatsController@index');
-    $router->post('/all', 'StatsController@allStats');
-    $router->get('/create', 'StatsController@create');
-    $router->post('upload', 'StatsController@upload')->name('stats-upload');
-    $router->get('team/{id}', 'StatsController@showTeamStats');
-    $router->get('player/{id}', 'StatsController@showPlayerStats');
-    $router->get('stats', 'StatsController@show');
-    $router->post('all_team_stats', 'StatsController@allTeamStats');
-    $router->get('player_stats', 'StatsController@getPlayerStats')->name('team_stats');
-
-});
-
-
-$router->group(['middleware' => ['webAuth']], function () use ($router) {
+$router->group(['middleware' => ['auth']], function () use ($router) {
     
+    Route::get('dashboard', 'DashboardController@dashboard');
+    Route::get('dashboard1', 'DashboardController@dashboard1');
+    Route::get('dashoboardStats','DashboardController@getStats')->name('stats');
+
+    Route::resource('/teams', 'TeamController');
+    Route::post('all_teams','TeamController@allTeams');
+    Route::resource('/players', 'PlayerController');
+    Route::post('all_players','PlayerController@allPlayers');
+
+    Route::get('chart', 'LoginController@chart');
+
+    $router->group(['prefix' => 'statistics'], function () use ($router) {
+        
+        $router->get('/', 'StatsController@index');
+        $router->post('/all', 'StatsController@allStats');
+        $router->get('/create', 'StatsController@create');
+        $router->post('upload', 'StatsController@upload')->name('stats-upload');
+        $router->get('team/{id}', 'StatsController@showTeamStats');
+        $router->get('player/{id}', 'StatsController@showPlayerStats');
+        $router->get('stats', 'StatsController@show');
+        $router->post('all_team_stats', 'StatsController@allTeamStats');
+        $router->get('player_stats', 'StatsController@getPlayerStats')->name('team_stats');
+
+    });
 });

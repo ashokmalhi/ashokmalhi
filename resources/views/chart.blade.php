@@ -59,7 +59,10 @@
                 },
             ],
             xAxes: [{
-                barPercentage: 0.07
+                barPercentage: 0.14,
+                gridLines: {
+                  color: 'rgba(54, 53, 53)'
+             }
             }]
         }
     },

@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Player;
+use App\Models\StatDetail;
 use Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class PlayerController extends Controller
 {
     public function index()
     {
+//        $user = Auth::user();
+//        pd($user);
         return view('players.list');
     }
 
@@ -37,7 +41,7 @@ class PlayerController extends Controller
                 $nestedData['weight'] = $player->weight ?? "NA";
                 $nestedData['max_heart_rate'] = $player->max_heart_rate ?? "NA";
                 $nestedData['max_speed'] = $player->max_speed ?? "NA";
-                $nestedData['actions'] = '<a target="_blank" href="/statistics/player/'.$player->id.'" class="btn btn-primary btn-sm">Show Stats</a>';
+                $nestedData['actions'] = '<a target="_blank" href="/players/'.$player->id.'" class="btn btn-primary btn-sm">View Details</a>';
                 $data[] = $nestedData;
             }
         }
@@ -82,6 +86,9 @@ class PlayerController extends Controller
     public function show($id)
     {
         //
+        $player = Player::find($id);
+        $stat = StatDetail::getStatDetailByPlayerId($id);
+        return view('players.detail',compact('player','stat'));
     }
 
     

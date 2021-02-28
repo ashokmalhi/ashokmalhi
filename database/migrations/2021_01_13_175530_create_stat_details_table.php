@@ -16,7 +16,7 @@ class CreateStatDetailsTable extends Migration
         Schema::create('stat_details', function (Blueprint $table) {
             $table->id();
             $table->integer('stat_id');
-            $table->integer('player_id');
+            $table->integer('player_id')->nullable();
             $table->string('time_played')->nullable();
             $table->float('distance_km')->nullable();
             $table->float('hid_distance_15_km')->nullable();

@@ -133,6 +133,7 @@ class StatsController extends Controller
     
     public function showPlayerStats($playerId){
         
+        return view('players.detail');
         echo $playerId;
         die;
     }

@@ -6,7 +6,7 @@
             <div class="col-md-2 user-header text-end">
                 <div class="userarea float-right">
                     <div class="colleft w-32"><img src="images/user.png" alt=""></div>
-                    <div class="colright">Sally M. <small>Regular Account</small></div>
+                    <div class="colright">{{Auth::user()->name}}<small>Admin Account</small></div>
                 </div>
             </div>
         </div>

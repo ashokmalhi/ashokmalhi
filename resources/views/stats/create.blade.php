@@ -1,34 +1,26 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container-top ">
-    <div class="row">
-        <div class="col-md-10">
-            <h3 class="brand-color iconic-text"><b>Statistics</b></h3>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-</div>
-<div class="container-box mt-4">
-    <div class="box-charts mt-3">
+
+
         <form action="{{route('stats-upload')}}" method="post" id="add-team" enctype="multipart/form-data">
             @csrf
-            <div class="loginform">
-                <p>Upload Stats.</p>
-                <div class="form-floating mb-3">
-                    <input type="text" name="name" class="form-control">
+            <h3 class="brand-color iconic-text bolder">Statistics</h3>
+            <h6>Upload the stats below.</h6>
+
+            <div class="col-md-5 mt-5">
+                <div class="inputfield  mb-5">
                     <label>Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Enter Stats Name">
                 </div>
-                <div class="form-floating mb-3">
-                    <input type="file" name="file" class="form-control">
+                <div class="inputfield mb-5">
                     <label>Upload CSV</label>
+                    <input type="file" name="file" class="form-control">
                 </div>
                 <div class="inputfield mb-3">
-                    <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2" value="Upload">
+                    <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2" value="Upload Stats">
                 </div>
             </div>
         </form>
-    </div>
-</div>
-@stop
 
+@stop

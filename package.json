@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "chart.js": "^2.9.4",
-        "chartjs-plugin-annotation": "^0.5.7"
+        "chartjs-plugin-annotation": "^0.5.7",
+        "jquery-validation": "^1.19.3"
     }
 }

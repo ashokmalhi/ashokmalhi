@@ -206,8 +206,14 @@ function stackedColumn(){
         options: {
           scales: {
             xAxes: [{ stacked: true,
-                maxBarThickness: 5 }],
+                maxBarThickness: 16,
+                gridLines: {
+                    color: 'rgba(54, 53, 53)'
+               } }],
             yAxes: [{ stacked: true,
+                gridLines: {
+                    color: 'rgba(54, 53, 53)'
+               }
              }]
           },
         },
