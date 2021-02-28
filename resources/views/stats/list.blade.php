@@ -6,13 +6,13 @@
         <div class="col-md-10">
             <h3 class="brand-color iconic-text"><b>All Stats</b></h3>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-2"><a href="/statistics/create" class="btn btn-primary" style='float: right;'>Add Stat</a></div>
     </div>
 </div>
-    <a href="/statistics/create" class="btn btn-primary" style='float: right;'>Add Stat</a>
+
 <div class="container-box mt-4">
     <div class="box-charts mt-3">
-        
+
         <table class="table" id="stats_table">
             <thead>
                 <tr>
@@ -30,7 +30,7 @@
 @section('scripts')
 <script>
 $(document).ready(function () {
-      
+
       var utable = $('#stats_table').DataTable({
         "bSort": false,
         "bFilter": false,
@@ -54,4 +54,3 @@ $(document).ready(function () {
 </script>
 @endsection
 @stop
-
