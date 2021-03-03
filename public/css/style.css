@@ -116,7 +116,7 @@ input.custom-file-input {display: inline-block;width: 130px; padding-top: 4px; p
 .custom-file-input:hover::before {border-color: black;}
 
 
-.select-hidden {display: none;visibility: hidden;padding-right: 10px;}
+/*.select-hidden {display: none;visibility: hidden;padding-right: 10px;}
 select.custom-select {cursor: pointer;display: inline-block;position: relative;color: #2F3B43;width: 100%;height: 30px; max-width: 100%;}
 .select-styled {position: absolute;top: 0;right: 0;bottom: 0;left: 0; border-radius: .15rem;background-color: #fff;padding: 1px 10px;-moz-transition: all 0.2s ease-in;-o-transition: all 0.2s ease-in;webkit-transition: all 0.2s ease-in;transition: all 0.2s ease-in;}
 .select-styled:after {content: "";width: 9px;height: 9px;border-right: 2px solid #2F3B43;border-top: 2px solid #2F3B43;transform: rotate(135deg);position: absolute;top: 8px;right: 10px;}
@@ -126,4 +126,4 @@ select.custom-select {cursor: pointer;display: inline-block;position: relative;c
 .select-options {display: none;position: absolute;top: 100%;right: 0;left: 0;z-index: 999;margin: 0;padding: 0;list-style: none;background-color: #2F3B43;}
 .select-options li {margin: 0;padding: 7px 0;text-indent: 15px;border-top: 1px solid rgba(0,0,0,0.1);-moz-transition: all 0.15s ease-in;-o-transition: all 0.15s ease-in;-webkit-transition: all 0.15s ease-in;transition: all 0.15s ease-in;}
 .select-options li:hover {color: #fff;background: rgba(0,0,0,0.1);}
-.select-options li[rel="hide"] {display: none;}
+.select-options li[rel="hide"] {display: none;}*/

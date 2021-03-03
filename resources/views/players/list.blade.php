@@ -6,7 +6,7 @@
         <div class="col-md-10">
             <h3 class="brand-color iconic-text"><b>All Players </b></h3>
         </div>
-<!--        <div class="col-md-2">  <a href="/players/create" class="btn btn-primary" style='float: right;'>Add Player</a></div>-->
+        <div class="col-md-2">  <a href="/players/create" class="btn btn-primary" style='float: right;'>Add Player</a></div>
     </div>
 </div>
 
