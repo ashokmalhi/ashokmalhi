@@ -16,8 +16,8 @@
         <table class="table" id="palyers_table">
             <thead>
                 <tr>
+                    <th scope="col">Player No</th>
                     <th scope="col">Player</th>
-<!--                    <th scope="col">Email</th>-->
                     <th scope="col">Height(cm)</th>
                     <th scope="col">Weight(kg)</th>
                     <th scope="col">Max HR (bpm)</th>
@@ -69,8 +69,8 @@ $(document).ready(function () {
             "data":{ _token: "{{csrf_token()}}"}
         },
         "columns": [
+            { "data": "player_no" },
             { "data": "player_name" },
-//            { "data": "email" },
             { "data": "height" },
             { "data": "weight" },
             { "data": "max_heart_rate" },
