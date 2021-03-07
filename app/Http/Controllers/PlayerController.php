@@ -34,9 +34,9 @@ class PlayerController extends Controller
         {
             foreach ($players as $player)
             {
-                //$nestedData['player_name'] = $player->first_name .' '.$player->last_name;
-                $nestedData['player_name'] = $player->full_name;
-                //$nestedData['email'] = $player->email ?? "NA";
+                $nestedData['player_name'] = $player->first_name .' '.$player->last_name;
+                // $nestedData['player_name'] = $player->full_name;
+                $nestedData['player_no'] = $player->player_no ?? "NA";
                 $nestedData['height'] = $player->height ?? "NA";
                 $nestedData['weight'] = $player->weight ?? "NA";
                 $nestedData['max_heart_rate'] = $player->max_heart_rate ?? "NA";

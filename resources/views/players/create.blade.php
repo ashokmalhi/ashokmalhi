@@ -97,6 +97,20 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col">
+                <div class="inputfield  mb-3">
+                    <label>Player No</label>
+                    <input type="number" name="player_no" class="form-control" placeholder="Player no">
+                </div>
+              </div>
+              <div class="col">
+                <div class="inputfield  mb-3">
+                    <!-- <label>Player No</label>
+                    <input type="number" name="player_no" class="form-control" placeholder="Player no"> -->
+                </div>
+              </div>
+            </div>
             <div class="form-check mb-5">
                 <input class="form-check-input" type="checkbox" name="track_heart_rate" id="track_heart_rate">
                 <label class="form-check-label" for="track_heart_rate">Track Heart Rate</label>
