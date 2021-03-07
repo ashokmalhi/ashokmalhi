@@ -108,4 +108,38 @@ class PlayerController extends Controller
     {
         //
     }
+    
+    public function uploadPlayers(Request $request)
+    {
+        
+        if ($request->hasFile('file')){
+            
+            $path = $request->file('file')->getRealPath();
+            $data = array_map('str_getcsv', file($path));
+            
+            if(count($data) > 0){
+               
+                foreach ($data as $k => $d){
+                    
+                    if($k > 0){
+                        
+                        $createPlayer['first_name'] = $d[1] ?? '';
+                        $createPlayer['last_name'] = $d[2] ?? '';
+                        $createPlayer['full_name'] = $createPlayer['first_name'].' '.$createPlayer['last_name'];
+                        $createPlayer['mobile'] = $d[3] ?? '';
+                        $createPlayer['email'] = $d[4] ?? ''; 
+                        if(!empty($createPlayer['email'])){
+                            $exists = Player::checkIfAlreadyExists($createPlayer['email']);
+                            if(!$exists){
+                                Player::addPlayer($createPlayer);
+                            }
+                        }
+                    }
+                }
+            }
+            return redirect('/players')->with('status', 'Players uploaded successfully!');
+        }
+        return view('players.upload');
+        
+    }
 }
