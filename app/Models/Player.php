@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Models;
+
+use App\Mail\PlayerMail;
 use Illuminate\Database\Eloquent\Model;
+use Mail;
 
 class Player extends Model
 {
@@ -33,6 +36,11 @@ class Player extends Model
             $input['track_heart_rate'] = 0;
         }
         $player = self::create($input);
+        
+
+        $data = ['message' => 'This is a test!'];
+
+        Mail::to($player->email)->send(new PlayerMail($data));
         return $player;
     }
     
