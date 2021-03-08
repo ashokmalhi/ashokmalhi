@@ -52,6 +52,38 @@ $(document).ready(function () {
             },
         })
     }
+    
+    if ($("#addTeam").length > 0) {
+
+        $("#addTeam").validate({
+            rules: {
+                name: {
+                    required: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Please enter team name",
+                }
+            },
+        })
+    }
+    
+    if ($("#addStat").length > 0) {
+
+        $("#addStat").validate({
+            rules: {
+                name: {
+                    required: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Please enter stat name",
+                }
+            },
+        })
+    }
 
 });
 

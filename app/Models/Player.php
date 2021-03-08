@@ -40,7 +40,7 @@ class Player extends Model
 
         $data = ['message' => 'This is a test!'];
 
-        Mail::to($player->email)->send(new PlayerMail($data));
+        //Mail::to($player->email)->send(new PlayerMail($data));
         return $player;
     }
     
