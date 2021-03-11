@@ -8,6 +8,7 @@ use App\Models\StatDetail;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class PlayerController extends Controller
 {
@@ -77,6 +78,7 @@ class PlayerController extends Controller
         }
         
         $result = Player::addPlayer($input);
+        $result = User::addUser($input);
         if(isset($result->id)){
             return redirect('/players')->with('status', 'Player created successfully!');
         }else{
