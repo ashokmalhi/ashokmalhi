@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\TeamPlayer;
+use App\Models\Player;
 use Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -48,8 +49,8 @@ class TeamController extends Controller
 
     public function create()
     {
-        //
-        return view('teams.create');
+        $players = Player::pluck('first_name','id')->toArray();
+        return view('teams.create',compact('players'));
     }
 
   
@@ -67,6 +68,7 @@ class TeamController extends Controller
         }
         
         $result = Team::addTeam($input);
+        $result = TeamPlayer::addTeamPlayer($input,$result->id);
         if(isset($result->id)){
             return redirect('/teams')->with('status', 'Team created successfully!');
         }else{
