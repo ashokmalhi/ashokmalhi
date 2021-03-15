@@ -56,6 +56,9 @@
                         suggestedMin: 0, //min
                         // suggestedMax: 1000, //max
                     },
+                    gridLines: {
+                  color: 'rgba(54, 53, 53)'
+             }
                 },
             ],
             xAxes: [{
@@ -73,7 +76,7 @@
         options: {
             scales: {
                 xAxes: [{
-                    stacked: true
+                    stacked: true,
                 }],
                 yAxes: [{
                     stacked: true

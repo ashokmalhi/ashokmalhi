@@ -3,7 +3,7 @@
 @section('content')
 
 
-        <form action="{{route('stats-upload')}}" method="post" id="add-team" enctype="multipart/form-data">
+        <form action="{{route('stats-upload')}}" method="post" id="addStat" enctype="multipart/form-data">
             @csrf
             <h3 class="brand-color iconic-text bolder">Statistics</h3>
             <h6>Upload the stats below.</h6>

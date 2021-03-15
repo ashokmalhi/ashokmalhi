@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Models;
+
+use App\Mail\PlayerMail;
 use Illuminate\Database\Eloquent\Model;
+use Mail;
 
 class Player extends Model
 {
@@ -12,7 +15,7 @@ class Player extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name','full_name','email','player_no', 'date_of_birth', 'image_path','gender', 'height', 'weight',
+        'first_name', 'last_name','full_name','email','mobile','player_no', 'date_of_birth', 'image_path','gender', 'height', 'weight',
         'max_heart_rate','target_heart_rate','max_speed','track_heart_rate', 'sensor_no', 'position'
     ];
 
@@ -33,7 +36,17 @@ class Player extends Model
             $input['track_heart_rate'] = 0;
         }
         $player = self::create($input);
+        
+
+        $data = ['message' => 'This is a test!'];
+
+        //Mail::to($player->email)->send(new PlayerMail($data));
         return $player;
+    }
+    
+    public static function checkIfAlreadyExists($email){
+        
+        return self::where('email',$email)->first();
     }
     
     public static function getOrCreatePlayer($input){

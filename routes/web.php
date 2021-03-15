@@ -29,6 +29,9 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
 
     Route::resource('/teams', 'TeamController');
     Route::post('all_teams','TeamController@allTeams');
+    
+    Route::get('/players/upload', 'PlayerController@uploadPlayers');
+    Route::post('/players/upload', 'PlayerController@uploadPlayers')->name('players-upload');
     Route::resource('/players', 'PlayerController');
     Route::post('all_players','PlayerController@allPlayers');
 

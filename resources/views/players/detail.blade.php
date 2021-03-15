@@ -91,6 +91,7 @@
         </div>
     </div>
 </div>
+@if($stat)
 <div class="container-box mt-4">
 
     <div class="d-flex align-items-start leftsorting">
@@ -238,6 +239,7 @@
         </div>
     </div>
 </div>
+@endif
 @stop
 
 @section('scripts')
