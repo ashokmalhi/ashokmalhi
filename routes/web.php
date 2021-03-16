@@ -50,4 +50,15 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
         $router->get('player_stats', 'StatsController@getPlayerStats')->name('team_stats');
 
     });
+    
+    Route::group(['prefix' => 'roles', 'as' => 'roles.'], function () {
+        Route::get('/', 'RoleController@index')->name('index');
+        Route::get('create', 'RoleController@create')->name('create');
+        Route::post('create', 'RoleController@store')->name('store');
+        Route::get('{id}', 'RoleController@show')->name('show');
+        Route::get('{id}/edit', 'RoleController@edit')->name('edit');
+        Route::patch('{id}', 'RoleController@update')->name('update');
+        Route::delete('{id}', 'RoleController@destroy')->name('destroy');
+        Route::get('destroy/{id}', 'RoleController@destroy')->name('destroy');
+    });
 });
