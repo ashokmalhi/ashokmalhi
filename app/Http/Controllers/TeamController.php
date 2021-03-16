@@ -34,6 +34,7 @@ class TeamController extends Controller
             {
                 $nestedData['name'] = $team->name;
                 $nestedData['image'] = "<img src='".asset('storage/'.$team->image)."' width=50 height=50>";
+                $nestedData['action'] = "<a href='url('teams/$team->id/edit')'>Edit</a>";
                 $data[] = $nestedData;
             }
         }
@@ -49,8 +50,10 @@ class TeamController extends Controller
 
     public function create()
     {
-        $players = Player::pluck('first_name','id')->toArray();
-        return view('teams.create',compact('players'));
+        $players = Player::join('users','fk_user', 'users.id')->where('user_type', 'p')->pluck('first_name','players.id')->toArray();
+        $coaches = Player::join('users','fk_user', 'users.id')->where('user_type', 'c')->pluck('first_name','players.id')->toArray();
+        $managers = Player::join('users','fk_user', 'users.id')->where('user_type', 'm')->pluck('first_name','players.id')->toArray();
+        return view('teams.create',compact('players','coaches','managers'));
     }
 
   
@@ -86,6 +89,7 @@ class TeamController extends Controller
     public function edit($id)
     {
         //
+        dd($id);
     }
 
     

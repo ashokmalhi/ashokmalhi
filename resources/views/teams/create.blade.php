@@ -53,8 +53,8 @@
                 <div class="inputfield mb-3">
                     <label for="player">Coach</label>
                     <select name="coach[]" id="coach" multiple class="form-select">
-                    @foreach($players as $key => $player)
-                        <option value="{{$key}}">{{$player}}</option>
+                    @foreach($coaches as $key => $coach)
+                        <option value="{{$key}}">{{$coach}}</option>
                     @endforeach
                     </select>
                 </div>
@@ -66,8 +66,8 @@
                 <div class="inputfield mb-3">
                     <label for="player">Manager</label>
                     <select name="manager[]" id="manager" multiple class="form-select">
-                    @foreach($players as $key => $player)
-                        <option value="{{$key}}">{{$player}}</option>
+                    @foreach($managers as $key => $manager)
+                        <option value="{{$key}}">{{$manager}}</option>
                     @endforeach
                     </select>
                 </div>

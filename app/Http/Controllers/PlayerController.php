@@ -76,9 +76,10 @@ class PlayerController extends Controller
             $img = Image::make($image->getRealPath());
             Storage::disk('local')->put('public/'.$basePath.'/'.$fileName, $img->stream(), 'public');
         }
-        
-        $result = Player::addPlayer($input);
+
         $result = User::addUser($input);
+        $result = Player::addPlayer($input,$result->id);
+        
         if(isset($result->id)){
             return redirect('/players')->with('status', 'Player created successfully!');
         }else{

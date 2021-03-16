@@ -18,6 +18,7 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,6 +45,7 @@ $(document).ready(function () {
         "columns": [
             { "data": "name" },
             { "data": "image" },
+            { "data": "action" },
         ]
       });
     });

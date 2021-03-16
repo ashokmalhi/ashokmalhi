@@ -39,12 +39,12 @@ class User extends Authenticatable
     ];
 
 
-    public static function addUser($input, $user_type='p'){
+    public static function addUser($input){
         $user = self::create([
             'name' => $input['first_name'].' '.$input['last_name'],
             'email'  => $input['email'],
             'password'  => Hash::make('123456'),
-            'user_type' => $user_type
+            'user_type' => $input['type']
         ]);
         
         return $user;
