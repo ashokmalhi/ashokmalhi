@@ -23,6 +23,10 @@ class Team extends Model
     protected $hidden = [
         'updated_at', 'deleted_at',
     ];
+
+    public function teamPlayer(){
+        return $this->hasMany('App\Models\TeamPlayer','team_id','id');
+    }
     
     public static function addTeam($input){
         
@@ -34,5 +38,17 @@ class Team extends Model
         
         return self::select("*")->orderBy('created_at', 'DESC');
 
+    }
+
+    public static function updateTeam($input,$id){
+        $team = self::find($id);
+        $team->name = $input['name'];
+        $team->sport_id = $input['sport_id'];
+        if(isset($input['image'])){
+            $team->image = $input['image'];
+        }
+        
+        $team->save();
+        return $team;
     }
 }
