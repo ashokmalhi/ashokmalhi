@@ -3,18 +3,25 @@
 return [
     'role_structure' => [
         'admin' => [
-            'users' => 'c,r,u,d',
-            'admin' => 'c,r,u,d',
+            'teams' => 'c,r,u,d',
+            'players' => 'c,r,u,d',
+            'statistics' => 'c,r,u,d'
+        ],
+        'coach' => [
+            'teams' => 'c,r,u,d',
+            'players' => 'c,r,u,d',
+        ],
+        'team_manager' => [
+            'teams' => 'c,r',
+            'players' => 'c,r,u,d',
+        ],
+        'player' => [
             'profile' => 'r,d'
-        ],
-        'subadmin' => [
-            'users' => 'c,r,u',
-            'profile' => 'r,u'
-        ],
+        ]
     ],
     'user_roles' => [
         'admin' => [
-            ['name' => "Admin", "email" => "admin@gmail.com", "password" => '123456'],
+            ['name' => "Admin", "email" => "admin@afl.com", "password" => 'admin123'],
         ],
     ],
     'permissions_map' => [
