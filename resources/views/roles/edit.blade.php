@@ -49,11 +49,11 @@
                     <thead>
                         <tr>
                             <th align="center">Module / Permission</th>
-                            <td align="center"><strong>List</strong></td>
-                            <td align="center"><strong>View</strong></td>
-                            <td align="center"><strong>Add</strong></td>
+                            <td align="center"><strong>Create</strong></td>
+                            <td align="center"><strong>Read</strong></td>
                             <td align="center"><strong>Update</strong></td>
                             <td align="center"><strong>Delete</strong></td>
+                            <td align="center"><strong>List</strong></td>
                         </tr>
                     </thead>
                     <tbody>

@@ -3,20 +3,20 @@
 return [
     'role_structure' => [
         'admin' => [
-            'teams' => 'c,r,u,d',
-            'players' => 'c,r,u,d',
-            'statistics' => 'c,r,u,d'
+            'teams' => 'c,r,u,d,l',
+            'players' => 'c,r,u,d,l',
+            'statistics' => 'c,r,u,d,l'
         ],
         'coach' => [
-            'teams' => 'c,r,u,d',
-            'players' => 'c,r,u,d',
+            'teams' => 'c,r,u,d,l',
+            'players' => 'c,r,u,d,l',
         ],
         'team_manager' => [
-            'teams' => 'c,r',
-            'players' => 'c,r,u,d',
+            'teams' => 'c,r,l',
+            'players' => 'c,r,u,d,l',
         ],
         'player' => [
-            'profile' => 'r,d'
+            'statistics' => 'c,r,u,l'
         ]
     ],
     'user_roles' => [
@@ -29,5 +29,6 @@ return [
         'r' => 'read',
         'u' => 'update',
         'd' => 'delete',
+        'l' => 'list'
     ],
 ];
