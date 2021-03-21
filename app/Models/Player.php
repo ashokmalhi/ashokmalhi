@@ -29,6 +29,11 @@ class Player extends Model
         'updated_at', 'deleted_at',
     ];
     
+    public function user()
+    {
+        return $this->belongsTo('App\User','fk_user');
+    }
+    
     public static function addPlayer($input,$user_id,$resetPassword=false){
         
         if(isset($input['track_heart_rate'])){
@@ -41,7 +46,7 @@ class Player extends Model
         
         if($resetPassword){
             $result = PasswordReset::createToken($player->email);
-            $data = ['message' => "<a href='".route('reset-password',['email'=>$player->email, 'token'=>$result->token])."'></a>"];
+            $data = ['message' => "<a href='".route('reset-password',['email'=>$player->email, 'token'=>$result->token])."'>Verify Email</a>"];
 
             Mail::to($player->email)->send(new PlayerMail($data));
         }
@@ -58,7 +63,7 @@ class Player extends Model
             } else {
                 $input['track_heart_rate'] = 0;
             }
-            unset($input['type'],$input['image']);
+            unset($input['type'],$input['image'],$input['role_id']);
             if (count($input) > 0) {
                 foreach ($input as $key => $val) {
                     $player->$key = $val;

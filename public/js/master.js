@@ -602,5 +602,22 @@ $(document).ready(function () {
         })
     }
 
+    if($('#resetPasswordForm').length > 0){
+        $('#resetPasswordForm').validate({
+            rules: {
+                password: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 15
+                },
+                password_confirmation: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 15
+                }
+            }
+        })
+    }
+
 });
 

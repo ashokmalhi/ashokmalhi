@@ -30,7 +30,7 @@
                     <th scope="col">Weight(kg)</th>
                     <th scope="col">Max HR (bpm)</th>
                     <th scope="col">Max Speed (km/h)</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>

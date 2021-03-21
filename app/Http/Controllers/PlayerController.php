@@ -9,6 +9,7 @@ use Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Models\Role;
 
 class PlayerController extends Controller
 {
@@ -62,7 +63,8 @@ class PlayerController extends Controller
     public function create()
     {
         //
-        return view('players.create');
+        $roles = Role::where('id','!=',1)->get();
+        return view('players.create',compact('roles'));
     }
 
   
@@ -85,7 +87,7 @@ class PlayerController extends Controller
 
         $result = User::addUser($input);
         
-        $result = Player::addPlayer($input,$result->id);
+        $result = Player::addPlayer($input,$result->id,true);
         
         if(isset($result->id)){
             return redirect('/players')->with('success', 'Player created successfully!');
@@ -106,8 +108,9 @@ class PlayerController extends Controller
     
     public function edit($id)
     {
-        $player = Player::find($id);
-        return view('players.edit',compact('player','id'));
+        $player = Player::with('user')->find($id);
+        $roles = Role::where('id','!=',1)->get();
+        return view('players.edit',compact('player','id','roles'));
     }
 
     

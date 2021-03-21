@@ -77,7 +77,7 @@ class Helper {
         $permission_array = session()->get('user_permissions');
         $return = false;
 
-        if (!isset($permission_array)) {
+        if (!$permission_array) {
             Permission::get_user_permissions(Auth::id());
             $permission_array = session()->get('user_permissions');
         }

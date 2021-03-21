@@ -36,8 +36,19 @@ class Team extends Model
 
     public static function getAllTeams($filter){
         
-        return self::select("*")->orderBy('created_at', 'DESC');
-
+        $roleId = Auth()->user()->role_id;
+        $player = Player::where('fk_user',Auth()->user()->id)->select('id')->first();
+        if($roleId != 1){
+            $query = self::join('team_players as tm','tm.team_id','teams.id');
+            if($roleId == 2){
+                $query = $query->where('tm.player_id',$player->id)->where('tm.is_coach',1);
+            }else if($roleId == 3){
+                $query = $query->where('tm.player_id',$player->id)->where('tm.is_manager',1);
+            }
+            return $query->select('teams.*')->orderBy('teams.created_at', 'DESC');
+        }else{
+            return self::select("*")->orderBy('created_at', 'DESC');
+        }
     }
 
     public static function updateTeam($input,$id){

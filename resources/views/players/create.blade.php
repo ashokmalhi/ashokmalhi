@@ -114,13 +114,25 @@
                 </div>
             </div>
         </div>
-        <div class="row"> 
+<!--        <div class="row"> 
             <div class="col">
                 <div class="inputfield  mb-3">
                 <label>Type</label>
                 <label class="radio-inline"><input type="radio" value="p" name="type" checked>Player</label>
                 <label class="radio-inline"><input type="radio" value="c" name="type">Coach</label>
                 <label class="radio-inline"><input type="radio" value="m" name="type">Manager</label>
+                </div>
+            </div>
+        </div>-->
+        <div class="row"> 
+            <div class="col">
+                <div class="inputfield  mb-3">
+                <label>Select Role</label>
+                @if(count($roles))
+                    @foreach ($roles as $role)
+                        <label class="radio-inline"><input type="radio" value="{{$role->id}}" name="role_id" checked>{{$role->name}}</label>
+                    @endforeach
+                @endif
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','user_type'
+        'name', 'email', 'password','user_type','role_id'
     ];
 
     /**
@@ -45,9 +45,14 @@ class User extends Authenticatable
             'name' => $input['first_name'].' '.$input['last_name'],
             'email'  => $input['email'],
             'password'  => Hash::make('123456'),
-            'user_type' => $input['type']
+            'role_id'  => $input['role_id'],
+            //'user_type' => $input['type']
         ]);
         
+        if($user){
+            //Attach user and role
+            $user->roles()->attach($input['role_id']);
+        }
         return $user;
 
     }
@@ -55,10 +60,17 @@ class User extends Authenticatable
         
         $user = User::find($userId);
         if($user){
+            $oldRoleId = $user->role_id;
             $user->name = $input['first_name'].' '.$input['last_name'];
             $user->email = $input['email'];
-            $user->user_type = $input['type'];
+            //$user->user_type = $input['type'];
+            $user->role_id = $input['role_id'];
             $user->save();
+            
+            if($oldRoleId != $input['role_id']){
+                $user->roles()->detach();
+                $user->roles()->attach($input['role_id']);
+            }
         }
         
         return $user;
