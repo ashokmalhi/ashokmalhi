@@ -8,7 +8,15 @@
         <div class="col-md-2"></div>
     </div>
 </div>
-
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 <form action="{{route('players.store')}}" method="post" id="playerForm" enctype="multipart/form-data">
     @csrf
     <h3 class="brand-color iconic-text bolder">Add a new player</h3>

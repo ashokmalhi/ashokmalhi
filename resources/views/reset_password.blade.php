@@ -23,8 +23,13 @@
                                 
                             </ul>
                         </div>
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                <strong>Alert - </strong> {{ session()->get('error') }}
+                            </div>
+                        @endif
                         <div class="loginform">
-                            <form method="post" action="{{route('reset-password')}}" id="loginForm">
+                            <form method="post" action="{{route('reset-password')}}" id="resetPasswordForm">
                                 @csrf
 
                                 <h3><strong>Reset Password</strong></h3>
@@ -37,10 +42,12 @@
                                 <div class="inputfield  mb-3">
                                 	<label for="floatingPassword">Password</label>
                                     <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
+                                    @if ($errors->has('password')) <p class="help-block error">{{ $errors->first('password') }}</p> @endif
                                 </div>
                                 <div class="inputfield  mb-3">
                                 	<label for="floatingPassword">Confirm Password</label>
-                                    <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
+                                    <input type="password" class="form-control" name="password_confirmation" placeholder="Password">
+                                    @if ($errors->has('password_confirmation')) <p class="help-block error">{{ $errors->first('password_confirmation') }}</p> @endif
                                 </div>
                                 <div class="inputfield mb-3">
                                     <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2"  value="Submit">

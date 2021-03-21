@@ -9,6 +9,7 @@ class PasswordReset extends Model
     protected $fillable = [
         'email', 'token'
     ];
+    public $timestamps = false;
 
     public static function createToken($email){
         $data= [
