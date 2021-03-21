@@ -21,6 +21,9 @@ Route::get('login', 'LoginController@login')->name('login');
 Route::post('login', 'LoginController@doLogin');
 Route::get('logout', 'LoginController@logout');
 
+Route::get('password_reset', 'LoginController@passwordReset');
+Route::post('password_reset', 'LoginController@updatePassword')->name('reset-password');
+
 $router->group(['middleware' => ['auth']], function () use ($router) {
     
     Route::get('dashboard', 'DashboardController@dashboard');
@@ -28,6 +31,7 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
     Route::get('dashoboardStats','DashboardController@getStats')->name('stats');
 
     Route::resource('/teams', 'TeamController');
+    Route::post('teams/update','TeamController@update');
     Route::post('all_teams','TeamController@allTeams');
     
     Route::get('/players/upload', 'PlayerController@uploadPlayers');

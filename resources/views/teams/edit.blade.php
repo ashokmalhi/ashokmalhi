@@ -1,9 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
-<form action="{{route('teams.store')}}" method="post" id="addTeam" enctype="multipart/form-data">
+<form action="{{url('teams/update')}}" method="POST" id="addTeam" enctype="multipart/form-data">
 
     @csrf
+    <input type="hidden" name="id" value="{{$team->id}}">
     <h3 class="brand-color iconic-text bolder">Add new team</h3>
     <h6>Enter the information of the team below.</h6>
     
@@ -20,7 +21,7 @@
             <div class="col">
                 <div class="inputfield  mb-3">
                     <label>Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter team name here">
+                    <input type="text" name="name" value="{{$team->name}}" class="form-control" placeholder="Enter team name here">
                 </div>
             </div>
         </div>
@@ -41,7 +42,7 @@
                     <label for="player">Team Member</label>
                     <select name="team_member[]" id="team_member" multiple class="form-select">
                     @foreach($players as $key => $player)
-                        <option value="{{$key}}">{{$player}}</option>
+                        <option @foreach($team->teamPlayer as $team_player){{$team_player['player_id'] == $key ? 'selected': ''}}  @endforeach value="{{$key}}">{{$player}}</option>
                     @endforeach
                     </select>
                 </div>
@@ -54,7 +55,7 @@
                     <label for="player">Coach</label>
                     <select name="coach[]" id="coach" multiple class="form-select">
                     @foreach($coaches as $key => $coach)
-                        <option value="{{$key}}">{{$coach}}</option>
+                        <option @foreach($team->teamPlayer as $team_player){{$team_player['player_id'] == $key ? 'selected': ''}}  @endforeach value="{{$key}}">{{$coach}}</option>
                     @endforeach
                     </select>
                 </div>
@@ -67,7 +68,7 @@
                     <label for="player">Manager</label>
                     <select name="manager[]" id="manager" multiple class="form-select">
                     @foreach($managers as $key => $manager)
-                        <option value="{{$key}}">{{$manager}}</option>
+                        <option @foreach($team->teamPlayer as $team_player){{$team_player['player_id'] == $key ? 'selected': ''}}  @endforeach value="{{$key}}">{{$manager}}</option>
                     @endforeach
                     </select>
                 </div>
