@@ -10,7 +10,12 @@
         <div class="col-md-2">  <a href="/players/upload" class="btn btn-primary" style='float: right;'>Upload Players</a></div>
     </div>
 </div>
-
+@if (Session::has('success'))
+   <div class="alert alert-success">{{ Session::get('success') }}</div>
+@endif
+@if (Session::has('error'))
+   <div class="alert alert-danger">{{ Session::get('error') }}</div>
+@endif
 <div class="container-box mt-4">
     <div class="box-charts mt-3">
 

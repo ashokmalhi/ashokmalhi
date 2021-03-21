@@ -51,6 +51,19 @@ class User extends Authenticatable
         return $user;
 
     }
+    public static function updateUser($input,$userId){
+        
+        $user = User::find($userId);
+        if($user){
+            $user->name = $input['first_name'].' '.$input['last_name'];
+            $user->email = $input['email'];
+            $user->user_type = $input['type'];
+            $user->save();
+        }
+        
+        return $user;
+
+    }
     public static function updatePassword($input){
         $user = User::where('email',$input['email'])->first();
         if(!empty($user)){

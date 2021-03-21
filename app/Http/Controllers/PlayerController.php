@@ -44,7 +44,8 @@ class PlayerController extends Controller
                 $nestedData['weight'] = $player->weight ?? "NA";
                 $nestedData['max_heart_rate'] = $player->max_heart_rate ?? "NA";
                 $nestedData['max_speed'] = $player->max_speed ?? "NA";
-                $nestedData['actions'] = '<a target="_blank" href="/players/'.$player->id.'" class="btn btn-primary btn-sm">Details</a>';
+                $nestedData['actions'] = '<a href="/players/'.$player->id.'/edit" class="btn btn-primary btn-sm">Edit</a>&nbsp;'
+                        . '<a href="/players/'.$player->id.'" class="btn btn-primary btn-sm">Details</a>';
                 $data[] = $nestedData;
             }
         }
@@ -79,12 +80,12 @@ class PlayerController extends Controller
 
         $result = User::addUser($input);
         
-        $result = Player::addPlayer($input,$result->id,true);
+        $result = Player::addPlayer($input,$result->id);
         
         if(isset($result->id)){
-            return redirect('/players')->with('status', 'Player created successfully!');
+            return redirect('/players')->with('success', 'Player created successfully!');
         }else{
-            return back()->withInput();
+            return back()->withInput()->with('error', 'Something went wront while creating new player!');
         }
     }
 
@@ -100,13 +101,35 @@ class PlayerController extends Controller
     
     public function edit($id)
     {
-        //
+        $player = Player::find($id);
+        return view('players.edit',compact('player','id'));
     }
 
     
     public function update(Request $request, $id)
     {
         //
+        $player = Player::find($id);
+        if ($player) {
+            $input = $request->except('_token','_method');
+            if ($request->hasFile('image')) {
+                $basePath = 'images/players/';
+                $image = $request->file('image');
+                $fileName = time() . '.' . $image->getClientOriginalExtension();
+                $input['image_path'] = $basePath . $fileName;
+                $img = Image::make($image->getRealPath());
+                Storage::disk('local')->put('public/' . $basePath . '/' . $fileName, $img->stream(), 'public');
+            }
+
+            $updateUserRes = User::updateUser($input,$player->fk_user);
+
+            $updatePlayerRes = Player::updatePlayer($input, $player->id);
+
+            return redirect('/players')->with('success', 'Player updated successfully!');
+            
+        } else {
+            return redirect('/players')->with('error', 'Player not found against the provided ID!');
+        }
     }
 
     

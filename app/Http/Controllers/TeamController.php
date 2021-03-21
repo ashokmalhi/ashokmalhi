@@ -34,7 +34,7 @@ class TeamController extends Controller
             {
                 $nestedData['name'] = $team->name;
                 $nestedData['image'] = "<img src='".asset('storage/'.$team->image)."' width=50 height=50>";
-                $nestedData['action'] = '<a target="_blank" href="/teams/'.$team->id.'/edit" class="btn btn-primary btn-sm">Edit</a>';
+                $nestedData['action'] = '<a href="/teams/'.$team->id.'/edit" class="btn btn-primary btn-sm">Edit</a>';
                 $data[] = $nestedData;
             }
         }

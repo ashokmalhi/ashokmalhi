@@ -49,6 +49,27 @@ class Player extends Model
         return $player;
     }
     
+    public static function updatePlayer($input, $playerId) {
+
+        $player = Player::find($playerId);
+        if ($player) {
+            if (isset($input['track_heart_rate'])) {
+                $input['track_heart_rate'] = 1;
+            } else {
+                $input['track_heart_rate'] = 0;
+            }
+            unset($input['type'],$input['image']);
+            if (count($input) > 0) {
+                foreach ($input as $key => $val) {
+                    $player->$key = $val;
+                }
+                $player->save();
+            }
+        }
+
+        return $player;
+    }
+
     public static function checkIfAlreadyExists($email){
         
         return self::where('email',$email)->first();

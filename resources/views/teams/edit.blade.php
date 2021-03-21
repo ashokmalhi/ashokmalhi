@@ -1,6 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="container-top ">
+    <div class="row">
+        <div class="col-md-10">
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
 <form action="{{url('teams/update')}}" method="POST" id="addTeam" enctype="multipart/form-data">
 
     @csrf
@@ -12,7 +20,13 @@
         <div class="uploadimg mb-5">
             <div class="row">
                 <div class="col-md-3 ">
-                    <div class="imgplaceholder  justify-content-center d-flex align-items-center"><img src="{{URL::to('images/user.svg')}}" alt=""></div>
+                    <div class="imgplaceholder  justify-content-center d-flex align-items-center">
+                        @if(!empty($team->image))
+                            <img src="{{URL::to('storage/'.$team->image)}}" alt="">
+                        @else
+                            <img src="{{URL::to('images/user.svg')}}" alt="">
+                        @endif
+                    </div>
                 </div>
                 <div class="col-md-8 d-flex align-items-center "><input type="file" name="image" class="custom-file-input btn btn-primary"></div>
             </div>
@@ -75,7 +89,7 @@
             </div>
         </div>
         <div class="inputfield mb-3">
-            <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2" value="Add Team">
+            <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2" value="Update Team">
         </div>
     </div>
 </form>
