@@ -57,6 +57,10 @@ class LoginController extends Controller
     }
 
     public function passwordReset(Request $request){
+        $this->validate($request, [
+			'email'	=> 'required',
+			'token'		=> 'required',
+		]);
         $password_reset = PasswordReset::where('email', $request->email)->where('token',$request->token)->first();
         if($password_reset){
             return view('reset_password', compact('password_reset'));
@@ -66,12 +70,23 @@ class LoginController extends Controller
     }
 
     public function updatePassword(Request $request){
-        $updatePassword = User::updatePassword($request->all());
-        if($updatePassword){
-            return redirect()->route('login')->with('success','Password updated successfully');
-        }
-        else{
-            return redirect()->route('login')->with('error','Email not found');
+        // Validating Inputs
+		$rules = [
+			'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
+		];
+		$validator = Validator::make($request->all(), $rules);
+		if ($validator->fails()) {
+			$messages = $validator->messages();
+			return Redirect::back()->withErrors($validator)->withInput();
+		} else {
+            $updatePassword = User::updatePassword($request->all());
+            if($updatePassword){
+                return redirect()->route('login')->with('success','Password updated successfully');
+            }
+            else{
+                return redirect()->route('login')->with('error','Email not found');
+            }
         }
     }
 }

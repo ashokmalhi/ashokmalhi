@@ -67,6 +67,11 @@ class PlayerController extends Controller
   
     public function store(Request $request)
     {
+        $this->validate($request, [
+			'first_name'	=> 'required',
+			'player_no'		=> 'required',
+			'email'			=> 'required|email|unique:users,email'
+		]);
         $input = $request->except('_token');
         if ($request->hasFile('image')) {
             $basePath = 'images/players/';
