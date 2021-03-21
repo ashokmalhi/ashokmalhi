@@ -59,4 +59,8 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public static function checkIfUserExists($email){
+        return self::where('email',$email)->first();
+    }
 }
