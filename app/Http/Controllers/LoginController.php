@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Helper\Helper;
-use App\Models\User;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Validator;
+use App\Models\PasswordReset;
+
 
 class LoginController extends Controller
 {
@@ -52,5 +54,24 @@ class LoginController extends Controller
         }
         Session::flush();
         return \redirect('/login');
+    }
+
+    public function passwordReset(Request $request){
+        $password_reset = PasswordReset::where('email', $request->email)->where('token',$request->token)->first();
+        if($password_reset){
+            return view('reset_password', compact('password_reset'));
+        }else{
+            return view('login');
+        }
+    }
+
+    public function updatePassword(Request $request){
+        $updatePassword = User::updatePassword($request->all());
+        if($updatePassword){
+            return redirect()->route('login')->with('success','Password updated successfully');
+        }
+        else{
+            return redirect()->route('login')->with('error','Email not found');
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Mail\PlayerMail;
 use Illuminate\Database\Eloquent\Model;
 use Mail;
+use App\Models\PasswordReset;
 
 class Player extends Model
 {
@@ -28,7 +29,7 @@ class Player extends Model
         'updated_at', 'deleted_at',
     ];
     
-    public static function addPlayer($input,$user_id){
+    public static function addPlayer($input,$user_id,$resetPassword=false){
         
         if(isset($input['track_heart_rate'])){
             $input['track_heart_rate'] = 1;
@@ -38,10 +39,13 @@ class Player extends Model
         $input['fk_user'] = $user_id;
         $player = self::create($input);
         
+        if($resetPassword){
+            $result = PasswordReset::createToken($player->email);
+            $data = ['message' => "<a href='".route('password_reset',['email'=>$player->email, 'token'=>$result->token])."'></a>"];
 
-        $data = ['message' => 'This is a test!'];
-
-        //Mail::to($player->email)->send(new PlayerMail($data));
+            Mail::to($player->email)->send(new PlayerMail($data));
+        }
+        
         return $player;
     }
     

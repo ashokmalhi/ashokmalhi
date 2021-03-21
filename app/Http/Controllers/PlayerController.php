@@ -78,7 +78,8 @@ class PlayerController extends Controller
         }
 
         $result = User::addUser($input);
-        $result = Player::addPlayer($input,$result->id);
+        
+        $result = Player::addPlayer($input,$result->id,true);
         
         if(isset($result->id)){
             return redirect('/players')->with('status', 'Player created successfully!');
