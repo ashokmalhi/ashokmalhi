@@ -16,9 +16,9 @@ class Permission extends EntrustPermission {
                         ->leftJoin("role_user as mru", "mru.role_id", '=', 'r.id')
                         // ->leftJoin("map_role_users as mru","mru.role_id",'=','r.id')
                         // ->leftJoin("users as u","u.id",'=','mru.user_id')
-                        ->leftJoin("users as u", "u.users_id", '=', 'mru.user_id')
+                        ->leftJoin("users as u", "u.id", '=', 'mru.user_id')
                         // ->where("u.id",$id)->get();
-                        ->where("u.users_id", $id)->get();
+                        ->where("u.id", $id)->get();
         $permission_array = array();
         foreach ($perm as $val) {
             $permission_array[] = $val->name;

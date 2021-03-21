@@ -32,7 +32,7 @@ class LoginController extends Controller
         
         if(auth()->attempt($credentials))
         { 
-            return redirect('/players');
+            return redirect('/dashboard');
             
         }else{
             

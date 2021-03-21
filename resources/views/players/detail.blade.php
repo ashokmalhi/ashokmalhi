@@ -13,7 +13,7 @@
 <div class="container-box mt-4">
     <div class="userarea ">
         <div class="colleft"><img src="{{URL::to('images/user.png')}}" alt=""></div>
-        <div class="colright">{{$player->full_name}}<small>24 Years Old</small></div>
+        <div class="colright">{{$player->first_name.' '.$player->last_name}}<small>24 Years Old</small></div>
     </div>
     <div class="counts mt-4">
         <div class="values col"> <img src="{{URL::to('images/icon-distance.svg')}}" alt="">

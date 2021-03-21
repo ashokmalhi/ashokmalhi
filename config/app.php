@@ -232,6 +232,7 @@ return [
         'LaravelEntrust'   => Shanmuga\LaravelEntrust\Facades\LaravelEntrustFacade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Helper' => App\Helper\Helper::class,
     ],
 
 ];

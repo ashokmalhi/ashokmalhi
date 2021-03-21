@@ -4,6 +4,7 @@ namespace App\Helper;
 
 use Session;
 use Auth;
+use App\Models\Permission;
 
 class Helper {
 
@@ -68,6 +69,28 @@ class Helper {
         } catch (\Exception $e) {
             echo $e->getMessage();
             die;
+        }
+    }
+
+    public static function check_permission($permission) {
+        
+        $permission_array = session()->get('user_permissions');
+        $return = false;
+
+        if (!isset($permission_array)) {
+            Permission::get_user_permissions(Auth::id());
+            $permission_array = session()->get('user_permissions');
+        }
+
+        if (count($permission_array) > 0) {
+            if (in_array($permission, $permission_array)) {
+                $return = true;
+                return $return;
+            } else {
+                return $return;
+            }
+        } else {
+            //header('Location: '.config('constant.APP_URL'));
         }
     }
 
