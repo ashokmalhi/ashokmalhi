@@ -5,7 +5,7 @@
 <div class="row">
     <div class="offset-md-10 col-md-2"> <a href="/UploadPlayers.csv"style='float: right;' target="_blank">Download Sample</a></div>
 </div>
-<form action="{{route('players-upload')}}" method="post" id="add-team" enctype="multipart/form-data">
+<form action="{{route('players-upload')}}" method="post" id="uploadPlayers" enctype="multipart/form-data">
     @csrf
     <h3 class="brand-color iconic-text bolder">Upload Players</h3>
     <h6>Upload csv to create multiple players.</h6>

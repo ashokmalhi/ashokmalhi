@@ -75,11 +75,33 @@ $(document).ready(function () {
             rules: {
                 name: {
                     required: true
+                },
+                file: {
+                    required: true
                 }
             },
             messages: {
                 name: {
                     required: "Please enter stat name",
+                },
+                file: {
+                    required: "Please upload file",
+                }
+            },
+        })
+    }
+    
+    if ($("#uploadPlayers").length > 0) {
+
+        $("#uploadPlayers").validate({
+            rules: {
+                file: {
+                    required: true
+                }
+            },
+            messages: {
+                file: {
+                    required: "Please upload file",
                 }
             },
         })
