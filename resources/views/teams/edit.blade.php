@@ -1,9 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
-<form action="{{route('teams.store')}}" method="post" id="addTeam" enctype="multipart/form-data">
+<div class="container-top ">
+    <div class="row">
+        <div class="col-md-10">
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<form action="{{url('teams/update')}}" method="POST" id="addTeam" enctype="multipart/form-data">
 
     @csrf
+    <input type="hidden" name="id" value="{{$team->id}}">
     <h3 class="brand-color iconic-text bolder">Add new team</h3>
     <h6>Enter the information of the team below.</h6>
     
@@ -11,7 +20,13 @@
         <div class="uploadimg mb-5">
             <div class="row">
                 <div class="col-md-3 ">
-                    <div class="imgplaceholder  justify-content-center d-flex align-items-center"><img src="{{URL::to('images/user.svg')}}" alt=""></div>
+                    <div class="imgplaceholder  justify-content-center d-flex align-items-center">
+                        @if(!empty($team->image))
+                            <img src="{{URL::to('storage/'.$team->image)}}" alt="">
+                        @else
+                            <img src="{{URL::to('images/user.svg')}}" alt="">
+                        @endif
+                    </div>
                 </div>
                 <div class="col-md-8 d-flex align-items-center "><input type="file" name="image" class="custom-file-input btn btn-primary"></div>
             </div>
@@ -20,7 +35,7 @@
             <div class="col">
                 <div class="inputfield  mb-3">
                     <label>Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter team name here">
+                    <input type="text" name="name" value="{{$team->name}}" class="form-control" placeholder="Enter team name here">
                 </div>
             </div>
         </div>
@@ -41,7 +56,7 @@
                     <label for="player">Team Member</label>
                     <select name="team_member[]" id="team_member" multiple class="form-select">
                     @foreach($players as $key => $player)
-                        <option value="{{$key}}">{{$player}}</option>
+                        <option @foreach($team->teamPlayer as $team_player){{$team_player['player_id'] == $key ? 'selected': ''}}  @endforeach value="{{$key}}">{{$player}}</option>
                     @endforeach
                     </select>
                 </div>
@@ -54,7 +69,7 @@
                     <label for="player">Coach</label>
                     <select name="coach[]" id="coach" multiple class="form-select">
                     @foreach($coaches as $key => $coach)
-                        <option value="{{$key}}">{{$coach}}</option>
+                        <option @foreach($team->teamPlayer as $team_player){{$team_player['player_id'] == $key ? 'selected': ''}}  @endforeach value="{{$key}}">{{$coach}}</option>
                     @endforeach
                     </select>
                 </div>
@@ -67,14 +82,14 @@
                     <label for="player">Manager</label>
                     <select name="manager[]" id="manager" multiple class="form-select">
                     @foreach($managers as $key => $manager)
-                        <option value="{{$key}}">{{$manager}}</option>
+                        <option @foreach($team->teamPlayer as $team_player){{$team_player['player_id'] == $key ? 'selected': ''}}  @endforeach value="{{$key}}">{{$manager}}</option>
                     @endforeach
                     </select>
                 </div>
             </div>
         </div>
         <div class="inputfield mb-3">
-            <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2" value="Add Team">
+            <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2" value="Update Team">
         </div>
     </div>
 </form>

@@ -8,18 +8,11 @@
         <div class="col-md-2"></div>
     </div>
 </div>
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-<form action="{{route('players.store')}}" method="post" id="playerForm" enctype="multipart/form-data">
+
+<form action="{{route('players.update',$id)}}" method="post" id="playerForm" enctype="multipart/form-data">
     @csrf
-    <h3 class="brand-color iconic-text bolder">Add a new player</h3>
+    {{ method_field('PATCH') }}
+    <h3 class="brand-color iconic-text bolder">Edit player</h3>
     <h6>Enter the information of the player below.</h6>
 
 
@@ -27,7 +20,13 @@
         <div class="uploadimg mb-5">
             <div class="row">
                 <div class="col-md-3 ">
-                    <div class="imgplaceholder  justify-content-center d-flex align-items-center"><img src="{{URL::to('images/user.svg')}}" alt=""></div>
+                    <div class="imgplaceholder  justify-content-center d-flex align-items-center">
+                        @if(!empty($player->image_path))
+                            <img src="{{URL::to('storage/'.$player->image_path)}}" alt="">
+                        @else
+                            <img src="{{URL::to('images/user.svg')}}" alt="">
+                        @endif
+                    </div>
                 </div>
                 <div class="col-md-8 d-flex align-items-center "><input type="file" name="image" class="custom-file-input btn btn-primary"></div>
             </div>
@@ -36,13 +35,13 @@
             <div class="col">
                 <div class="inputfield  mb-3">
                     <label>First Name</label>
-                    <input type="text" name="first_name" class="form-control" placeholder="Enter your first name here">
+                    <input type="text" name="first_name" class="form-control" value="{{$player->first_name}}" placeholder="Enter your first name here">
                 </div>
             </div>
             <div class="col">
                 <div class="inputfield  mb-3">
                     <label>Last Name</label>
-                    <input type="text" name="last_name" class="form-control" placeholder="Enter your last name here">
+                    <input type="text" name="last_name" class="form-control" value="{{$player->last_name}}" placeholder="Enter your last name here">
                 </div>
             </div>
         </div>
@@ -50,14 +49,14 @@
             <div class="col">
                 <div class="inputfield mb-3">
                     <label>Email</label>
-                    <input type="text" name="email" class="form-control" placeholder="Enter your email address">
+                    <input type="text" name="email" class="form-control" value="{{$player->email}}" placeholder="Enter your email address">
                 </div>
             </div>
             <div class="col">
                 <div class="col">
                     <div class="inputfield  mb-3">
                         <label>Player No</label>
-                        <input type="number" name="player_no" class="form-control" placeholder="Enter Player no">
+                        <input type="number" name="player_no" value="{{$player->player_no}}" class="form-control" placeholder="Enter Player no">
                     </div>
                 </div>
 
@@ -76,7 +75,7 @@
             <div class="col">
                 <div class="inputfield mb-3">
                     <label>Date of Birth</label>
-                    <input type="date" name="date_of_birth" class="form-control" placeholder="Date of Birth">
+                    <input type="date" name="date_of_birth" value="{{$player->date_of_birth}}" class="form-control" placeholder="Date of Birth">
                 </div>
             </div>
         </div>
@@ -84,19 +83,19 @@
             <div class="col">
                 <div class="inputfield  mb-3">
                     <label>Height</label>
-                    <input type="number" name="height" class="form-control" placeholder="Height">
+                    <input type="number" name="height" value="{{$player->height}}" class="form-control" placeholder="Height">
                 </div>
             </div>
             <div class="col">
                 <div class="inputfield  mb-3">
                     <label>Weight</label>
-                    <input type="number" name="weight" class="form-control" placeholder="Weight">
+                    <input type="number" name="weight" value="{{$player->weight}}" class="form-control" placeholder="Weight">
                 </div>
             </div>
             <div class="col">
                 <div class="inputfield  mb-3">
                     <label>Max Heart Rate</label>
-                    <input type="number" name="max_heart_rate" class="form-control" placeholder="Max Heart Rate">
+                    <input type="number" name="max_heart_rate" value="{{$player->max_heart_rate}}" class="form-control" placeholder="Max Heart Rate">
                 </div>
             </div>
         </div>
@@ -104,7 +103,7 @@
             <div class="col">
                 <div class="inputfield  mb-3">
                     <label>Target Heart Rate</label>
-                    <input type="number" name="target_heart_rate" class="form-control" placeholder="Target Heart Rate">
+                    <input type="number" name="target_heart_rate" value="{{$player->target_heart_rate}}" class="form-control" placeholder="Target Heart Rate">
                 </div>
             </div>
             <div class="col">
@@ -130,18 +129,18 @@
                 <label>Select Role</label>
                 @if(count($roles))
                     @foreach ($roles as $role)
-                        <label class="radio-inline"><input type="radio" value="{{$role->id}}" name="role_id" checked>{{$role->name}}</label>
+                        <label class="radio-inline"><input type="radio" value="{{$role->id}}" name="role_id" @if($player->user->role_id == $role->id) checked @endif>{{$role->name}}</label>
                     @endforeach
                 @endif
                 </div>
             </div>
         </div>
         <div class="form-check mb-5">
-            <input class="form-check-input" type="checkbox" name="track_heart_rate" id="track_heart_rate">
+            <input class="form-check-input" type="checkbox" @if($player->track_heart_rate) checked @endif name="track_heart_rate" id="track_heart_rate">
             <label class="form-check-label" for="track_heart_rate">Track Heart Rate</label>
         </div>
         <div class="inputfield mb-3">
-            <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2" value="Add Player">
+            <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2" value="Update Player">
         </div>
     </div>
 </form>

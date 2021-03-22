@@ -13,7 +13,7 @@
 <div class="container-box mt-4">
     <div class="userarea ">
         <div class="colleft"><img src="images/user.png" alt=""></div>
-        <div class="colright">Sally Mazakie. <small>24 Years Old</small></div>
+        <div class="colright">{{Auth::user()->name}} <small>24 Years Old</small></div>
     </div>
     <div class="counts mt-4">
         <div class="values col"> <img src="images/icon-distance.svg" alt="">

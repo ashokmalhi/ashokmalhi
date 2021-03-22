@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Models;
+
+use App\Mail\PlayerMail;
 use Illuminate\Database\Eloquent\Model;
+use Mail;
+use App\Models\PasswordReset;
 
 class Player extends Model
 {
@@ -11,8 +15,8 @@ class Player extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'first_name', 'last_name','full_name','email','player_no', 'date_of_birth', 'image_path','gender', 'height', 'weight',
+    protected $fillable = ['fk_user',
+        'first_name', 'last_name','full_name','email','mobile','player_no', 'date_of_birth', 'image_path','gender', 'height', 'weight',
         'max_heart_rate','target_heart_rate','max_speed','track_heart_rate', 'sensor_no', 'position'
     ];
 
@@ -25,15 +29,55 @@ class Player extends Model
         'updated_at', 'deleted_at',
     ];
     
-    public static function addPlayer($input){
+    public function user()
+    {
+        return $this->belongsTo('App\User','fk_user');
+    }
+    
+    public static function addPlayer($input,$user_id,$resetPassword=false){
         
         if(isset($input['track_heart_rate'])){
             $input['track_heart_rate'] = 1;
         }else{
             $input['track_heart_rate'] = 0;
         }
+        $input['fk_user'] = $user_id;
         $player = self::create($input);
+        
+        if($resetPassword){
+            $result = PasswordReset::createToken($player->email);
+            $data = ['message' => "<a href='".route('reset-password',['email'=>$player->email, 'token'=>$result->token])."'>Verify Email</a>"];
+
+            Mail::to($player->email)->send(new PlayerMail($data));
+        }
+        
         return $player;
+    }
+    
+    public static function updatePlayer($input, $playerId) {
+
+        $player = Player::find($playerId);
+        if ($player) {
+            if (isset($input['track_heart_rate'])) {
+                $input['track_heart_rate'] = 1;
+            } else {
+                $input['track_heart_rate'] = 0;
+            }
+            unset($input['type'],$input['image'],$input['role_id']);
+            if (count($input) > 0) {
+                foreach ($input as $key => $val) {
+                    $player->$key = $val;
+                }
+                $player->save();
+            }
+        }
+
+        return $player;
+    }
+
+    public static function checkIfAlreadyExists($email){
+        
+        return self::where('email',$email)->first();
     }
     
     public static function getOrCreatePlayer($input){
@@ -59,5 +103,9 @@ class Player extends Model
         
         return self::select("*")->orderBy('created_at', 'DESC');
 
+    }
+
+    public static function playerNoExists($playerNo){
+        return self::where('player_no', $playerNo)->first();
     }
 }
