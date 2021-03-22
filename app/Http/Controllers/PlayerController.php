@@ -72,7 +72,7 @@ class PlayerController extends Controller
     {
         $this->validate($request, [
 			'first_name'	=> 'required',
-			'player_no'		=> 'required',
+			'player_no'		=> 'required|unique:players,player_no',
 			'email'			=> 'required|email|unique:users,email'
 		]);
         $input = $request->except('_token');
@@ -163,14 +163,22 @@ class PlayerController extends Controller
                         $createPlayer['player_no'] = $d[0] ?? '';
                         $createPlayer['first_name'] = $d[1] ?? '';
                         $createPlayer['last_name'] = $d[2] ?? '';
-                        $createPlayer['full_name'] = $createPlayer['first_name'].' '.$createPlayer['last_name'];
+                        // $createPlayer['full_name'] = $createPlayer['first_name'].' '.$createPlayer['last_name'];
                         $createPlayer['mobile'] = $d[3] ?? '';
                         $createPlayer['email'] = $d[4] ?? ''; 
                         if(!empty($createPlayer['email'])){
-                            $exists = Player::checkIfAlreadyExists($createPlayer['email']);
-                            if(!$exists){
-                                Player::addPlayer($createPlayer);
+                            //pass an email to check if email already exists
+                            $userExists = User::checkIfUserExists($createPlayer['email']);
+                            if(!$userExists){
+                                $exists = Player::checkIfAlreadyExists($createPlayer['email']);
+                                $playerNo = Player::playerNoExists($createPlayer['player_no']);
+                                if(!$exists && !$playerNo){
+                                    $createPlayer['type'] = 'p';
+                                    $user = User::AddUser($createPlayer);
+                                    Player::addPlayer($createPlayer,$user->id,true);
+                                }
                             }
+                            
                         }
                     }
                 }

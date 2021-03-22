@@ -104,4 +104,8 @@ class Player extends Model
         return self::select("*")->orderBy('created_at', 'DESC');
 
     }
+
+    public static function playerNoExists($playerNo){
+        return self::where('player_no', $playerNo)->first();
+    }
 }
