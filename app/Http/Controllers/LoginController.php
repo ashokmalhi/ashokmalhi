@@ -60,7 +60,11 @@ class LoginController extends Controller
         $this->validate($request, [
 			'email'	=> 'required',
 			'token'		=> 'required',
-		]);
+        ]);
+        $user =User::where('email', $request->email)->first();
+        if(!empty($user['email_verified_at'])){
+            return view('login');   
+        }
         $password_reset = PasswordReset::where('email', $request->email)->where('token',$request->token)->first();
         if($password_reset){
             return view('reset_password', compact('password_reset'));
