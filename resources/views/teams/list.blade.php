@@ -6,7 +6,9 @@
         <div class="col-md-10">
             <h3 class="brand-color iconic-text"><b>All Teams </b></h3>
         </div>
+        @if(Helper::check_permission('create-teams'))
         <div class="col-md-2">  <a href="/teams/create" class="btn btn-primary" style='float: right;'>Add Team</a></div>
+        @endif
     </div>
 </div>   
 @if (Session::has('success'))
