@@ -20,6 +20,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "bootstrap-multiselect": "^0.9.15",
         "chart.js": "^2.9.4",
         "chartjs-plugin-annotation": "^0.5.7",
         "jquery-validation": "^1.19.3"

@@ -118,9 +118,20 @@ $(document).ready(function () {
                 password_confirmation: {
                     required: true,
                     minlength: 6,
-                    maxlength: 15
+                    maxlength: 15,
+                    equalTo : "#floatingPassword"
                 }
-            }
+            },
+            messages: {
+                password: {
+                    required: "Please enter password",
+                    equalTo: "Password and confirm password does not match",
+                },
+                password_confirmation: {
+                    required: "Please enter confirm password",
+                    equalTo: "Password and confirm password does not match",
+                }
+            },
         })
     }
 

@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="Ashok Malhi">
         <meta name="generator" content="Hugo 0.79.0">
-        <title>Login Page</title>
+        <title>Reset Password</title>
         <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
@@ -36,17 +36,17 @@
                                 <!-- <p class="mb-4">Sign in to your account.</p> -->
 
                                 <div class="inputfield mb-4">
-                                    <label for="floatingInput">Email address</label>
+                                    <label style="display: none;" for="floatingInput">Email address</label>
                                     <input type="hidden" class="form-control" name="email" id="floatingInput" value="{{$password_reset['email']}}">
                                 </div>
                                 <div class="inputfield  mb-3">
                                 	<label for="floatingPassword">Password</label>
-                                    <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
+                                    <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Enter new password">
                                     @if ($errors->has('password')) <p class="help-block error">{{ $errors->first('password') }}</p> @endif
                                 </div>
                                 <div class="inputfield  mb-3">
                                 	<label for="floatingPassword">Confirm Password</label>
-                                    <input type="password" class="form-control" name="password_confirmation" placeholder="Password">
+                                    <input type="password" class="form-control" name="password_confirmation" placeholder="Enter new password">
                                     @if ($errors->has('password_confirmation')) <p class="help-block error">{{ $errors->first('password_confirmation') }}</p> @endif
                                 </div>
                                 <div class="inputfield mb-3">

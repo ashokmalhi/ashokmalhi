@@ -12,7 +12,13 @@
 </div>
 <div class="container-box mt-4">
     <div class="userarea ">
-        <div class="colleft"><img src="{{URL::to('images/user.png')}}" alt=""></div>
+        <div class="colleft">
+            @if(!empty($player->image_path))
+            <img src="{{URL::to('storage/'.$player->image_path)}}" width="50" alt="">
+            @else
+                <img src="{{URL::to('images/user.png')}}" alt="">
+            @endif
+        </div>
         <div class="colright">{{$player->first_name.' '.$player->last_name}}<small>24 Years Old</small></div>
     </div>
     <div class="counts mt-4">

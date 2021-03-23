@@ -7,7 +7,6 @@ use App\Models\Player;
 use App\Models\StatDetail;
 use Image;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Models\Role;
 

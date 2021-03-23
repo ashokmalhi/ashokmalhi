@@ -7,12 +7,21 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Player;
 
 class DashboardController extends Controller
 {
     public function dashboard(){
         
-        return view('dashboard');
+        $userId = Auth::user()->id;
+        $player = Player::where('fk_user',$userId)->first();
+        $age = '';
+        session(['player' => $player]);
+        if(isset($player->date_of_birth) && !empty($player->date_of_birth)){
+            $age = calculateAge($player->date_of_birth);
+        }
+        return view('dashboard',compact('player','age'));
     }
     
     public function dashboard1(){
