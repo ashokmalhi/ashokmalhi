@@ -59,6 +59,12 @@ class TeamController extends Controller
   
     public function store(Request $request)
     {
+        $this->validate($request, [
+			'name'	=> 'required',
+			'team_member'		=> 'required',
+            'coach'			=> 'required',
+            'manager' => 'required'
+		]);
         $input = $request->except('_token');
         
         if ($request->hasFile('image')) {
