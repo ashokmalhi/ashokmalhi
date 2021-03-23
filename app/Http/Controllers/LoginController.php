@@ -63,7 +63,7 @@ class LoginController extends Controller
         ]);
         $user =User::where('email', $request->email)->first();
         if(!empty($user['email_verified_at'])){
-            return view('login');   
+            return \redirect('/login');   
         }
         $password_reset = PasswordReset::where('email', $request->email)->where('token',$request->token)->first();
         if($password_reset){

@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','user_type','role_id'
+        'name', 'email', 'password','user_type','role_id','email_verified_at'
     ];
 
     /**
@@ -79,7 +79,7 @@ class User extends Authenticatable
     public static function updatePassword($input){
         $user = User::where('email',$input['email'])->first();
         if(!empty($user)){
-            User::where('email', $input['email'])->update(['password'=>Hash::make($input['password'])]);
+            User::where('email', $input['email'])->update(['password'=>Hash::make($input['password']), 'email_verified_at' => now()]);
             return true;
         }
         return false;
