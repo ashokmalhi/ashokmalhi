@@ -60,17 +60,9 @@ class User extends Authenticatable
         
         $user = User::find($userId);
         if($user){
-            $oldRoleId = $user->role_id;
             $user->name = $input['first_name'].' '.$input['last_name'];
             $user->email = $input['email'];
-            //$user->user_type = $input['type'];
-            $user->role_id = $input['role_id'];
             $user->save();
-            
-            if($oldRoleId != $input['role_id']){
-                $user->roles()->detach();
-                $user->roles()->attach($input['role_id']);
-            }
         }
         
         return $user;

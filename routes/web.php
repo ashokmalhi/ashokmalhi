@@ -41,6 +41,9 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
 
     Route::get('chart', 'LoginController@chart');
 
+    Route::resource('/coaches', 'CoachController');
+    Route::post('all_coaches','CoachController@allCoaches');
+    
     $router->group(['prefix' => 'statistics'], function () use ($router) {
         
         $router->get('/', 'StatsController@index');

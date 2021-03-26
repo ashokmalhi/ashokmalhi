@@ -526,6 +526,9 @@ $(document).ready(function () {
                 first_name: {
                     required: true
                 },
+                last_name: {
+                    required: true
+                },
                 email: {
                     required: true,
                     email : true
@@ -537,6 +540,9 @@ $(document).ready(function () {
             messages: {
                 first_name: {
                     required: "Please enter first name",
+                },
+                last_name: {
+                    required: "Please enter last name",
                 },
                 email: {
                     required: "Please enter email address",
@@ -645,6 +651,36 @@ $(document).ready(function () {
                 password_confirmation: {
                     required: "Please enter confirm password",
                     equalTo: "Password and confirm password does not match",
+                }
+            },
+        })
+    }
+    
+    if ($("#coachForm").length > 0) {
+
+        $("#coachForm").validate({
+            rules: {
+                first_name: {
+                    required: true
+                },
+                last_name: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email : true
+                }
+            },
+            messages: {
+                first_name: {
+                    required: "Please enter first name",
+                },
+                last_name: {
+                    required: "Please enter last name",
+                },
+                email: {
+                    required: "Please enter email address",
+                    email : "Please enter valid email"
                 }
             },
         })
