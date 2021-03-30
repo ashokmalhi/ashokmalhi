@@ -84,6 +84,8 @@ class PlayerController extends Controller
             Storage::disk('local')->put('public/'.$basePath.'/'.$fileName, $img->stream(), 'public');
         }
 
+        $input['role_id'] = config('constants.roles.player');
+        
         $result = User::addUser($input);
         
         $result = Player::addPlayer($input,$result->id,true);

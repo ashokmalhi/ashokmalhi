@@ -109,21 +109,12 @@
             <div class="col">
                 <div class="inputfield  mb-3">
                     <label>Max Speed</label>
-                    <input type="number" name="max_speed" class="form-control" placeholder="Max Speed">
+                    <input type="number" name="max_speed" value="{{$player->max_speed}}" class="form-control" placeholder="Max Speed">
                 </div>
             </div>
         </div>
+
 <!--        <div class="row"> 
-            <div class="col">
-                <div class="inputfield  mb-3">
-                <label>Type</label>
-                <label class="radio-inline"><input type="radio" value="p" name="type" checked>Player</label>
-                <label class="radio-inline"><input type="radio" value="c" name="type">Coach</label>
-                <label class="radio-inline"><input type="radio" value="m" name="type">Manager</label>
-                </div>
-            </div>
-        </div>-->
-        <div class="row"> 
             <div class="col">
                 <div class="inputfield  mb-3">
                 <label>Select Role</label>
@@ -134,7 +125,7 @@
                 @endif
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="form-check mb-5">
             <input class="form-check-input" type="checkbox" @if($player->track_heart_rate) checked @endif name="track_heart_rate" id="track_heart_rate">
             <label class="form-check-label" for="track_heart_rate">Track Heart Rate</label>

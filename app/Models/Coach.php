@@ -94,4 +94,22 @@ class Coach extends Model
     public static function playerNoExists($coachNo){
         return self::where('player_no', $coachNo)->first();
     }
+    
+    public static function getAllCoaches(){
+        
+        $allCoaches = [];
+        
+        $coaches = Coach::join('users','fk_user', 'users.id')
+                ->select('first_name','last_name','coaches.email','coaches.id')
+                ->get()
+                ->toArray();
+        
+        if(count($coaches) > 0){
+            foreach ($coaches as $key => $coach){
+                $allCoaches[$key]['label'] = $coach['first_name'].' '.$coach['last_name'].' ('.$coach['email'].')';
+                $allCoaches[$key]['value'] = $coach['id'];
+            }
+        }
+        return $allCoaches;
+    }
 }

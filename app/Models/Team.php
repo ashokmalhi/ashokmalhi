@@ -30,7 +30,11 @@ class Team extends Model
     
     public static function addTeam($input){
         
-        $team = self::create($input);
+        $team = self::create([
+            'name' => $input['name'],
+            'sport_id' => $input['sport_id'],
+            'image' => isset($input['image']) ? $input['image']: ""
+        ]);
         return $team;
     }
 

@@ -25,52 +25,42 @@ class TeamPlayer extends Model
     ];
     
     public static function addTeamPlayer($input,$team_id){
-        self::where('team_id',$team_id)->delete();
-        foreach($input['team_member'] as $member){
-            $team_player = self::create([
-                "player_id" => $member,
-                "team_id" => $team_id,
-                "match_id" => 1,
-                "sensor_id" => 1,
-                "sensor_no" => "1",
-                "position" => "1"
-            ]);
-        }
+        
+        if(count($input['player_ids']) > 0){
+            self::where('team_id',$team_id)->delete();
 
-        foreach($input['coach'] as $coach){
-            $coach_player = self::where('player_id', $coach)->where('team_id',$team_id)->exists();
-            if($coach_player){
-                self::where('player_id', $coach)->where('team_id',$team_id)->update(['is_coach'=>1]);
-            }else{
-                $team_player = self::create([
-                    "player_id" => $coach,
-                    "team_id" => $team_id,
-                    "match_id" => 1,
-                    "sensor_id" => 1,
-                    "sensor_no" => "1",
-                    "position" => "1",
-                    "is_coach" => 1
-                ]);
+            foreach($input['player_ids'] as $key => $member){
+                if($member != ""){
+                    $role_id = isset($input['role'][$key])?$input['role'][$key]:0;
+                    
+                    $team_player = self::create([
+                        "player_id" => $member,
+                        "team_id" => $team_id,
+                        "match_id" => 1,
+                        "sensor_id" => 1,
+                        "sensor_no" => "1",
+                        "position" => "1",
+                        "is_manager" => ($role_id == 2) ? 1 : 0
+                    ]);
+                }
+            }
+            
+            if(count($input['coach_ids']) > 0){
+                foreach($input['coach_ids'] as $coach){
+                   if($coach != ""){
+                        $team_player = self::create([
+                            "player_id" => $coach,
+                            "team_id" => $team_id,
+                            "match_id" => 1,
+                            "sensor_id" => 1,
+                            "sensor_no" => "1",
+                            "position" => "1",
+                            "is_coach" => 1
+                        ]);
+                   }
+                }
             }
         }
-
-        foreach($input['manager'] as $manager){
-            $manager_player = self::where('player_id', $manager)->where('team_id',$team_id)->exists();
-            if($manager_player){
-                self::where('player_id', $manager)->where('team_id',$team_id)->update(['is_manager'=>1]);
-            }else{
-                $team_player = self::create([
-                    "player_id" => $manager,
-                    "team_id" => $team_id,
-                    "match_id" => 1,
-                    "sensor_id" => 1,
-                    "sensor_no" => "1",
-                    "position" => "1",
-                    "is_manager" => 1
-                ]);
-            }
-        }
-
         return $team_player;
     }
 }

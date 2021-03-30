@@ -556,37 +556,18 @@ $(document).ready(function () {
     }
     
     if ($("#addTeam").length > 0) {
-        console.log("fds");
+       
         $("#addTeam").validate({
             rules: {
                 name: {
                     required: true
                 },
-                'coach[]': {
-                    required: true
-                },
-                'manager[]': {
-                    required: true
-                },
-                'team_member[]': {
-                    required: true
-                }
             },
             messages: {
                 name: {
                     required: "Please enter team name",
                 },
-                'coach[]': {
-                    required: "Please select coach",
-                },
-                'manager[]': {
-                    required: "Please select manager",
-                },
-                'team_member[]': {
-                    required: "Please select team member",
-                }
-            },
-            debug: true
+            }
         })
     }
     

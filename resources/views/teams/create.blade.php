@@ -2,21 +2,21 @@
 
 @section('content')
 @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
 <form action="{{route('teams.store')}}" method="post" id="addTeam" enctype="multipart/form-data">
 
     @csrf
     <h3 class="brand-color iconic-text bolder">Add new team</h3>
     <h6>Enter the information of the team below.</h6>
-    
+
     <div class="col-md-8 mt-5">
         <div class="uploadimg mb-5">
             <div class="row">
@@ -48,41 +48,54 @@
         <div class="row">
             <div class="col">
                 <div class="inputfield mb-3">
-                    <label for="player">Team Member</label>
-                    <select name="team_member[]" id="team_member" multiple class="form-select">
-                    @foreach($players as $key => $player)
-                        <option value="{{$key}}">{{$player}}</option>
-                    @endforeach
-                    </select>
+                    <a href="javascript:void(0)" class="btn btn-primary mediumbtn" style="margin-top: 25px;" onclick="addPlayer()" >Add Player</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="inputfield mb-3">
+                    <a href="javascript:void(0)" class="btn btn-primary mediumbtn" style="margin-top: 25px;" onclick="addCoach()" >Add Coach</a>
+                </div>
+            </div>
+        </div>
+        <div id="players">
+            <div class="row player new_player" style="display: none;">
+                <div class="col">
+                    <div class="inputfield mb-3">
+                        <label>Enter Player Name</label>
+                        <input type="text" name="players_name[]" class="form-control player_names" placeholder="Search Player Name">
+                        <input type='hidden' name="player_ids[]" class='player_ids' value='' />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="inputfield mb-3">
+                        <label>Select Role</label>
+                        <select name="role[]" class="form-select">
+                            <option value="1">Player</option>
+                            <option value="2">Team Manager</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <a href="javascript:void(0)" class="btn btn-primary mediumbtn" style="margin-top: 25px;" onclick="removePlayer(this)" >Remove</a>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <div class="inputfield mb-3">
-                    <label for="player">Coach</label>
-                    <select name="coach[]" id="coach" multiple class="form-select">
-                    @foreach($coaches as $key => $coach)
-                        <option value="{{$key}}">{{$coach}}</option>
-                    @endforeach
-                    </select>
+        <div id="coaches">
+            <div class="row player new_coach" style="display: none;">
+                <div class="col">
+                    <div class="inputfield mb-3">
+                        <label>Enter Coach Name</label>
+                        <input type="text" name="coaches_name[]" class="form-control coach_names" placeholder="Search Coach Name">
+                        <input type='hidden' name="coach_ids[]" class='coach_ids' value='' />
+                    </div>
+                </div>
+                <div class="col">
+                    <a href="javascript:void(0)" class="btn btn-primary mediumbtn" style="margin-top: 25px;" onclick="removeCoach(this)" >Remove</a>
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="inputfield mb-3">
-                    <label for="player">Manager</label>
-                    <select name="manager[]" id="manager" multiple class="form-select">
-                    @foreach($managers as $key => $manager)
-                        <option value="{{$key}}">{{$manager}}</option>
-                    @endforeach
-                    </select>
-                </div>
-            </div>
-        </div>
+        
         <div class="inputfield mb-3">
             <input type="submit" class="btn btn-primary btn-lg bigbtn mb-2" value="Add Team">
         </div>
@@ -91,31 +104,76 @@
 
 @stop
 @section('scripts')
-<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" rel="stylesheet"/>-->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>-->
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-$('#team_member').multiselect({
-    checkAllText: "Your text for CheckAll",
-    uncheckAllText: "Your text for UncheckCheckAll",
-    noneSelectedText: "Your text for NoOptionHasBeenSelected",
-    selectedText: "You selected # of #" //The multiselect knows to display the second # as the total
-});
 
-$('#manager').multiselect({
-    checkAllText: "Your text for CheckAll",
-    uncheckAllText: "Your text for UncheckCheckAll",
-    noneSelectedText: "Your text for NoOptionHasBeenSelected",
-    selectedText: "You selected # of #" //The multiselect knows to display the second # as the total
-});
+    var allPlayers = '{!! json_encode($players) !!}';
+    allPlayers = JSON.parse(allPlayers);
+    
+    var allCoaches = '{!! json_encode($coaches) !!}';
+    allCoaches = JSON.parse(allCoaches);
+  
+    $(document).ready(function(){
+        applyAutocomplete();
+    });
+    
+    function applyAutocomplete(){
+        
+        $( ".player_names" ).autocomplete({
+            source: allPlayers,
+            focus: function( event, ui ) {
+                $(this).val(ui.item.label);
+                return false;
+            },
+            select: function( event, ui ) {
+             $(this).val(ui.item.label);
+             $(this).closest(".col").find(".player_ids").val(ui.item.value);
+              return false;
+            }
+        });
+        
+        $( ".coach_names" ).autocomplete({
+            source: allCoaches,
+            focus: function( event, ui ) {
+                $(this).val(ui.item.label);
+                return false;
+            },
+            select: function( event, ui ) {
+             $(this).val(ui.item.label);
+             $(this).closest(".col").find(".coach_ids").val(ui.item.value);
+              return false;
+            }
+        });
+        
+    }
+    function addPlayer() {
 
-$('#coach').multiselect({
-    checkAllText: "Your text for CheckAll",
-    uncheckAllText: "Your text for UncheckCheckAll",
-    noneSelectedText: "Your text for NoOptionHasBeenSelected",
-    selectedText: "You selected # of #" //The multiselect knows to display the second # as the total
-});
+        newPlayer = $(".new_player").clone();
+        newPlayer = newPlayer.removeClass("new_player");
+        newPlayer = newPlayer.css("display","");
+        $("#players").prepend(newPlayer);
+        applyAutocomplete();
+    }
+    
+    function addCoach() {
+
+        newCoach = $(".new_coach").clone();
+        newCoach = newCoach.removeClass("new_player");
+        newCoach = newCoach.css("display","");
+        $("#coaches").prepend(newCoach);
+        applyAutocomplete();
+    }
+    
+    function removePlayer(ele) {
+
+        $(ele).closest(".player").remove();
+    }
+    
+    function removeCoach(ele) {
+
+        $(ele).closest(".coach").remove();
+    }
+
 </script>
 @endsection

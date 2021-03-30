@@ -63,7 +63,7 @@ class Player extends Model
             } else {
                 $input['track_heart_rate'] = 0;
             }
-            unset($input['type'],$input['image'],$input['role_id']);
+            unset($input['image'],$input['role_id']);
             if (count($input) > 0) {
                 foreach ($input as $key => $val) {
                     $player->$key = $val;
@@ -107,5 +107,23 @@ class Player extends Model
 
     public static function playerNoExists($playerNo){
         return self::where('player_no', $playerNo)->first();
+    }
+    
+    public static function getAllPlayers(){
+        
+        $allPlayers = [];
+        
+        $players = Player::join('users','fk_user', 'users.id')->where('user_type', 'p')
+                ->select('first_name','last_name','players.email','players.id')
+                ->get()
+                ->toArray();
+        
+        if(count($players) > 0){
+            foreach ($players as $key => $player){
+                $allPlayers[$key]['label'] = $player['first_name'].' '.$player['last_name'].' ('.$player['email'].')';
+                $allPlayers[$key]['value'] = $player['id'];
+            }
+        }
+        return $allPlayers;
     }
 }

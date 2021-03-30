@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\TeamPlayer;
 use App\Models\Player;
+use App\Models\Coach;
 use Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -50,10 +51,9 @@ class TeamController extends Controller
 
     public function create()
     {
-        $players = Player::join('users','fk_user', 'users.id')->where('user_type', 'p')->pluck('first_name','players.id')->toArray();
-        $coaches = Player::join('users','fk_user', 'users.id')->where('user_type', 'c')->pluck('first_name','players.id')->toArray();
-        $managers = Player::join('users','fk_user', 'users.id')->where('user_type', 'm')->pluck('first_name','players.id')->toArray();
-        return view('teams.create',compact('players','coaches','managers'));
+        $players = Player::getAllPlayers();
+        $coaches = Coach::getAllCoaches();
+        return view('teams.create',compact('players','coaches'));
     }
 
   
@@ -61,12 +61,12 @@ class TeamController extends Controller
     {
         $this->validate($request, [
 			'name'	=> 'required',
-			'team_member'		=> 'required',
-            'coach'			=> 'required',
-            'manager' => 'required'
+			//'team_member'		=> 'required',
+            //'coach'			=> 'required',
+           // 'manager' => 'required'
 		]);
         $input = $request->except('_token');
-        
+       
         if ($request->hasFile('image')) {
             $basePath = 'images/teams/';
             $image = $request->file('image');
