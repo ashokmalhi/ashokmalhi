@@ -63,4 +63,8 @@ class TeamPlayer extends Model
         }
         return $team_player;
     }
+    
+    public function player(){
+        return $this->belongsTo('App\Models\Player','player_id','id');
+    }
 }

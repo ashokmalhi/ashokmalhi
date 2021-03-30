@@ -95,11 +95,11 @@ class TeamController extends Controller
     public function edit($id)
     {
         //
-        $players = Player::join('users','fk_user', 'users.id')->where('user_type', 'p')->pluck('first_name','players.id')->toArray();
-        $coaches = Player::join('users','fk_user', 'users.id')->where('user_type', 'c')->pluck('first_name','players.id')->toArray();
-        $managers = Player::join('users','fk_user', 'users.id')->where('user_type', 'm')->pluck('first_name','players.id')->toArray();
-        $team = Team::with('teamPlayer')->find($id);
-        return view('teams.edit',compact('players','coaches','managers','team'));
+        $team = Team::with('teamPlayer','teamPlayer.player')->find($id)->toArray();
+        #pd($team);
+        $players = Player::getAllPlayers();
+        $coaches = Coach::getAllCoaches();
+        return view('teams.edit',compact('players','coaches','team'));
     }
 
     

@@ -104,8 +104,8 @@
 
 @stop
 @section('scripts')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="{{URL::to('css/jquery-ui.css')}}" rel="stylesheet">
+<script src="{{URL::to('js/jquery-ui.js')}}"></script>
 <script>
 
     var allPlayers = '{!! json_encode($players) !!}';
@@ -159,7 +159,7 @@
     function addCoach() {
 
         newCoach = $(".new_coach").clone();
-        newCoach = newCoach.removeClass("new_player");
+        newCoach = newCoach.removeClass("new_coach");
         newCoach = newCoach.css("display","");
         $("#coaches").prepend(newCoach);
         applyAutocomplete();
