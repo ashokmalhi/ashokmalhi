@@ -33,6 +33,7 @@ class TeamPlayer extends Model
                     
                     $role_id = isset($input['role'][$key])?$input['role'][$key]:0;
                     $player = self::where('player_id',$member)
+                                  ->where('team_id',$team_id)
                                   ->where('is_manager',($role_id == 2) ? 1 : 0)
                                   ->where('is_coach',0)->first();
                     if(!$player){
@@ -53,6 +54,7 @@ class TeamPlayer extends Model
                 foreach($input['coach_ids'] as $coach){
                    if($coach != ""){
                     $team_coach = self::where('player_id',$member)
+                                  ->where('team_id',$team_id)
                                   ->where('is_coach',1)->first();
                     if(!$team_coach){
                         $team_player = self::create([
