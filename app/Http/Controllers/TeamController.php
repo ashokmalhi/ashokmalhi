@@ -79,7 +79,7 @@ class TeamController extends Controller
         $result = Team::addTeam($input);
         $result = TeamPlayer::addTeamPlayer($input,$result->id);
         if(isset($result->id)){
-            return redirect('/teams')->with('status', 'Team created successfully!');
+            return redirect('/teams')->with('success', 'Team created successfully!');
         }else{
             return back()->withInput();
         }
@@ -119,7 +119,7 @@ class TeamController extends Controller
         $result = Team::updateTeam($input,$input['id']);
         $result = TeamPlayer::addTeamPlayer($input,$input['id']);
         if(isset($result->id)){
-            return redirect('/teams')->with('status', 'Team updated successfully!');
+            return redirect('/teams')->with('success', 'Team updated successfully!');
         }else{
             return back()->withInput();
         }
@@ -129,5 +129,15 @@ class TeamController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function removeTeamMember(Request $request){
+        if(isset($request->select_ids) && count($request->select_ids)){
+            TeamPlayer::removeMembers($request->select_ids);
+            return redirect()->back()->with('success', 'Team members deleted successfully!');
+        }
+        else{
+            return redirect()->back()->with('error', 'Please select atleast one member!');
+        }
     }
 }

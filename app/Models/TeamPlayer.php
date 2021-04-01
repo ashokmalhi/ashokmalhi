@@ -79,4 +79,8 @@ class TeamPlayer extends Model
         return $this->belongsTo('App\Models\Player','player_id','id');
     }
 
+    public static function removeMembers($ids){
+        self::whereIn('id', $ids)->delete();
+    }
+
 }
