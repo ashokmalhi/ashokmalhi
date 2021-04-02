@@ -100,14 +100,14 @@ class Coach extends Model
         $allCoaches = [];
         
         $coaches = Coach::join('users','fk_user', 'users.id')
-                ->select('first_name','last_name','coaches.email','coaches.id')
+                ->select('first_name','last_name','coaches.email','coaches.id', 'users.id as user_id')
                 ->get()
                 ->toArray();
         
         if(count($coaches) > 0){
             foreach ($coaches as $key => $coach){
                 $allCoaches[$key]['label'] = $coach['first_name'].' '.$coach['last_name'].' ('.$coach['email'].')';
-                $allCoaches[$key]['value'] = $coach['id'];
+                $allCoaches[$key]['value'] = $coach['user_id'];
             }
         }
         return $allCoaches;

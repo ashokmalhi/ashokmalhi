@@ -78,7 +78,7 @@ class TeamController extends Controller
         
         $result = Team::addTeam($input);
         $result = TeamPlayer::addTeamPlayer($input,$result->id);
-        if(isset($result->id)){
+        if($result){
             return redirect('/teams')->with('success', 'Team created successfully!');
         }else{
             return back()->withInput();
@@ -95,7 +95,7 @@ class TeamController extends Controller
     public function edit($id)
     {
         //
-        $team = Team::with('teamPlayer','teamPlayer.player')->find($id)->toArray();
+        $team = Team::with('teamPlayer','teamPlayer.user')->find($id)->toArray();
         #pd($team);
         $players = Player::getAllPlayers();
         $coaches = Coach::getAllCoaches();
@@ -118,7 +118,7 @@ class TeamController extends Controller
         
         $result = Team::updateTeam($input,$input['id']);
         $result = TeamPlayer::addTeamPlayer($input,$input['id']);
-        if(isset($result->id)){
+        if($result){
             return redirect('/teams')->with('success', 'Team updated successfully!');
         }else{
             return back()->withInput();
