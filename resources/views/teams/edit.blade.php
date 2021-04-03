@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-3 ">
                     <div class="imgplaceholder  justify-content-center d-flex align-items-center">
-                        @if(!empty($team->image))
+                        @if(!empty($team['image']))
                         <img src="{{URL::to('storage/'.$team['image'])}}" alt="">
                         @else
                         <img src="{{URL::to('images/user.svg')}}" alt="">
@@ -131,7 +131,6 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Role</th>
-                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -150,7 +149,6 @@
                                     Player
                                     @endif
                                 </td>
-                                <td><a href="javascript:void(0)" class="btn btn-primary btn-sm">Edit</a> &nbsp; 
                             </tr>
                             @endforeach
                             @endif
