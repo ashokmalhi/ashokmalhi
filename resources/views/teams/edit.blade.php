@@ -8,7 +8,12 @@
         <div class="col-md-2"></div>
     </div>
 </div>
-
+@if (Session::has('success'))
+   <div class="alert alert-success">{{ Session::get('success') }}</div>
+@endif
+@if (Session::has('error'))
+   <div class="alert alert-danger">{{ Session::get('error') }}</div>
+@endif
 <form action="{{url('teams/update')}}" method="POST" id="addTeam" enctype="multipart/form-data">
 
     @csrf
@@ -48,45 +53,6 @@
             </div>
         </div>
 
-        <div class="container-box mt-4">
-            <div class="row">
-                <div class="col"><b>Team Members</b></div>
-                <div class="col"></div>
-            </div>
-            <div class="box-charts mt-3">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if(count($team['team_player']) > 0)
-                        @foreach ($team['team_player'] as $player)
-                        <tr>
-                            <td>{{$player['player']['first_name'].' '.$player['player']['last_name']}}</td>
-                            <td>{{$player['player']['email']}}</td>
-                            <td>
-                                @if($player['is_coach'])
-                                Coach
-                                @elseif($player['is_manager'])
-                                Team Manager
-                                @else
-                                Player
-                                @endif
-                            </td>
-                            <td><a href="javascript:void(0)" class="btn btn-primary btn-sm">Edit</a> &nbsp; 
-                                <a href="javascript:void(0)" class="btn btn-primary btn-sm">Delete</a></td>
-                        </tr>
-                        @endforeach
-                        @endif
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
         <div class="row">
             <div class="col">
@@ -146,11 +112,68 @@
     </div>
 </form>
 
+<form action="{{route('teamPlayer.delete')}}" method="post" id="removeMemberForm">
+            @csrf
+            <div class="container-box mt-4">
+                <div class="row">
+                    <div class="col"><b>Team Members</b></div>
+                    <div class="col" style="padding-left:66%">
+                    
+                        <input type="submit" class="btn btn-primary" value="Remove Members">
+                    </div>
+                </div>
+                <div class="box-charts mt-3">
+                
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col"><input type="checkbox" id="select_all" name="select_all"></th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(count($team['team_player']) > 0)
+                            @foreach ($team['team_player'] as $player)
+                            <tr>
+                                <td><input type="checkbox" value="{{$player['id']}}" name="select_ids[]" class="member"> </td>
+                                <td>{{$player['user']['name']}}</td>
+                                <td>{{$player['user']['email']}}</td>
+                                <td>
+                                    @if($player['is_coach'])
+                                    Coach
+                                    @elseif($player['is_manager'])
+                                    Team Manager
+                                    @else
+                                    Player
+                                    @endif
+                                </td>
+                                <td><a href="javascript:void(0)" class="btn btn-primary btn-sm">Edit</a> &nbsp; 
+                            </tr>
+                            @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+            
+                </div>
+            </div>
+        </form>
+
 @stop
 @section('scripts')
 <link href="{{URL::to('css/jquery-ui.css')}}" rel="stylesheet">
 <script src="{{URL::to('js/jquery-ui.js')}}"></script>
 <script>
+
+    $("#select_all").click(function(){
+        if($(this).prop('checked')){
+            $('.member').prop('checked',true);
+        }else{
+            $('.member').prop('checked',false);
+        }
+    });
 
     var allPlayers = '{!! json_encode($players) !!}';
     allPlayers = JSON.parse(allPlayers);

@@ -31,6 +31,7 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
     Route::get('dashoboardStats','DashboardController@getStats')->name('stats');
 
     Route::resource('/teams', 'TeamController');
+    Route::post('team/member/delete', 'TeamController@removeTeamMember')->name('teamPlayer.delete');
     Route::post('teams/update','TeamController@update');
     Route::post('all_teams','TeamController@allTeams');
     

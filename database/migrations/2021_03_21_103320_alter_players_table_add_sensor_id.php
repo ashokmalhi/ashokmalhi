@@ -15,8 +15,8 @@ class AlterPlayersTableAddSensorId extends Migration
     {
         //
         Schema::table('players', function (Blueprint $table) {
-            $table->string('sensor_no')->nullable();
-            $table->string('position')->nullable();
+            // $table->string('sensor_no')->nullable();
+            // $table->string('position')->nullable();
         });
         
     }
@@ -29,8 +29,8 @@ class AlterPlayersTableAddSensorId extends Migration
     public function down()
     {
         Schema::table('players', function (Blueprint $table) {
-            $table->dropColumn('sensor_no');
-            $table->dropColumn('position');
+            // $table->dropColumn('sensor_no');
+            // $table->dropColumn('position');
         });
     }
 }
