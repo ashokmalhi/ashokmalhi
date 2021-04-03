@@ -18,6 +18,18 @@
                 <div class="row">
                     <div class="col login-left"><div class="logo logologin"><img src="{{URL::to('images/logo.png')}}" alt=""></div></div>
                     <div class="col login-right">
+                    <div class="row">
+                        @if(session()->has('success'))
+                            <div class="alert alert-success">
+                                <strong>Success - </strong> {{ session()->get('success') }}
+                            </div>
+                        @endif
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger">
+                                <strong>Alert - </strong> {{ session()->get('error') }}
+                            </div>
+                        @endif
+                    </div>
                         <div class="login-head">
                             <ul class="text-end">
                                 <li><a href="dashboard.html" class="btn btn-outline-primary">Sign In</a></li>

@@ -10,7 +10,12 @@
         <div class="col-md-2">  <a href="/players/upload" class="btn btn-primary" style='float: right;'>Upload Players</a></div>
     </div>
 </div>
-
+@if (Session::has('success'))
+   <div class="alert alert-success">{{ Session::get('success') }}</div>
+@endif
+@if (Session::has('error'))
+   <div class="alert alert-danger">{{ Session::get('error') }}</div>
+@endif
 <div class="container-box mt-4">
     <div class="box-charts mt-3">
 
@@ -25,7 +30,7 @@
                     <th scope="col">Weight(kg)</th>
                     <th scope="col">Max HR (bpm)</th>
                     <th scope="col">Max Speed (km/h)</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Helper\Helper;
-use App\Models\User;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Validator;
+use App\Models\PasswordReset;
+
 
 class LoginController extends Controller
 {
@@ -32,7 +34,7 @@ class LoginController extends Controller
         
         if(auth()->attempt($credentials))
         { 
-            return redirect('/players');
+            return redirect('/dashboard');
             
         }else{
             
@@ -52,5 +54,43 @@ class LoginController extends Controller
         }
         Session::flush();
         return \redirect('/login');
+    }
+
+    public function passwordReset(Request $request){
+        $this->validate($request, [
+			'email'	=> 'required',
+			'token'		=> 'required',
+        ]);
+        $user =User::where('email', $request->email)->first();
+        if(!empty($user['email_verified_at'])){
+            return \redirect('/login');   
+        }
+        $password_reset = PasswordReset::where('email', $request->email)->where('token',$request->token)->first();
+        if($password_reset){
+            return view('reset_password', compact('password_reset'));
+        }else{
+            return view('login');
+        }
+    }
+
+    public function updatePassword(Request $request){
+        // Validating Inputs
+		$rules = [
+			'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
+		];
+		$validator = Validator::make($request->all(), $rules);
+		if ($validator->fails()) {
+			$messages = $validator->messages();
+			return Redirect::back()->withErrors($validator)->withInput();
+		} else {
+            $updatePassword = User::updatePassword($request->all());
+            if($updatePassword){
+                return redirect()->route('login')->with('success','Password updated successfully');
+            }
+            else{
+                return redirect()->route('login')->with('error','Email not found');
+            }
+        }
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\TeamPlayer;
+use App\Models\Player;
+use App\Models\Coach;
 use Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,6 +35,7 @@ class TeamController extends Controller
             {
                 $nestedData['name'] = $team->name;
                 $nestedData['image'] = "<img src='".asset('storage/'.$team->image)."' width=50 height=50>";
+                $nestedData['action'] = '<a href="/teams/'.$team->id.'/edit" class="btn btn-primary btn-sm">Edit</a>';
                 $data[] = $nestedData;
             }
         }
@@ -48,15 +51,22 @@ class TeamController extends Controller
 
     public function create()
     {
-        //
-        return view('teams.create');
+        $players = Player::getAllPlayers();
+        $coaches = Coach::getAllCoaches();
+        return view('teams.create',compact('players','coaches'));
     }
 
   
     public function store(Request $request)
     {
+        $this->validate($request, [
+			'name'	=> 'required',
+			//'team_member'		=> 'required',
+            //'coach'			=> 'required',
+           // 'manager' => 'required'
+		]);
         $input = $request->except('_token');
-        
+       
         if ($request->hasFile('image')) {
             $basePath = 'images/teams/';
             $image = $request->file('image');
@@ -67,6 +77,7 @@ class TeamController extends Controller
         }
         
         $result = Team::addTeam($input);
+        $result = TeamPlayer::addTeamPlayer($input,$result->id);
         if(isset($result->id)){
             return redirect('/teams')->with('status', 'Team created successfully!');
         }else{
@@ -84,12 +95,34 @@ class TeamController extends Controller
     public function edit($id)
     {
         //
+        $team = Team::with('teamPlayer','teamPlayer.player')->find($id)->toArray();
+        #pd($team);
+        $players = Player::getAllPlayers();
+        $coaches = Coach::getAllCoaches();
+        return view('teams.edit',compact('players','coaches','team'));
     }
 
     
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $input = $request->except('_token');
+        
+        if ($request->hasFile('image')) {
+            $basePath = 'images/teams/';
+            $image = $request->file('image');
+            $fileName = time() . '.' . $image->getClientOriginalExtension();
+            $input['image'] = $basePath.$fileName;
+            $img = Image::make($image->getRealPath());
+            Storage::disk('local')->put('public/'.$basePath.'/'.$fileName, $img->stream(), 'public');
+        }
+        
+        $result = Team::updateTeam($input,$input['id']);
+        $result = TeamPlayer::addTeamPlayer($input,$input['id']);
+        if(isset($result->id)){
+            return redirect('/teams')->with('status', 'Team updated successfully!');
+        }else{
+            return back()->withInput();
+        }
     }
 
     

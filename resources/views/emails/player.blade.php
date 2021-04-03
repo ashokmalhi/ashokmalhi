@@ -5,6 +5,6 @@
   </head>
   <body>
     <h2>New Player Added</h2>
-    <p>{{ $test_message }}</p>
+    <p>{!! $test_message !!}</p>
   </body>
 </html>

@@ -6,10 +6,17 @@
         <div class="col-md-10">
             <h3 class="brand-color iconic-text"><b>All Teams </b></h3>
         </div>
+        @if(Helper::check_permission('create-teams'))
         <div class="col-md-2">  <a href="/teams/create" class="btn btn-primary" style='float: right;'>Add Team</a></div>
+        @endif
     </div>
 </div>   
-    
+@if (Session::has('success'))
+   <div class="alert alert-success">{{ Session::get('success') }}</div>
+@endif
+@if (Session::has('error'))
+   <div class="alert alert-danger">{{ Session::get('error') }}</div>
+@endif    
 <div class="container-box mt-4">
     <div class="box-charts mt-3">
         
@@ -18,6 +25,7 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,6 +52,7 @@ $(document).ready(function () {
         "columns": [
             { "data": "name" },
             { "data": "image" },
+            { "data": "action" },
         ]
       });
     });
