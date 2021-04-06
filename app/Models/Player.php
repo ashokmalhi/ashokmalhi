@@ -101,7 +101,17 @@ class Player extends Model
 
     public static function totalPlayers($filter){
         
-        return self::select("*")->orderBy('created_at', 'DESC');
+        $players = self::select("*");
+        if(isset($filter['first_name']) && !empty($filter['first_name'])){
+            $players = $players->where('first_name','like','%'.$filter['first_name'].'%');
+        }
+        if(isset($filter['last_name']) && !empty($filter['last_name'])){
+            $players = $players->where('last_name','like','%'.$filter['last_name'].'%');
+        }
+        if(isset($filter['email']) && !empty($filter['email'])){
+            $players = $players->where('email','like','%'.$filter['email'].'%');
+        }
+        return $players->orderBy('created_at', 'DESC');
 
     }
 

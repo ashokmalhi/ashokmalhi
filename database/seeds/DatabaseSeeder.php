@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UserSeeder::class);
         //$this->call(AdminSeeder::class);
-		$this->call(LaravelEntrustSeeder::class);
+		//$this->call(LaravelEntrustSeeder::class);
     }
 }
