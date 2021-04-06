@@ -16,7 +16,25 @@
 @endif
 @if (Session::has('error'))
    <div class="alert alert-danger">{{ Session::get('error') }}</div>
-@endif    
+@endif  
+<form action="{{route('teams.index')}}" method="post" enctype="multipart/form-data" novalidate="novalidate">
+@csrf
+    <div class="row">
+        <div class="col">
+            <div class="inputfield  mb-3">
+                <label>Name</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Enter team name">
+            </div>
+        </div>
+        <div class="col">
+            <div class="inputfield  mb-3">
+            <label></label>
+            <input type="submit" class="btn btn-primary" id="search-form" style="margin-top: 25px;" value="Filter">
+            <input type="submit" class="btn btn-primary" id="reset-form" style="margin-top: 25px;" value="Reset">
+            </div>
+        </div>
+    </div>
+</form>  
 <div class="container-box mt-4">
     <div class="box-charts mt-3">
         
@@ -47,7 +65,10 @@ $(document).ready(function () {
             "url": "{{ url('/all_teams') }}",
             "dataType": "json",
             "type": "POST",
-            "data":{ _token: "{{csrf_token()}}"}
+            "data": function ( d ) { 
+                d._token = "{{csrf_token()}}",
+                d.name = $("#name").val()
+            }
         },
         "columns": [
             { "data": "name" },
@@ -55,6 +76,19 @@ $(document).ready(function () {
             { "data": "action" },
         ]
       });
+    });
+
+    $('#search-form').on('click', function(e) {   
+        e.preventDefault();
+        var table = $('#teams_table').DataTable();
+        table.ajax.reload();
+    });
+
+    $('#reset-form').on('click', function(e) {
+        $("#name").val("");
+        e.preventDefault();
+        var table = $('#teams_table').DataTable();
+        table.ajax.reload();
     });
 </script>
 @endsection

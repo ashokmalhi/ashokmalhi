@@ -40,6 +40,10 @@ class Team extends Model
 
     public static function getAllTeams($filter){
         
+        $teams = self::select("*");
+        if(isset($filter['name']) && !empty($filter['name'])){
+            $teams = $teams->where('name','like','%'.$filter['name'].'%');
+        }
         $roleId = Auth()->user()->role_id;
         $player = Player::where('fk_user',Auth()->user()->id)->select('id')->first();
         if($roleId != 1){
@@ -51,7 +55,7 @@ class Team extends Model
             }
             return $query->groupBy('teams.id')->select('teams.*')->orderBy('teams.created_at', 'DESC');
         }else{
-            return self::select("*")->orderBy('created_at', 'DESC');
+            return $teams->orderBy('created_at', 'DESC');
         }
     }
 

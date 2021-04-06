@@ -80,6 +80,9 @@ $(document).ready(function () {
         "iDisplayLength": 25,
         "processing": true,
         "serverSide": true,
+        language: {
+            processing: 'Processing...'
+        },
         "ajax":{
             "url": "{{ url('/all_players') }}",
             "dataType": "json",
@@ -87,7 +90,7 @@ $(document).ready(function () {
             "data": function ( d ) { 
                 d._token = "{{csrf_token()}}",
                 d.first_name = $("#first_name").val(),
-                d.last_nam = $("input[name='last_name']").val(),
+                d.last_name = $("input[name='last_name']").val(),
                 d.email = $("input[name='email']").val()
             }
         },

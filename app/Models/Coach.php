@@ -85,9 +85,19 @@ class Coach extends Model
         return $coach;
     }
 
-    public static function totalCoaches(){
+    public static function totalCoaches($filter){
         
-        return self::select("*")->orderBy('created_at', 'DESC');
+        $coaches = self::select("*");
+        if(isset($filter['first_name']) && !empty($filter['first_name'])){
+            $coaches = $coaches->where('first_name','like','%'.$filter['first_name'].'%');
+        }
+        if(isset($filter['last_name']) && !empty($filter['last_name'])){
+            $coaches = $coaches->where('last_name','like','%'.$filter['last_name'].'%');
+        }
+        if(isset($filter['email']) && !empty($filter['email'])){
+            $coaches = $coaches->where('email','like','%'.$filter['email'].'%');
+        }
+        return $coaches->orderBy('created_at', 'DESC');
 
     }
 
