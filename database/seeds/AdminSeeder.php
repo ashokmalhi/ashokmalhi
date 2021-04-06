@@ -20,7 +20,8 @@ class AdminSeeder extends Seeder
                 'email_verified_at' => date("Y-m-d h:i:s"),
                 'password'    => Hash::make('admin123'),
                 'created_at' 	=> date("Y-m-d h:i:s"),
-                'updated_at' 	=> date("Y-m-d h:i:s")
+                'updated_at' 	=> date("Y-m-d h:i:s"),
+                'role_id'       => config('constants.roles.admin')
             ],
         ];
 

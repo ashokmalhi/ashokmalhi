@@ -35,7 +35,8 @@ class TeamController extends Controller
             {
                 $nestedData['name'] = $team->name;
                 $nestedData['image'] = "<img src='".asset('storage/'.$team->image)."' width=50 height=50>";
-                $nestedData['action'] = '<a href="/teams/'.$team->id.'/edit" class="btn btn-primary btn-sm">Edit</a>';
+                $nestedData['action'] = '<a href="/teams/'.$team->id.'/edit" class="btn btn-primary btn-sm">Edit</a>
+                <a href="/teams/'.$team->id.'" class="btn btn-primary btn-sm">Show</a>';
                 $data[] = $nestedData;
             }
         }
@@ -88,7 +89,8 @@ class TeamController extends Controller
     
     public function show($id)
     {
-        //
+        $team = Team::with('teamPlayer','teamPlayer.user')->find($id)->toArray();
+        return view('teams.show',compact('team'));
     }
 
     

@@ -113,7 +113,7 @@ class Player extends Model
         
         $allPlayers = [];
         
-        $players = Player::join('users','fk_user', 'users.id')->where('user_type', 'p')
+        $players = Player::join('users','fk_user', 'users.id')
                 ->select('first_name','last_name','players.email','players.id', 'users.id as user_id')
                 ->get()
                 ->toArray();

@@ -44,11 +44,7 @@ class Team extends Model
         $player = Player::where('fk_user',Auth()->user()->id)->select('id')->first();
         if($roleId != 1){
             $query = self::join('team_players as tm','tm.team_id','teams.id');
-            if($roleId == 2){
-                $query = $query->where('tm.player_id',$player->id)->where('tm.is_coach',1);
-            }else if($roleId == 3){
-                $query = $query->where('tm.player_id',$player->id)->where('tm.is_manager',1);
-            }
+            $query = $query->where('tm.player_id',Auth()->user()->id);
             return $query->groupBy('teams.id')->select('teams.*')->orderBy('teams.created_at', 'DESC');
         }else{
             return self::select("*")->orderBy('created_at', 'DESC');
