@@ -21,6 +21,14 @@ Route::get('login', 'LoginController@login')->name('login');
 Route::post('login', 'LoginController@doLogin');
 Route::get('logout', 'LoginController@logout');
 
+Route::get('heatmap',function(){
+    return view('heatmap');
+});
+
+Route::get('heatmapimage',function(){
+    return view('heatmapimage');
+});
+
 Route::get('password_reset', 'LoginController@passwordReset');
 Route::post('password_reset', 'LoginController@updatePassword')->name('reset-password');
 
@@ -56,6 +64,13 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
         $router->get('stats', 'StatsController@show');
         $router->post('all_team_stats', 'StatsController@allTeamStats');
         $router->get('player_stats', 'StatsController@getPlayerStats')->name('team_stats');
+
+    });
+
+    $router->group(['prefix' => 'matches'], function () use ($router) {
+        
+        $router->get('/create', 'MatchController@create');
+        $router->post('/store', 'MatchController@store')->name('match.store');
 
     });
     
