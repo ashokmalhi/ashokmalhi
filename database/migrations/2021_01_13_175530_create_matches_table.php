@@ -16,6 +16,9 @@ class CreateMatchesTable extends Migration
         Schema::create('matches', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('first_team')->after('id')->nullable();
+            $table->integer('second_team')->after('first_team')->nullable();
+            $table->datetime('match_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

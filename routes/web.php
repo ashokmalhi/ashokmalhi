@@ -67,12 +67,15 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
 
     });
 
-    $router->group(['prefix' => 'matches'], function () use ($router) {
-        
-        $router->get('/create', 'MatchController@create');
-        $router->post('/store', 'MatchController@store')->name('match.store');
-
-    });
+    Route::resource('/matches', 'MatchController');
+    Route::post('all_matches','MatchController@allMatches');
+    
+//    $router->group(['prefix' => 'matches'], function () use ($router) {
+//        
+//        $router->get('/create', 'MatchController@create');
+//        $router->post('/store', 'MatchController@store')->name('match.store');
+//
+//    });
     
     Route::group(['prefix' => 'roles', 'as' => 'roles.'], function () {
         Route::get('/', 'RoleController@index')->name('index');
