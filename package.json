@@ -20,6 +20,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "bootstrap-datetimepicker-npm": "^4.17.37-npm",
         "bootstrap-multiselect": "^0.9.15",
         "chart.js": "^2.9.4",
         "chartjs-plugin-annotation": "^0.5.7",

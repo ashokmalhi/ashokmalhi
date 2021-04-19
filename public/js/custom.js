@@ -170,6 +170,35 @@ $(document).ready(function () {
             },
         })
     }
+    
+    if ($("#match").length > 0) {
+
+        jQuery.validator.addMethod("notEqual", function(value, element, param) {
+          return this.optional(element) || value != param;
+        }, "Team 1 and Team 2 should be different")
+
+        $("#match").validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                first_team: {
+                    notEqual: function(){return $('#second_team').val()}
+                },
+                match_date : {
+                    required: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Please enter match name",
+                },
+                match_date: {
+                    required: "Please select match date and time",
+                }
+            },
+        })
+    }
 
 });
 

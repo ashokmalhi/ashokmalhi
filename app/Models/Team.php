@@ -46,7 +46,7 @@ class Team extends Model
         }
         $roleId = Auth()->user()->role_id;
         $player = Player::where('fk_user',Auth()->user()->id)->select('id')->first();
-        if($roleId != 1){
+        if(!empty($roleId) && $roleId != 1){
             $query = self::join('team_players as tm','tm.team_id','teams.id');
             $query = $query->where('tm.player_id',Auth()->user()->id);
             return $query->groupBy('teams.id')->select('teams.*')->orderBy('teams.created_at', 'DESC');
