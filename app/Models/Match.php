@@ -12,7 +12,8 @@ class Match extends Model
         return self::create([
             'first_team' => $input['first_team'],
             'second_team' => $input['second_team'],
-            'name' => $input['name']
+            'name' => $input['name'],
+            'match_date' => date("Y-m-d H:i",strtotime($input['match_date']))
         ]);
     }
     
