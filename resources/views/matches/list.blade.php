@@ -27,7 +27,7 @@
                     <th scope="col">Team 1</th>
                     <th scope="col">Team 2</th>
                     <th scope="col">Match Date</th>
-<!--                    <th scope="col">Actions</th>-->
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,7 +61,8 @@ $(document).ready(function () {
             { "data": "match_name" },
             { "data": "team_1" },
             { "data": "team_2" },
-            { "data" : "match_date"}
+            { "data" : "match_date"},
+            { "data" : "actions"}
         ]
       });
 

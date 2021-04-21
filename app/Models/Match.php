@@ -12,7 +12,8 @@ class Match extends Model
         return self::create([
             'first_team' => $input['first_team'],
             'second_team' => $input['second_team'],
-            'name' => $input['name']
+            'name' => $input['name'],
+            'match_date' => date("Y-m-d H:i",strtotime($input['match_date']))
         ]);
     }
     
@@ -26,10 +27,21 @@ class Match extends Model
         return $this->belongsTo('App\Models\Team','second_team');
     }
     
+    public function matchDetails()
+    {
+        return $this->hasMany('App\Models\MatchDetail');
+    }
+    
     public static function totalMatches(){
         
         $matches = self::with('team1','team2')->select("*");
         return $matches->orderBy('created_at', 'DESC');
 
+    }
+    
+    public static function getMatchDetails($matchId){
+        
+        $matcheDetails = self::with('matchDetails')->where('matches.id',$matchId)->select("*")->first();
+        return $matcheDetails;
     }
 }

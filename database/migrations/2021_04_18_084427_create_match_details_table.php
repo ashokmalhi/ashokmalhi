@@ -15,6 +15,7 @@ class CreateMatchDetailsTable extends Migration
     {
         Schema::create('match_details', function (Blueprint $table) {
             $table->id();
+            $table->integer('sensor');
             $table->integer('match_id');
             $table->integer('player_id')->nullable();
             $table->string('time_played')->nullable();

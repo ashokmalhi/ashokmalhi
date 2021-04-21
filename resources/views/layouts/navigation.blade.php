@@ -1,4 +1,4 @@
-<div class="col-md-7">
+<div class="col-md-10">
     <div class="navigation">
         <ul>
             <li><a href="{{URL::to('dashboard')}}">Home</a></li>

@@ -17,4 +17,16 @@ function calculateAge($birthDate) {
     return $interval->y;
 }
 
+function formateDate($date,$format = false){
+    if($date){
+        if($format){
+            return date($format, strtotime($date));
+        }else{
+            return date('m/d/Y', $date);
+        }
+    }else{
+        return "";
+    }
+}
+
 ?>

@@ -69,6 +69,8 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
 
     Route::resource('/matches', 'MatchController');
     Route::post('all_matches','MatchController@allMatches');
+    Route::get('upload_match_stats/{matchId}','MatchController@uploadMatchStats');
+    Route::post('upload_match_stats','MatchController@submitMatchStats')->name('team_player_stats');
     
 //    $router->group(['prefix' => 'matches'], function () use ($router) {
 //        

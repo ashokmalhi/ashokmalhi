@@ -41,18 +41,41 @@
             </div>
 
         </div>
+        <br>
+        <h4>Upload Team CSVs</h4>
+        <br>
         <div class="row">
             <div class="col">
                 <div class="inputfield  mb-3">
-                    <label>Upload CSV</label>
-                    <input type="file" name="file" class="form-control">
+                    <label>Team 1 Period 1</label>
+                    <input type="file" name="file_team1_period1" class="form-control">
                 </div>
             </div>
             <div class="col">
                 <div class="inputfield  mb-3">
+                    <label>Team 1 Period 2</label>
+                    <input type="file" name="file_team1_period2" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="inputfield  mb-3">
+                    <label>Team 2 Period 1</label>
+                    <input type="file" name="file_team2_period1" class="form-control">
+                </div>
+            </div>
+            <div class="col">
+                <div class="inputfield  mb-3">
+                    <label>Team 2 Period 2</label>
+                    <input type="file" name="file_team2_period2" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="inputfield  mb-3">
                     <label>Match Date</label>
-               
-                    
                     <div style="position: relative">
                     <input type="text" name="match_date" class="form-control datetimepicker" placeholder="Select Match Date">
                     </div>
@@ -72,7 +95,7 @@
 <script>
     $(document).ready(function(){
         $('.datetimepicker').datetimepicker({
-            format:'DD/MM/YYYY HH:mm',
+            format: 'YYYY-MM-DD HH:mm',
         });
     });
 </script>
