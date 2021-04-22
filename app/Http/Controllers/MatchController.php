@@ -98,7 +98,10 @@ class MatchController extends Controller {
 
         //$match = new Match();
         $matchDetails = Match::getMatchDetails($id);
-        return view('matches.detail', compact('matchDetails'));
+        $overAllMatchPlayerDetails = MatchDetail::getMatchDetailsById($id);
+        $period1Detail = MatchDetail::getMatchDetailsById($id,1);
+        $period2Detail = MatchDetail::getMatchDetailsById($id,2);
+        return view('matches.detail', compact('matchDetails', 'overAllMatchPlayerDetails', 'period1Detail', 'period2Detail'));
     }
 
     public function uploadFile($matchId, $data, $period) {
