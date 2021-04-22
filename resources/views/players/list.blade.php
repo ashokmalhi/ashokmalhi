@@ -60,8 +60,8 @@
                     <th scope="col">Mobile</th>
                     <th scope="col">Height(cm)</th>
                     <th scope="col">Weight(kg)</th>
-                    <th scope="col">Max HR (bpm)</th>
-                    <th scope="col">Max Speed (km/h)</th>
+<!--                    <th scope="col">Max HR (bpm)</th>
+                    <th scope="col">Max Speed (km/h)</th>-->
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -101,8 +101,8 @@ $(document).ready(function () {
             { "data": "mobile" },
             { "data": "height" },
             { "data": "weight" },
-            { "data": "max_heart_rate" },
-            { "data" : "max_speed"},
+            //{ "data": "max_heart_rate" },
+           // { "data" : "max_speed"},
             { "data" : "actions"}
         ]
       });

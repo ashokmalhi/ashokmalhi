@@ -35,7 +35,8 @@ class MatchController extends Controller {
                 $nestedData['team_1'] = $match->team1->name;
                 $nestedData['team_2'] = $match->team2->name;
                 $nestedData['match_date'] = date("Y-m-d H:i", strtotime($match->match_date));
-                $nestedData['actions'] = '<a href="/matches/' . $match->id . '" class="btn btn-primary btn-sm">View Details</a>';
+                $nestedData['actions'] = '<a href="/matches/' . $match->id . '" class="btn btn-primary btn-sm">Details</a> &nbsp;'
+                        . '<a href="/upload_match_stats/' . $match->id . '" class="btn btn-primary btn-sm">Upload Player Stats</a>';
                 $data[] = $nestedData;
             }
         }
@@ -167,7 +168,7 @@ class MatchController extends Controller {
     }
 
     public function uploadMatchStats($teamId) {
-        
+
         $match = Match::find($teamId);
         return view('matches.match_stat_upload', compact('match'));
     }
@@ -175,30 +176,36 @@ class MatchController extends Controller {
     public function submitMatchStats(Request $request) {
 
         $inputs = $request->all();
+
         $matchId = $inputs['match_id'];
-        
+
         //Sensor and player id mapping
         $sensorPlayerMapping = MatchDetail::getSensorPlayerMapping($matchId);
-        pd($sensorPlayerMapping);
-        
+
         if (isset($inputs['team_1_players']) && count($inputs['team_1_players']) > 0) {
 
             foreach ($inputs['team_1_players'] as $playerfile) {
-                
+
                 $path = $playerfile->getRealPath();
+
+                $fileName = getFileNameFromFilePath($playerfile->getClientOriginalName());
+                $playerId = isset($sensorPlayerMapping[$fileName]) ? $sensorPlayerMapping[$fileName] : 1;
+
                 $playerRow = array_map('str_getcsv', file($path));
-                
-                $playerStat = $this->getPlayerCSVData($playerRow,$matchId);
+
+                $playerStat = $this->getPlayerCSVData($playerRow, $matchId, $playerId);
                 if (count($playerStat) > 0) {
-                    MatchStatDetail::addBulkStat($playerStat);
+                    foreach (array_chunk($playerStat, 1000) as $t) {
+                        MatchStatDetail::addBulkStat($t);
+                    }
                 }
             }
         }
-        
+
         die("success");
     }
 
-    public function getPlayerCSVData($data,$matchId) {
+    public function getPlayerCSVData($data, $matchId, $playerId) {
 
         $csvData = [];
         $iterator = 0;
@@ -206,6 +213,7 @@ class MatchController extends Controller {
 
             if ($k > 5) {
 
+                $csvData[$iterator]['player_id'] = $playerId;
                 $csvData[$iterator]['match_id'] = $matchId;
                 $csvData[$iterator]['time_played'] = $d[0] ?? '';
                 $csvData[$iterator]['x_position'] = $d[1] ?? '';

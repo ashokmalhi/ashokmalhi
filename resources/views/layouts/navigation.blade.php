@@ -10,7 +10,7 @@
                 <li><a href="{{URL::to('players')}}">Players</a></li>
             @endif
             @if(Helper::check_permission('list-statistics'))
-                <li><a href="{{URL::to('statistics')}}">Statistics</a></li>
+<!--                <li><a href="{{URL::to('statistics')}}">Statistics</a></li>-->
             @endif
                 <li><a href="{{URL::to('matches')}}">Matches</a></li>
             <li><a href="{{URL::to('logout')}}">Logout</a></li>

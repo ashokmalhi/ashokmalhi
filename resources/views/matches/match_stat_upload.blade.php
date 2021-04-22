@@ -5,7 +5,7 @@
 
 <form action="{{route('team_player_stats')}}" method="post" id="addStat" enctype="multipart/form-data">
     @csrf
-    <input type="hidden" name='team_id' value="{{$match->id}}">
+    <input type="hidden" name='match_id' value="{{$match->id}}">
     <h3 class="brand-color iconic-text bolder">Upload Match Player Stats</h3>
     <h6>Please upload players stats. Match info given blow</h6>
 

@@ -29,4 +29,11 @@ function formateDate($date,$format = false){
     }
 }
 
+function getFileNameFromFilePath($file){
+    
+    $fileName = pathinfo($file, PATHINFO_FILENAME);
+    $fileName = ltrim($fileName, '0');
+    return $fileName;
+}
+
 ?>

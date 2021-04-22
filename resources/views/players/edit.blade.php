@@ -114,18 +114,6 @@
             </div>
         </div>
 
-<!--        <div class="row"> 
-            <div class="col">
-                <div class="inputfield  mb-3">
-                <label>Select Role</label>
-                @if(count($roles))
-                    @foreach ($roles as $role)
-                        <label class="radio-inline"><input type="radio" value="{{$role->id}}" name="role_id" @if($player->user->role_id == $role->id) checked @endif>{{$role->name}}</label>
-                    @endforeach
-                @endif
-                </div>
-            </div>
-        </div>-->
         <div class="form-check mb-5">
             <input class="form-check-input" type="checkbox" @if($player->track_heart_rate) checked @endif name="track_heart_rate" id="track_heart_rate">
             <label class="form-check-label" for="track_heart_rate">Track Heart Rate</label>
