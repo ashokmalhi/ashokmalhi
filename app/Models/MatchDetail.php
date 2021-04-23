@@ -68,5 +68,18 @@ class MatchDetail extends Model
         DB::raw("SUM(distance_speed_range_25_30_km) as distance_speed_range_25_30_km"))
         ->with('players')->where('match_id', $id)->groupBy('player_id')->orderBy('player_id', 'DESC')->get();
     }
-
+    
+    public function matchStats(){
+        return $this->hasMany('App\Models\MatchDetail','player_id','player_id');
+    }
+    
+    public static function getMatchPlayers($matchId){
+        
+        return self::with(['matchStats'])
+                ->join('players as p','p.id','match_details.player_id')
+                ->select('p.id as player_id','p.first_name','p.last_name')
+                ->where('match_details.match_id',$matchId)
+                ->groupBy('match_details.player_id')
+                ->get();
+    }
 }
