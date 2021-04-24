@@ -127,6 +127,19 @@
                                                 <td>{{$detail['distance_speed_range_20_25_km']}}</td>
                                             </tr>
                                             @endforeach
+                                            @foreach($overallSummary as $detail)
+                                            <tr>
+                                                <td>{{$detail['sensor']??''}}</td>
+                                                <td>{{$detail['players']['player_no']??''}}</td>
+                                                <td>{{$detail['players']['position']??''}}</td>
+                                                <td>{{$detail['time_played']??''}}</td>
+                                                <td>{{$detail['distance_km']}}</td>
+                                                <td>{{$detail['hid_distance_15_km']}}</td>
+                                                <td>{{$detail['distance_speed_range_15_km']}}</td>
+                                                <td>{{$detail['distance_speed_range_15_20_km']}}</td>
+                                                <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                            </tr>
+                                            @endforeach
                                             @else
                                             <tr>
                                                 <td>No record Found</td>
@@ -170,6 +183,19 @@
                                                 <td>{{$detail['distance_speed_range_20_25_km']}}</td>
                                             </tr>
                                             @endforeach
+                                            @foreach($period1Summary as $detail)
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{{$detail['distance_km']}}</td>
+                                                <td>{{$detail['hid_distance_15_km']}}</td>
+                                                <td>{{$detail['distance_speed_range_15_km']}}</td>
+                                                <td>{{$detail['distance_speed_range_15_20_km']}}</td>
+                                                <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                            </tr>
+                                            @endforeach
                                             @else
                                             <tr>
                                                 <td>No record Found</td>
@@ -206,6 +232,19 @@
                                                 <td>{{$detail['players']['player_no']}}</td>
                                                 <td>{{$detail['players']['position']}}</td>
                                                 <td>{{$detail['time_played']}}</td>
+                                                <td>{{$detail['distance_km']}}</td>
+                                                <td>{{$detail['hid_distance_15_km']}}</td>
+                                                <td>{{$detail['distance_speed_range_15_km']}}</td>
+                                                <td>{{$detail['distance_speed_range_15_20_km']}}</td>
+                                                <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                            </tr>
+                                            @endforeach
+                                            @foreach($period2Summary as $detail)
+                                            <tr>
+                                                <td>{{$detail['sensor']??''}}</td>
+                                                <td>{{$detail['players']['player_no']??''}}</td>
+                                                <td>{{$detail['players']['position']??''}}</td>
+                                                <td>{{$detail['time_played']??''}}</td>
                                                 <td>{{$detail['distance_km']}}</td>
                                                 <td>{{$detail['hid_distance_15_km']}}</td>
                                                 <td>{{$detail['distance_speed_range_15_km']}}</td>

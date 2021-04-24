@@ -102,9 +102,13 @@ class MatchController extends Controller {
         $overAllMatchPlayerDetails = MatchDetail::getMatchDetailsById($id);
         $period1Detail = MatchDetail::getMatchDetailsById($id,1);
         $period2Detail = MatchDetail::getMatchDetailsById($id,2);
+
+        $overallSummary = MatchDetail::getSummaryDeatilById($id);
+        $period1Summary = MatchDetail::getSummaryDeatilById($id,1);
+        $period2Summary = MatchDetail::getSummaryDeatilById($id,2);
         
         $data['individualPlayers'] = MatchDetail::getMatchPlayers($id);
-        return view('matches.detail', compact('matchDetails', 'overAllMatchPlayerDetails', 'period1Detail', 'period2Detail','data'));
+        return view('matches.detail', compact('period2Summary','period1Summary','overallSummary','matchDetails', 'overAllMatchPlayerDetails', 'period1Detail', 'period2Detail','data'));
     }
 
     public function uploadFile($matchId, $data, $period) {
@@ -117,7 +121,7 @@ class MatchController extends Controller {
 
                 //Add in database    
                 if (!empty($matchId)) {
-
+                    $summary = 1;
                     foreach ($csvData as $da) {
 
                         $da['match_id'] = $matchId;
@@ -130,8 +134,9 @@ class MatchController extends Controller {
                             $da['player_id'] = $player->id;
                             MatchDetail::createDetails($da);
                         } else {
-                            $da['is_summary'] = true;
+                            $da['is_summary'] = $summary;
                             MatchDetail::createDetails($da);
+                            $summary++;
                         }
                     }
                 }

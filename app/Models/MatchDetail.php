@@ -56,17 +56,32 @@ class MatchDetail extends Model
     }
 
     public static function getMatchDetailsById($id, $period=0){
-        if($period!=0){
-            return self::with('players')->where('match_id', $id)->where('period', $period)->orderBy('player_id', 'DESC')->get();
-        }
-        return self::select('player_id','sensor', DB::raw("SEC_TO_TIME( SUM( TIME_TO_SEC( `time_played` ) ) ) as time_played"),
+        $query = self::select('player_id','sensor', DB::raw("SEC_TO_TIME( SUM( TIME_TO_SEC( `time_played` ) ) ) as time_played"),
         DB::raw("SUM(distance_km) as distance_km"),
         DB::raw("SUM(hid_distance_15_km) as hid_distance_15_km"),
         DB::raw("SUM(distance_speed_range_15_km) as distance_speed_range_15_km"),
         DB::raw("SUM(distance_speed_range_15_20_km) as distance_speed_range_15_20_km"),
         DB::raw("SUM(distance_speed_range_20_25_km) as distance_speed_range_20_25_km"),
         DB::raw("SUM(distance_speed_range_25_30_km) as distance_speed_range_25_30_km"))
-        ->with('players')->where('match_id', $id)->groupBy('player_id')->orderBy('player_id', 'DESC')->get();
+        ->with('players')->where('match_id', $id)->where('is_summary', 0);
+        if($period!=0){
+            $query = $query->where('period', $period);
+        }
+        return $query->groupBy('player_id')->orderBy('player_id', 'DESC')->get();
+    }
+
+    public static function getSummaryDeatilById($id, $period=0){
+        $query = self::select('is_summary','player_id','sensor', DB::raw("SEC_TO_TIME( SUM( TIME_TO_SEC( `time_played` ) ) ) as time_played"),
+        DB::raw("SUM(distance_km) as distance_km"),
+        DB::raw("SUM(hid_distance_15_km) as hid_distance_15_km"),
+        DB::raw("SUM(distance_speed_range_15_km) as distance_speed_range_15_km"),
+        DB::raw("SUM(distance_speed_range_15_20_km) as distance_speed_range_15_20_km"),
+        DB::raw("SUM(distance_speed_range_20_25_km) as distance_speed_range_20_25_km"),
+        DB::raw("SUM(distance_speed_range_25_30_km) as distance_speed_range_25_30_km"))->whereNull('player_id')->where('match_id', $id);
+        if($period!=0){
+            $query = $query->where('period', $period);
+        }
+        return $query->groupBy('is_summary')->orderBy('id', 'DESC')->get();
     }
     
     public function matchStats(){
