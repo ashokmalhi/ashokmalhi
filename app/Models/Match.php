@@ -27,10 +27,21 @@ class Match extends Model
         return $this->belongsTo('App\Models\Team','second_team');
     }
     
+    public function matchDetails()
+    {
+        return $this->hasMany('App\Models\MatchDetail');
+    }
+    
     public static function totalMatches(){
         
         $matches = self::with('team1','team2')->select("*");
         return $matches->orderBy('created_at', 'DESC');
 
+    }
+    
+    public static function getMatchDetails($matchId){
+        
+        $matcheDetails = self::with('matchDetails')->where('matches.id',$matchId)->select("*")->first();
+        return $matcheDetails;
     }
 }

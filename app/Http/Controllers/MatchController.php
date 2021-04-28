@@ -7,6 +7,7 @@ use App\Models\Team;
 use App\Models\Match;
 use App\Models\MatchDetail;
 use App\Models\Player;
+use App\Models\MatchStatDetail;
 
 class MatchController extends Controller {
 
@@ -33,7 +34,9 @@ class MatchController extends Controller {
                 $nestedData['match_name'] = $match->name;
                 $nestedData['team_1'] = $match->team1->name;
                 $nestedData['team_2'] = $match->team2->name;
-                $nestedData['match_date'] = date("Y-m-d H:i",strtotime($match->match_date));
+                $nestedData['match_date'] = date("Y-m-d H:i", strtotime($match->match_date));
+                $nestedData['actions'] = '<a href="/matches/' . $match->id . '" class="btn btn-primary btn-sm">Details</a> &nbsp;'
+                        . '<a href="/upload_match_stats/' . $match->id . '" class="btn btn-primary btn-sm">Upload Player Stats</a>';
                 $data[] = $nestedData;
             }
         }
@@ -53,7 +56,7 @@ class MatchController extends Controller {
     }
 
     public function store(Request $request) {
-        
+
         $match = Match::addMatch($request->all());
 
         if (isset($match['id'])) {
@@ -91,17 +94,34 @@ class MatchController extends Controller {
         return redirect('/matches')->with('error', 'New Match creating failed!');
     }
 
+    public function show(Request $request, $id) {
+
+        //$match = new Match();
+        
+        $matchDetails = Match::getMatchDetails($id);
+        $overAllMatchPlayerDetails = MatchDetail::getMatchDetailsById($id);
+        $period1Detail = MatchDetail::getMatchDetailsById($id,1);
+        $period2Detail = MatchDetail::getMatchDetailsById($id,2);
+
+        $overallSummary = MatchDetail::getSummaryDeatilById($id);
+        $period1Summary = MatchDetail::getSummaryDeatilById($id,1);
+        $period2Summary = MatchDetail::getSummaryDeatilById($id,2);
+        
+        $data['individualPlayers'] = MatchDetail::getMatchPlayers($id);
+        return view('matches.detail', compact('period2Summary','period1Summary','overallSummary','matchDetails', 'overAllMatchPlayerDetails', 'period1Detail', 'period2Detail','data'));
+    }
+
     public function uploadFile($matchId, $data, $period) {
 
         if (count($data) > 0) {
-            
+
             $csvData = $this->getCSVData($data);
-            
+
             if (count($csvData) > 0) {
 
                 //Add in database    
                 if (!empty($matchId)) {
-
+                    $summary = 1;
                     foreach ($csvData as $da) {
 
                         $da['match_id'] = $matchId;
@@ -114,8 +134,9 @@ class MatchController extends Controller {
                             $da['player_id'] = $player->id;
                             MatchDetail::createDetails($da);
                         } else {
-                            $da['is_summary'] = true;
+                            $da['is_summary'] = $summary;
                             MatchDetail::createDetails($da);
+                            $summary++;
                         }
                     }
                 }
@@ -150,6 +171,70 @@ class MatchController extends Controller {
                 $csvData[$iterator]['no_of_acceleration_4'] = $d[18] ?? '';
                 $csvData[$iterator]['no_of_deceleration_3'] = $d[19] ?? '';
                 $csvData[$iterator]['no_of_deceleration_4'] = $d[20] ?? '';
+
+                $iterator++;
+            }
+        }
+        return $csvData;
+    }
+
+    public function uploadMatchStats($teamId) {
+
+        $match = Match::find($teamId);
+        return view('matches.match_stat_upload', compact('match'));
+    }
+
+    public function submitMatchStats(Request $request) {
+
+        $inputs = $request->all();
+
+        $matchId = $inputs['match_id'];
+
+        //Sensor and player id mapping
+        $sensorPlayerMapping = MatchDetail::getSensorPlayerMapping($matchId);
+
+        if (isset($inputs['team_1_players']) && count($inputs['team_1_players']) > 0) {
+
+            foreach ($inputs['team_1_players'] as $playerfile) {
+
+                $path = $playerfile->getRealPath();
+
+                $fileName = getFileNameFromFilePath($playerfile->getClientOriginalName());
+                $playerId = isset($sensorPlayerMapping[$fileName]) ? $sensorPlayerMapping[$fileName] : 1;
+
+                $playerRow = array_map('str_getcsv', file($path));
+
+                $playerStat = $this->getPlayerCSVData($playerRow, $matchId, $playerId);
+                if (count($playerStat) > 0) {
+                    foreach (array_chunk($playerStat, 1000) as $t) {
+                        MatchStatDetail::addBulkStat($t);
+                    }
+                }
+            }
+        }
+
+        die("success");
+    }
+
+    public function getPlayerCSVData($data, $matchId, $playerId) {
+
+        $csvData = [];
+        $iterator = 0;
+        foreach ($data as $k => $d) {
+
+            if ($k > 5) {
+
+                $csvData[$iterator]['player_id'] = $playerId;
+                $csvData[$iterator]['match_id'] = $matchId;
+                $csvData[$iterator]['time_played'] = $d[0] ?? '';
+                $csvData[$iterator]['x_position'] = $d[1] ?? '';
+                $csvData[$iterator]['y_position'] = $d[2] ?? '';
+                $csvData[$iterator]['lat'] = $d[3] ?? '';
+                $csvData[$iterator]['long'] = $d[4] ?? '';
+                $csvData[$iterator]['speed'] = $d[5] ?? '';
+                $csvData[$iterator]['hr'] = $d[6] ?? '';
+                $csvData[$iterator]['num_sat'] = $d[7] ?? '';
+                $csvData[$iterator]['h_dop'] = $d[8] ?? '';
 
                 $iterator++;
             }

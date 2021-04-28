@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdatePlayersTable extends Migration
+class UpdateMatchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdatePlayersTable extends Migration
      */
     public function up()
     {
-        Schema::table('players', function (Blueprint $table) {
-            $table->integer('fk_user')->after('id')->nullable();
+        Schema::table('match_details', function (Blueprint $table) {
+            $table->boolean('period')->default(1);
         });
     }
 
@@ -25,8 +25,8 @@ class UpdatePlayersTable extends Migration
      */
     public function down()
     {
-        Schema::table('players', function (Blueprint $table) {
-            $table->dropColumn('fk_user');
+        Schema::table('match_details', function (Blueprint $table) {
+            $table->dropColumn('period');
         });
     }
 }

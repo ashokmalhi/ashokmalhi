@@ -1,4 +1,4 @@
-<div class="col-md-7">
+<div class="col-md-10">
     <div class="navigation">
         <ul>
             <li><a href="{{URL::to('dashboard')}}">Home</a></li>
@@ -10,7 +10,7 @@
                 <li><a href="{{URL::to('players')}}">Players</a></li>
             @endif
             @if(Helper::check_permission('list-statistics'))
-                <li><a href="{{URL::to('statistics')}}">Statistics</a></li>
+<!--                <li><a href="{{URL::to('statistics')}}">Statistics</a></li>-->
             @endif
                 <li><a href="{{URL::to('matches')}}">Matches</a></li>
             <li><a href="{{URL::to('logout')}}">Logout</a></li>
