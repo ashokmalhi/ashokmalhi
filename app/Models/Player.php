@@ -47,8 +47,9 @@ class Player extends Model
         if($resetPassword){
             $result = PasswordReset::createToken($player->email);
             $data = ['message' => "<a href='".route('reset-password',['email'=>$player->email, 'token'=>$result->token])."'>Verify Email</a>"];
-
-            Mail::to($player->email)->send(new PlayerMail($data));
+            if(env('SEND_PLAYER_EMAIL')){
+                Mail::to($player->email)->send(new PlayerMail($data));
+            }
         }
         
         return $player;

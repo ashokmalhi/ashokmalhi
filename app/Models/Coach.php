@@ -38,8 +38,9 @@ class Coach extends Model
         if($resetPassword){
             $result = PasswordReset::createToken($coach->email);
             $data = ['message' => "<a href='".route('reset-password',['email'=>$coach->email, 'token'=>$result->token])."'>Verify Email</a>"];
-
-            Mail::to($coach->email)->send(new PlayerMail($data));
+            if(env('SEND_PLAYER_EMAIL')){
+                Mail::to($coach->email)->send(new PlayerMail($data));
+            }
         }
         
         return $coach;

@@ -67,25 +67,25 @@ class MatchController extends Controller {
 
                 $path = $request->file('file_team1_period1')->getRealPath();
                 $data = array_map('str_getcsv', file($path));
-                $this->uploadFile($matchId, $data, 1);
+                $this->uploadFile($matchId, $data, 1,$request->get('first_team'));
             }
             if ($request->hasFile('file_team1_period2')) {
 
                 $path = $request->file('file_team1_period2')->getRealPath();
                 $data = array_map('str_getcsv', file($path));
-                $this->uploadFile($matchId, $data, 2);
+                $this->uploadFile($matchId, $data, 2,$request->get('first_team'));
             }
             if ($request->hasFile('file_team2_period1')) {
 
                 $path = $request->file('file_team2_period1')->getRealPath();
                 $data = array_map('str_getcsv', file($path));
-                $this->uploadFile($matchId, $data, 1);
+                $this->uploadFile($matchId, $data, 1,$request->get('second_team'));
             }
             if ($request->hasFile('file_team2_period2')) {
 
                 $path = $request->file('file_team2_period2')->getRealPath();
                 $data = array_map('str_getcsv', file($path));
-                $this->uploadFile($matchId, $data, 2);
+                $this->uploadFile($matchId, $data, 2,$request->get('second_team'));
             }
 
             return redirect('/matches')->with('status', 'New Match created successfully!');
@@ -100,6 +100,7 @@ class MatchController extends Controller {
         
         $matchDetails = Match::getMatchDetails($id);
         $overAllMatchPlayerDetails = MatchDetail::getMatchDetailsById($id);
+        
         $period1Detail = MatchDetail::getMatchDetailsById($id,1);
         $period2Detail = MatchDetail::getMatchDetailsById($id,2);
 
@@ -111,7 +112,7 @@ class MatchController extends Controller {
         return view('matches.detail', compact('period2Summary','period1Summary','overallSummary','matchDetails', 'overAllMatchPlayerDetails', 'period1Detail', 'period2Detail','data'));
     }
 
-    public function uploadFile($matchId, $data, $period) {
+    public function uploadFile($matchId, $data, $period, $teamId) {
 
         if (count($data) > 0) {
 
@@ -125,6 +126,7 @@ class MatchController extends Controller {
                     foreach ($csvData as $da) {
 
                         $da['match_id'] = $matchId;
+                        $da['team_id'] = $teamId;
                         $da['period'] = $period;
 
                         $player = Player::getOrCreatePlayer($da);
