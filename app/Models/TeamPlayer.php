@@ -50,7 +50,7 @@ class TeamPlayer extends Model
                 }
             }
             
-            if(count($input['coach_ids']) > 0){
+            if(isset($input['coach_ids']) && count($input['coach_ids']) > 0){
                 foreach($input['coach_ids'] as $coach){
                    if($coach != ""){
                     $team_coach = self::where('player_id',$member)

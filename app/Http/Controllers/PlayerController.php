@@ -9,6 +9,8 @@ use Image;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\Models\Role;
+use App\Models\Team;
+use App\Models\TeamPlayer;
 
 class PlayerController extends Controller
 {
@@ -164,9 +166,11 @@ class PlayerController extends Controller
                         $createPlayer['player_no'] = $d[0] ?? '';
                         $createPlayer['first_name'] = $d[1] ?? '';
                         $createPlayer['last_name'] = $d[2] ?? '';
+                        $createPlayer['gender'] = (isset($d[3]) && $d[3] == "m")?'male':'female';
+                        $createPlayer['date_of_birth'] = $d[4] ?? '';
                         // $createPlayer['full_name'] = $createPlayer['first_name'].' '.$createPlayer['last_name'];
-                        $createPlayer['mobile'] = $d[3] ?? '';
-                        $createPlayer['email'] = $d[4] ?? ''; 
+                        $createPlayer['mobile'] = $d[5] ?? '';
+                        $createPlayer['email'] = empty($d[6])?'player'.$d[0].'@afl.com':$d[6]; 
                         if(!empty($createPlayer['email'])){
                             //pass an email to check if email already exists
                             $userExists = User::checkIfUserExists($createPlayer['email']);
@@ -175,11 +179,18 @@ class PlayerController extends Controller
                                 $playerNo = Player::playerNoExists($createPlayer['player_no']);
                                 if(!$exists && !$playerNo){
                                     $createPlayer['type'] = 'p';
+                                    $createPlayer['role_id'] = config('constants.roles.player');
                                     $user = User::AddUser($createPlayer);
-                                    Player::addPlayer($createPlayer,$user->id,true);
+                                    $player = Player::addPlayer($createPlayer,$user->id,true);
                                 }
                             }
                             
+                        }
+                        $team = Team::where('name', $d[7]??'')->first();
+                        if($team){
+                            $id = Player::where('email', $createPlayer['email'])->first()->id;
+                            $playerId['player_ids']=[$id];
+                            TeamPlayer::addTeamPlayer($playerId,$team->id);
                         }
                     }
                 }
