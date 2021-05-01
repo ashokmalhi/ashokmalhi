@@ -99,17 +99,29 @@ class MatchController extends Controller {
         //$match = new Match();
         
         $matchDetails = Match::getMatchDetails($id);
-        $overAllMatchPlayerDetails = MatchDetail::getMatchDetailsById($id);
+        $overAllMatchPlayerDetailsTeam1 = MatchDetail::getMatchDetailsById($id,0,$matchDetails->first_team);
+        //pd($overAllMatchPlayerDetailsTeam1);
+        $overAllMatchPlayerDetailsTeam2 = MatchDetail::getMatchDetailsById($id,0,$matchDetails->second_team);
+      
+        $periodDetail['team_1']['period1'] = MatchDetail::getMatchDetailsById($id,1,$matchDetails->first_team);
+        $periodDetail['team_1']['period2'] = MatchDetail::getMatchDetailsById($id,2,$matchDetails->first_team);
         
-        $period1Detail = MatchDetail::getMatchDetailsById($id,1);
-        $period2Detail = MatchDetail::getMatchDetailsById($id,2);
+        $periodDetail['team_2']['period1'] = MatchDetail::getMatchDetailsById($id,1,$matchDetails->second_team);
+        $periodDetail['team_2']['period2'] = MatchDetail::getMatchDetailsById($id,2,$matchDetails->second_team);
 
-        $overallSummary = MatchDetail::getSummaryDeatilById($id);
-        $period1Summary = MatchDetail::getSummaryDeatilById($id,1);
-        $period2Summary = MatchDetail::getSummaryDeatilById($id,2);
+        $overallSummary['team_1'] = MatchDetail::getSummaryDeatilById($id,0,$matchDetails->first_team);
+        $overallSummary['team_2'] = MatchDetail::getSummaryDeatilById($id,0,$matchDetails->second_team);
         
-        $data['individualPlayers'] = MatchDetail::getMatchPlayers($id);
-        return view('matches.detail', compact('period2Summary','period1Summary','overallSummary','matchDetails', 'overAllMatchPlayerDetails', 'period1Detail', 'period2Detail','data'));
+        $periodSummary['team_1']['period1'] = MatchDetail::getSummaryDeatilById($id,1,$matchDetails->first_team);
+        $periodSummary['team_1']['period2'] = MatchDetail::getSummaryDeatilById($id,2,$matchDetails->first_team);
+        
+        $periodSummary['team_2']['period1'] = MatchDetail::getSummaryDeatilById($id,1,$matchDetails->second_team);
+        $periodSummary['team_2']['period2'] = MatchDetail::getSummaryDeatilById($id,2,$matchDetails->second_team);
+        
+        $data['individualPlayers']['team_1'] = MatchDetail::getMatchPlayers($id,$matchDetails->first_team);
+        $data['individualPlayers']['team_2'] = MatchDetail::getMatchPlayers($id,$matchDetails->second_team);
+        
+        return view('matches.detail', compact('periodSummary','overallSummary','matchDetails', 'overAllMatchPlayerDetailsTeam1','overAllMatchPlayerDetailsTeam2', 'periodDetail','data'));
     }
 
     public function uploadFile($matchId, $data, $period, $teamId) {
@@ -215,7 +227,7 @@ class MatchController extends Controller {
             }
         }
 
-        die("success");
+        return redirect('/matches')->with('success', 'Player stats uploaded successfully');
     }
 
     public function getPlayerCSVData($data, $matchId, $playerId) {

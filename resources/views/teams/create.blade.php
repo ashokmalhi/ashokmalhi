@@ -48,12 +48,12 @@
         <div class="row">
             <div class="col">
                 <div class="inputfield mb-3">
-                    <a href="javascript:void(0)" class="btn btn-primary mediumbtn" style="margin-top: 25px;" onclick="addPlayer()" >Add Player</a>
+                    <a href="javascript:void(0)" class="btn btn-primary mediumbtn" style="margin-top: 25px; display: none;" onclick="addPlayer()" >Add Player</a>
                 </div>
             </div>
             <div class="col">
                 <div class="inputfield mb-3">
-                    <a href="javascript:void(0)" class="btn btn-primary mediumbtn" style="margin-top: 25px;" onclick="addCoach()" >Add Coach</a>
+                    <a href="javascript:void(0)" class="btn btn-primary mediumbtn" style="margin-top: 25px; display: none;" onclick="addCoach()" >Add Coach</a>
                 </div>
             </div>
         </div>

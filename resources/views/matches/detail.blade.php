@@ -27,10 +27,10 @@
         <div class="tab-pane fade show active" id="team1Stats" role="tabpanel" aria-labelledby="team-1-tab">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#teamStats" type="button" role="tab" aria-controls="profile" aria-selected="false">Team Statistics</button>
+                    <button class="nav-link" id="team-1-state-tab" data-bs-toggle="tab" data-bs-target="#teamStats" type="button" role="tab" aria-controls="profile" aria-selected="false">Team Statistics</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#individualPlayers" type="button" role="tab" aria-controls="contact" aria-selected="false">Individual Players</button>
+                    <button class="nav-link" id="individual-team1-state-tab" data-bs-toggle="tab" data-bs-target="#individualPlayers" type="button" role="tab" aria-controls="contact" aria-selected="false">Individual Players</button>
                 </li>
             </ul>
 
@@ -38,24 +38,24 @@
 
                 <div class="tab-content" id="myTabContent">
 
-                    <div class="tab-pane fade show active" id="teamStats" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade show active" id="teamStats" role="tabpanel" aria-labelledby="team-1-state-tab">
                         <div class="row">
                             <ul class="nav nav-tabs" id="statsTap" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#overall" type="button" role="tab" aria-controls="home" aria-selected="true">Overall</button>
+                                    <button class="nav-link active" id="team1-overall-tab" data-bs-toggle="tab" data-bs-target="#team1overall" type="button" role="tab" aria-controls="home" aria-selected="true">Overall</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#period1" type="button" role="tab" aria-controls="profile" aria-selected="false">Period 1</button>
+                                    <button class="nav-link" id="team1-period1-tab" data-bs-toggle="tab" data-bs-target="#team1period1" type="button" role="tab" aria-controls="profile" aria-selected="false">Period 1</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#period2" type="button" role="tab" aria-controls="contact" aria-selected="false">Period 2</button>
+                                    <button class="nav-link" id="team1-period2-tab" data-bs-toggle="tab" data-bs-target="#team1period2" type="button" role="tab" aria-controls="contact" aria-selected="false">Period 2</button>
                                 </li>
                             </ul>
 
                             <div class="container-box mt-4">
 
                                 <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="overall" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="tab-pane fade show active" id="team1overall" role="tabpanel" aria-labelledby="team1-period1-tab">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h4 class="brand-color iconic-text">Team Stats</h4>
@@ -74,8 +74,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @if(count($overAllMatchPlayerDetails)>0)
-                                                        @foreach($overAllMatchPlayerDetails as $detail)
+                                                        @if(count($overAllMatchPlayerDetailsTeam1)>0)
+                                                        @foreach($overAllMatchPlayerDetailsTeam1 as $detail)
 
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
@@ -89,9 +89,9 @@
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
                                                         </tr>
                                                         @endforeach
-                                                        @foreach($overallSummary as $detail)
+                                                        @foreach($overallSummary['team_1'] as $detail)
                                                         <tr>
-                                                            <td>{{$detail['sensor']??''}}</td>
+                                                            <td>{{!empty($detail['sensor'])??''}}</td>
                                                             <td>{{$detail['players']['player_no']??''}}</td>
                                                             <td>{{$detail['players']['position']??''}}</td>
                                                             <td>{{$detail['time_played']??''}}</td>
@@ -112,7 +112,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="period1" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="tab-pane fade" id="team1period1" role="tabpanel" aria-labelledby="team1-period2-tab">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h4 class="brand-color iconic-text">Team Stats</h4>
@@ -131,8 +131,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @if(count($period1Detail)>0)
-                                                        @foreach($period1Detail as $detail)
+                                                        @if(count($periodDetail['team_1']['period1'])>0)
+                                                        @foreach($periodDetail['team_1']['period1'] as $detail)
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
                                                             <td>{{$detail['players']['player_no']}}</td>
@@ -145,7 +145,7 @@
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
                                                         </tr>
                                                         @endforeach
-                                                        @foreach($period1Summary as $detail)
+                                                        @foreach($periodSummary['team_1']['period1'] as $detail)
                                                         <tr>
                                                             <td></td>
                                                             <td></td>
@@ -168,7 +168,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="period2" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="tab-pane fade" id="team1period2" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h4 class="brand-color iconic-text">Team Stats</h4>
@@ -187,8 +187,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @if(count($period2Detail)>0)
-                                                        @foreach($period2Detail as $detail)
+                                                        @if(count($periodDetail['team_1']['period2'])>0)
+                                                        @foreach($periodDetail['team_1']['period2'] as $detail)
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
                                                             <td>{{$detail['players']['player_no']}}</td>
@@ -201,9 +201,9 @@
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
                                                         </tr>
                                                         @endforeach
-                                                        @foreach($period2Summary as $detail)
+                                                        @foreach($periodSummary['team_1']['period2'] as $detail)
                                                         <tr>
-                                                            <td>{{$detail['sensor']??''}}</td>
+                                                            <td>{{!empty($detail['sensor'])??''}}</td>
                                                             <td>{{$detail['players']['player_no']??''}}</td>
                                                             <td>{{$detail['players']['position']??''}}</td>
                                                             <td>{{$detail['time_played']??''}}</td>
@@ -229,12 +229,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="individualPlayers" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="tab-pane fade" id="individualPlayers" role="tabpanel" aria-labelledby="individual-team1-state-tab">
 
-                        @if(count($data['individualPlayers']) > 0)
+                        @if(count($data['individualPlayers']['team_1']) > 0)
                         <ul class="list-group">
 
-                            @foreach($data['individualPlayers'] as $player)
+                            @foreach($data['individualPlayers']['team_1'] as $player)
 
                             <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name}}</li></a>
 
@@ -245,7 +245,7 @@
 
                         <div id="player-details">
                             <?php
-                            $firstPlayer = isset($data['individualPlayers'][0]) ? $data['individualPlayers'][0] : "";
+                            $firstPlayer = isset($data['individualPlayers']['team_1'][0]) ? $data['individualPlayers']['team_1'][0] : "";
                             if (isset($firstPlayer->matchStats) && count($firstPlayer->matchStats) > 0) {
 
                                 $totalTimePlayed = '00:00:00';
@@ -336,10 +336,10 @@
 
             <ul class="nav nav-tabs" id="myTab1" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#team2Stats" type="button" role="tab" aria-controls="profile" aria-selected="false">Team Statistics</button>
+                    <button class="nav-link" id="team-2-state-tab" data-bs-toggle="tab" data-bs-target="#team2PlayerStats" type="button" role="tab" aria-controls="profile" aria-selected="false">Team Statistics</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#individual2Players" type="button" role="tab" aria-controls="contact" aria-selected="false">Individual Players</button>
+                    <button class="nav-link" id="individual-team2-state-tab" data-bs-toggle="tab" data-bs-target="#individual2Players" type="button" role="tab" aria-controls="contact" aria-selected="false">Individual Players</button>
                 </li>
             </ul>
 
@@ -347,24 +347,24 @@
 
                 <div class="tab-content" id="myTab1Content">
 
-                    <div class="tab-pane fade show active" id="team2Stats" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade show active" id="team2PlayerStats" role="tabpanel" aria-labelledby="team-2-state-tab">
                         <div class="row">
-                            <ul class="nav nav-tabs" id="statsTap" role="tablist">
+                            <ul class="nav nav-tabs" id="statsTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#overall" type="button" role="tab" aria-controls="home" aria-selected="true">Overall</button>
+                                    <button class="nav-link active" id="team2-overall-tab" data-bs-toggle="tab" data-bs-target="#team2overall" type="button" role="tab" aria-controls="home" aria-selected="true">Overall</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#period1" type="button" role="tab" aria-controls="profile" aria-selected="false">Period 1</button>
+                                    <button class="nav-link" id="team2-period1-tab" data-bs-toggle="tab" data-bs-target="#team2period1" type="button" role="tab" aria-controls="profile" aria-selected="false">Period 1</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#period2" type="button" role="tab" aria-controls="contact" aria-selected="false">Period 2</button>
+                                    <button class="nav-link" id="team2-period2-tab" data-bs-toggle="tab" data-bs-target="#team2period2" type="button" role="tab" aria-controls="contact" aria-selected="false">Period 2</button>
                                 </li>
                             </ul>
 
                             <div class="container-box mt-4">
 
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="overall" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="tab-content" id="statsTabContent">
+                                    <div class="tab-pane fade show active" id="team2overall" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h4 class="brand-color iconic-text">Team Stats</h4>
@@ -383,8 +383,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @if(count($overAllMatchPlayerDetails)>0)
-                                                        @foreach($overAllMatchPlayerDetails as $detail)
+                                                        @if(count($overAllMatchPlayerDetailsTeam2)>0)
+                                                        @foreach($overAllMatchPlayerDetailsTeam2 as $detail)
 
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
@@ -398,9 +398,9 @@
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
                                                         </tr>
                                                         @endforeach
-                                                        @foreach($overallSummary as $detail)
+                                                        @foreach($overallSummary['team_2'] as $detail)
                                                         <tr>
-                                                            <td>{{$detail['sensor']??''}}</td>
+                                                            <td>{{!empty($detail['sensor'])??''}}</td>
                                                             <td>{{$detail['players']['player_no']??''}}</td>
                                                             <td>{{$detail['players']['position']??''}}</td>
                                                             <td>{{$detail['time_played']??''}}</td>
@@ -421,7 +421,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="period1" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="tab-pane fade" id="team2period1" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h4 class="brand-color iconic-text">Team Stats</h4>
@@ -440,8 +440,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @if(count($period1Detail)>0)
-                                                        @foreach($period1Detail as $detail)
+                                                        @if(count($periodDetail['team_2']['period1'])>0)
+                                                        @foreach($periodDetail['team_2']['period1'] as $detail)
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
                                                             <td>{{$detail['players']['player_no']}}</td>
@@ -454,7 +454,7 @@
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
                                                         </tr>
                                                         @endforeach
-                                                        @foreach($period1Summary as $detail)
+                                                        @foreach($periodSummary['team_2']['period1'] as $detail)
                                                         <tr>
                                                             <td></td>
                                                             <td></td>
@@ -477,7 +477,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="period2" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="tab-pane fade" id="team2period2" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h4 class="brand-color iconic-text">Team Stats</h4>
@@ -496,8 +496,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @if(count($period2Detail)>0)
-                                                        @foreach($period2Detail as $detail)
+                                                        @if(count($periodDetail['team_2']['period2'])>0)
+                                                        @foreach($periodDetail['team_2']['period2'] as $detail)
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
                                                             <td>{{$detail['players']['player_no']}}</td>
@@ -510,9 +510,9 @@
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
                                                         </tr>
                                                         @endforeach
-                                                        @foreach($period2Summary as $detail)
+                                                        @foreach($periodSummary['team_2']['period2'] as $detail)
                                                         <tr>
-                                                            <td>{{$detail['sensor']??''}}</td>
+                                                            <td>{{!empty($detail['sensor'])??''}}</td>
                                                             <td>{{$detail['players']['player_no']??''}}</td>
                                                             <td>{{$detail['players']['position']??''}}</td>
                                                             <td>{{$detail['time_played']??''}}</td>
@@ -538,12 +538,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="individual2Players" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="tab-pane fade" id="individual2Players" role="tabpanel" aria-labelledby="individual-team2-state-tab">
 
-                        @if(count($data['individualPlayers']) > 0)
+                        @if(count($data['individualPlayers']['team_2']) > 0)
                         <ul class="list-group">
 
-                            @foreach($data['individualPlayers'] as $player)
+                            @foreach($data['individualPlayers']['team_2'] as $player)
 
                             <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name}}</li></a>
 
@@ -554,7 +554,7 @@
 
                         <div id="player-details">
                             <?php
-                            $firstPlayer = isset($data['individualPlayers'][0]) ? $data['individualPlayers'][0] : "";
+                            $firstPlayer = isset($data['individualPlayers']['team_2'][0]) ? $data['individualPlayers']['team_2'][0] : "";
                             if (isset($firstPlayer->matchStats) && count($firstPlayer->matchStats) > 0) {
 
                                 $totalTimePlayed = '00:00:00';

@@ -5,7 +5,7 @@
             @if(Helper::check_permission('list-teams'))
                 <li><a href="{{URL::to('teams')}}">Teams</a></li>
             @endif
-                <li><a href="{{URL::to('coaches')}}">Coaches</a></li>
+<!--                 <li><a href="{{URL::to('coaches')}}">Coaches</a></li>-->
             @if(Helper::check_permission('list-players'))
                 <li><a href="{{URL::to('players')}}">Players</a></li>
             @endif
