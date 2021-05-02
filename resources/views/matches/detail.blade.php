@@ -64,6 +64,7 @@
                                                         <tr>
                                                             <th scope="col">Sensor</th>
                                                             <th scope="col">Player no</th>
+                                                            <th scope="col">Player Name</th>
                                                             <th scope="col">Player Position</th>
                                                             <th scope="col">Time Played</th>
                                                             <th scope="col">Distance</th>
@@ -80,6 +81,7 @@
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
                                                             <td>{{$detail['players']['player_no']}}</td>
+                                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
                                                             <td>{{$detail['players']['position']}}</td>
                                                             <td>{{$detail['time_played']}}</td>
                                                             <td>{{$detail['distance_km']}}</td>
@@ -93,6 +95,7 @@
                                                         <tr>
                                                             <td>{{!empty($detail['sensor'])??''}}</td>
                                                             <td>{{$detail['players']['player_no']??''}}</td>
+                                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
                                                             <td>{{$detail['players']['position']??''}}</td>
                                                             <td>{{$detail['time_played']??''}}</td>
                                                             <td>{{$detail['distance_km']}}</td>
@@ -121,6 +124,7 @@
                                                         <tr>
                                                             <th scope="col">Sensor</th>
                                                             <th scope="col">Player no</th>
+                                                            <th scope="col">Player Name</th>
                                                             <th scope="col">Player Position</th>
                                                             <th scope="col">Time Played</th>
                                                             <th scope="col">Distance</th>
@@ -136,6 +140,7 @@
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
                                                             <td>{{$detail['players']['player_no']}}</td>
+                                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
                                                             <td>{{$detail['players']['position']}}</td>
                                                             <td>{{$detail['time_played']}}</td>
                                                             <td>{{$detail['distance_km']}}</td>
@@ -147,6 +152,7 @@
                                                         @endforeach
                                                         @foreach($periodSummary['team_1']['period1'] as $detail)
                                                         <tr>
+                                                            <td></td>
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>
@@ -177,6 +183,7 @@
                                                         <tr>
                                                             <th scope="col">Sensor</th>
                                                             <th scope="col">Player no</th>
+                                                            <th scope="col">Player Name</th>
                                                             <th scope="col">Player Position</th>
                                                             <th scope="col">Time Played</th>
                                                             <th scope="col">Distance</th>
@@ -192,6 +199,7 @@
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
                                                             <td>{{$detail['players']['player_no']}}</td>
+                                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
                                                             <td>{{$detail['players']['position']}}</td>
                                                             <td>{{$detail['time_played']}}</td>
                                                             <td>{{$detail['distance_km']}}</td>
@@ -205,6 +213,7 @@
                                                         <tr>
                                                             <td>{{!empty($detail['sensor'])??''}}</td>
                                                             <td>{{$detail['players']['player_no']??''}}</td>
+                                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
                                                             <td>{{$detail['players']['position']??''}}</td>
                                                             <td>{{$detail['time_played']??''}}</td>
                                                             <td>{{$detail['distance_km']}}</td>
@@ -236,7 +245,7 @@
 
                             @foreach($data['individualPlayers']['team_1'] as $player)
 
-                            <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name}}</li></a>
+                            <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name.' '.$player->last_name}}</li></a>
 
                             @endforeach
 
@@ -274,7 +283,7 @@
                             @if($firstPlayer)
                             <div class="container-box mt-4">
                                 <div class="userarea ">
-                                    <div class="colright">{{$firstPlayer->first_name}} 
+                                    <div class="colright">{{$firstPlayer->first_name.' '.$firstPlayer->last_name}} 
                                     </div>
                                 </div>
                                 <div class="counts mt-4">
@@ -373,6 +382,7 @@
                                                         <tr>
                                                             <th scope="col">Sensor</th>
                                                             <th scope="col">Player no</th>
+                                                            <th scope="col">Player Name</th>
                                                             <th scope="col">Player Position</th>
                                                             <th scope="col">Time Played</th>
                                                             <th scope="col">Distance</th>
@@ -389,6 +399,7 @@
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
                                                             <td>{{$detail['players']['player_no']}}</td>
+                                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
                                                             <td>{{$detail['players']['position']}}</td>
                                                             <td>{{$detail['time_played']}}</td>
                                                             <td>{{$detail['distance_km']}}</td>
@@ -430,6 +441,7 @@
                                                         <tr>
                                                             <th scope="col">Sensor</th>
                                                             <th scope="col">Player no</th>
+                                                            <th scope="col">Player Name</th>
                                                             <th scope="col">Player Position</th>
                                                             <th scope="col">Time Played</th>
                                                             <th scope="col">Distance</th>
@@ -445,6 +457,7 @@
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
                                                             <td>{{$detail['players']['player_no']}}</td>
+                                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
                                                             <td>{{$detail['players']['position']}}</td>
                                                             <td>{{$detail['time_played']}}</td>
                                                             <td>{{$detail['distance_km']}}</td>
@@ -456,6 +469,7 @@
                                                         @endforeach
                                                         @foreach($periodSummary['team_2']['period1'] as $detail)
                                                         <tr>
+                                                            <td></td>
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>
@@ -486,6 +500,7 @@
                                                         <tr>
                                                             <th scope="col">Sensor</th>
                                                             <th scope="col">Player no</th>
+                                                            <th scope="col">Player Name</th>
                                                             <th scope="col">Player Position</th>
                                                             <th scope="col">Time Played</th>
                                                             <th scope="col">Distance</th>
@@ -501,6 +516,7 @@
                                                         <tr>
                                                             <td>{{$detail['sensor']}}</td>
                                                             <td>{{$detail['players']['player_no']}}</td>
+                                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
                                                             <td>{{$detail['players']['position']}}</td>
                                                             <td>{{$detail['time_played']}}</td>
                                                             <td>{{$detail['distance_km']}}</td>
@@ -514,6 +530,7 @@
                                                         <tr>
                                                             <td>{{!empty($detail['sensor'])??''}}</td>
                                                             <td>{{$detail['players']['player_no']??''}}</td>
+                                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
                                                             <td>{{$detail['players']['position']??''}}</td>
                                                             <td>{{$detail['time_played']??''}}</td>
                                                             <td>{{$detail['distance_km']}}</td>
@@ -545,7 +562,7 @@
 
                             @foreach($data['individualPlayers']['team_2'] as $player)
 
-                            <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name}}</li></a>
+                            <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name.' '.$player->last_name}}</li></a>
 
                             @endforeach
 
@@ -583,7 +600,7 @@
                             @if($firstPlayer)
                             <div class="container-box mt-4">
                                 <div class="userarea ">
-                                    <div class="colright">{{$firstPlayer->first_name}} 
+                                    <div class="colright">{{$firstPlayer->first_name.' '.$firstPlayer->last_name}} 
                                     </div>
                                 </div>
                                 <div class="counts mt-4">

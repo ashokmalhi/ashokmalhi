@@ -80,7 +80,7 @@ class TeamPlayer extends Model
     }
 
     public function user(){
-        return $this->belongsTo('App\User','player_id','id');
+        return $this->belongsTo('App\User','fk_user','id');
     }
 
     public static function removeMembers($ids){

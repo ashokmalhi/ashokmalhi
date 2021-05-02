@@ -168,7 +168,8 @@ class MatchController extends Controller {
 
                 $csvData[$iterator]['sensor'] = $d[1] ?? '';
                 $csvData[$iterator]['player_no'] = $d[2] ?? '';
-                $csvData[$iterator]['name'] = $d[3] ?? '';
+                //$csvData[$iterator]['name'] = $d[3] ?? '';
+                $csvData[$iterator]['player_position'] = $d[4] ?? '';
                 $csvData[$iterator]['time_played'] = $d[5] ?? '';
                 $csvData[$iterator]['distance_km'] = $d[6] ?? '';
                 $csvData[$iterator]['hid_distance_15_km'] = $d[7] ?? '';
@@ -210,6 +211,25 @@ class MatchController extends Controller {
         if (isset($inputs['team_1_players']) && count($inputs['team_1_players']) > 0) {
 
             foreach ($inputs['team_1_players'] as $playerfile) {
+
+                $path = $playerfile->getRealPath();
+
+                $fileName = getFileNameFromFilePath($playerfile->getClientOriginalName());
+                $playerId = isset($sensorPlayerMapping[$fileName]) ? $sensorPlayerMapping[$fileName] : 1;
+
+                $playerRow = array_map('str_getcsv', file($path));
+
+                $playerStat = $this->getPlayerCSVData($playerRow, $matchId, $playerId);
+                if (count($playerStat) > 0) {
+                    foreach (array_chunk($playerStat, 1000) as $t) {
+                        MatchStatDetail::addBulkStat($t);
+                    }
+                }
+            }
+        }
+        if (isset($inputs['team_2_players']) && count($inputs['team_2_players']) > 0) {
+
+            foreach ($inputs['team_2_players'] as $playerfile) {
 
                 $path = $playerfile->getRealPath();
 

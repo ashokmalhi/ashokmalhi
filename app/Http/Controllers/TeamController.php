@@ -83,13 +83,13 @@ class TeamController extends Controller {
     }
 
     public function show($id) {
-        $team = Team::with('teamPlayer', 'teamPlayer.user')->find($id)->toArray();
+        $team = Team::with('teamPlayer', 'teamPlayer.player')->find($id)->toArray();
         return view('teams.show', compact('team'));
     }
 
     public function edit($id) {
         //
-        $team = Team::with('teamPlayer', 'teamPlayer.user')->find($id)->toArray();
+        $team = Team::with('teamPlayer', 'teamPlayer.player')->find($id)->toArray();
         #pd($team);
         $players = Player::getAllPlayers();
         $coaches = Coach::getAllCoaches();

@@ -138,8 +138,8 @@
                             @foreach ($team['team_player'] as $player)
                             <tr>
                                 <td><input type="checkbox" value="{{$player['id']}}" name="select_ids[]" class="member"> </td>
-                                <td>{{$player['user']['name']}}</td>
-                                <td>{{$player['user']['email']}}</td>
+                                <td>{{$player['player']['first_name'].' '.$player['player']['last_name']}}</td>
+                                <td>{{$player['player']['email']}}</td>
                                 <td>
                                     @if($player['is_coach'])
                                     Coach
