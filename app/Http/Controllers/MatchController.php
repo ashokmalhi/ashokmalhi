@@ -168,7 +168,8 @@ class MatchController extends Controller {
 
                 $csvData[$iterator]['sensor'] = $d[1] ?? '';
                 $csvData[$iterator]['player_no'] = $d[2] ?? '';
-                $csvData[$iterator]['name'] = $d[3] ?? '';
+                //$csvData[$iterator]['name'] = $d[3] ?? '';
+                $csvData[$iterator]['player_position'] = $d[4] ?? '';
                 $csvData[$iterator]['time_played'] = $d[5] ?? '';
                 $csvData[$iterator]['distance_km'] = $d[6] ?? '';
                 $csvData[$iterator]['hid_distance_15_km'] = $d[7] ?? '';
