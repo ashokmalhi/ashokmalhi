@@ -226,6 +226,25 @@ class MatchController extends Controller {
                 }
             }
         }
+        if (isset($inputs['team_2_players']) && count($inputs['team_2_players']) > 0) {
+
+            foreach ($inputs['team_2_players'] as $playerfile) {
+
+                $path = $playerfile->getRealPath();
+
+                $fileName = getFileNameFromFilePath($playerfile->getClientOriginalName());
+                $playerId = isset($sensorPlayerMapping[$fileName]) ? $sensorPlayerMapping[$fileName] : 1;
+
+                $playerRow = array_map('str_getcsv', file($path));
+
+                $playerStat = $this->getPlayerCSVData($playerRow, $matchId, $playerId);
+                if (count($playerStat) > 0) {
+                    foreach (array_chunk($playerStat, 1000) as $t) {
+                        MatchStatDetail::addBulkStat($t);
+                    }
+                }
+            }
+        }
 
         return redirect('/matches')->with('success', 'Player stats uploaded successfully');
     }

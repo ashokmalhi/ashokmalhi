@@ -236,7 +236,7 @@
 
                             @foreach($data['individualPlayers']['team_1'] as $player)
 
-                            <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name}}</li></a>
+                            <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name.' '.$player->last_name}}</li></a>
 
                             @endforeach
 
@@ -274,7 +274,7 @@
                             @if($firstPlayer)
                             <div class="container-box mt-4">
                                 <div class="userarea ">
-                                    <div class="colright">{{$firstPlayer->first_name}} 
+                                    <div class="colright">{{$firstPlayer->first_name.' '.$firstPlayer->last_name}} 
                                     </div>
                                 </div>
                                 <div class="counts mt-4">
@@ -545,7 +545,7 @@
 
                             @foreach($data['individualPlayers']['team_2'] as $player)
 
-                            <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name}}</li></a>
+                            <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name.' '.$player->last_name}}</li></a>
 
                             @endforeach
 
@@ -583,7 +583,7 @@
                             @if($firstPlayer)
                             <div class="container-box mt-4">
                                 <div class="userarea ">
-                                    <div class="colright">{{$firstPlayer->first_name}} 
+                                    <div class="colright">{{$firstPlayer->first_name.' '.$firstPlayer->last_name}} 
                                     </div>
                                 </div>
                                 <div class="counts mt-4">

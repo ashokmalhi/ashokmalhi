@@ -84,8 +84,8 @@ class Player extends Model
     public static function getOrCreatePlayer($input){
         
         $player = [];
-        if(isset($input['name']) && !empty($input['name'])){
-            $player = self::where('full_name', 'like', '%'.$input['name'].'%')->where('player_no',$input['player_no'])->first();
+        if(isset($input['player_no']) && !empty($input['player_no'])){
+            $player = self::where('player_no',$input['player_no'])->first();
             if(!$player){
                 $player = self::create([
                     'first_name' => $input['name'],
