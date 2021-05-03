@@ -56,7 +56,7 @@ class MatchDetail extends Model
     }
     
     public static function getMatchDetailsById($id, $period=0, $teamId = 0){
-        $query = self::select('player_id','sensor', DB::raw("SEC_TO_TIME( SUM( TIME_TO_SEC( `time_played` ) ) ) as time_played"),
+        $query = self::select('player_id','sensor', DB::raw("TIME_FORMAT(SEC_TO_TIME( SUM( TIME_TO_SEC( `time_played` ) ) ), '%H:%i:%s' ) as time_played"),
         DB::raw("SUM(distance_km) as distance_km"),
         DB::raw("SUM(hid_distance_15_km) as hid_distance_15_km"),
         DB::raw("SUM(distance_speed_range_15_km) as distance_speed_range_15_km"),
