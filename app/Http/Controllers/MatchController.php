@@ -110,6 +110,7 @@ class MatchController extends Controller {
         $periodDetail['team_2']['period2'] = MatchDetail::getMatchDetailsById($id,2,$matchDetails->second_team);
 
         $overallSummary['team_1'] = MatchDetail::getSummaryDeatilById($id,0,$matchDetails->first_team);
+//        /pd($overallSummary);
         $overallSummary['team_2'] = MatchDetail::getSummaryDeatilById($id,0,$matchDetails->second_team);
         
         $periodSummary['team_1']['period1'] = MatchDetail::getSummaryDeatilById($id,1,$matchDetails->first_team);

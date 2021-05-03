@@ -62,7 +62,16 @@ class MatchDetail extends Model
         DB::raw("SUM(distance_speed_range_15_km) as distance_speed_range_15_km"),
         DB::raw("SUM(distance_speed_range_15_20_km) as distance_speed_range_15_20_km"),
         DB::raw("SUM(distance_speed_range_20_25_km) as distance_speed_range_20_25_km"),
-        DB::raw("SUM(distance_speed_range_25_30_km) as distance_speed_range_25_30_km"))
+        DB::raw("SUM(distance_speed_range_25_30_km) as distance_speed_range_25_30_km"),
+        DB::raw("SUM(distance_speed_range_greater_30_km) as distance_speed_range_greater_30_km"),
+        DB::raw("SUM(no_of_sprint_greater_25_km) as no_of_sprint_greater_25_km"),
+        DB::raw("SUM(avg_speed_km) as avg_speed_km"),
+        DB::raw("SUM(max_speed_km) as max_speed_km"),
+        DB::raw("SUM(max_acceleration) as max_acceleration"),
+        DB::raw("SUM(no_of_acceleration_3) as no_of_acceleration_3"),
+        DB::raw("SUM(no_of_acceleration_4) as no_of_acceleration_4"),
+        DB::raw("SUM(no_of_deceleration_3) as no_of_deceleration_3"),
+        DB::raw("SUM(no_of_deceleration_4) as no_of_deceleration_4"))
         ->with('players')->where('match_id', $id)->where('is_summary', 0);
         if($period){
             $query = $query->where('period', $period);
@@ -90,7 +99,17 @@ class MatchDetail extends Model
         DB::raw("SUM(distance_speed_range_15_km) as distance_speed_range_15_km"),
         DB::raw("SUM(distance_speed_range_15_20_km) as distance_speed_range_15_20_km"),
         DB::raw("SUM(distance_speed_range_20_25_km) as distance_speed_range_20_25_km"),
-        DB::raw("SUM(distance_speed_range_25_30_km) as distance_speed_range_25_30_km"))->whereNull('player_id')->where('match_id', $id);
+        DB::raw("SUM(distance_speed_range_25_30_km) as distance_speed_range_25_30_km"),
+        DB::raw("SUM(distance_speed_range_greater_30_km) as distance_speed_range_greater_30_km"),
+        DB::raw("SUM(no_of_sprint_greater_25_km) as no_of_sprint_greater_25_km"),
+        DB::raw("SUM(avg_speed_km) as avg_speed_km"),
+        DB::raw("SUM(max_speed_km) as max_speed_km"),
+        DB::raw("SUM(max_acceleration) as max_acceleration"),
+        DB::raw("SUM(no_of_acceleration_3) as no_of_acceleration_3"),
+        DB::raw("SUM(no_of_acceleration_4) as no_of_acceleration_4"),
+        DB::raw("SUM(no_of_deceleration_3) as no_of_deceleration_3"),
+        DB::raw("SUM(no_of_deceleration_4) as no_of_deceleration_4"))
+        ->whereNull('player_id')->where('match_id', $id);
         if($period){
             $query = $query->where('period', $period);
         }

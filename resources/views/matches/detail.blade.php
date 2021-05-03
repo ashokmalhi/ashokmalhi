@@ -72,6 +72,17 @@
                                                             <th scope="col">Distance Speed Range (0-15 km/h)</th>
                                                             <th scope="col">Distance Speed Range (15-20 km/h)</th>
                                                             <th scope="col">Distance Speed Range (20-25 km/h)</th>
+                                                            
+                                                            <th scope="col">Distance Speed Range (25-30 km/h)</th>
+                                                            <th scope="col">Distance Speed Range (>30 km/h)</th>
+                                                            <th scope="col"># of Sprints (>25 km/h)</th>
+                                                            <th scope="col">Avg. Speed (km/h)</th>
+                                                            <th scope="col">Max Speed (km/h)</th>
+                                                            <th scope="col">Max Acceleration (m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>4 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>4 m/s²)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -89,6 +100,17 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @foreach($overallSummary['team_1'] as $detail)
@@ -103,6 +125,17 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @else
@@ -132,6 +165,17 @@
                                                             <th scope="col">Distance Speed Range (0-15 km/h)</th>
                                                             <th scope="col">Distance Speed Range (15-20 km/h)</th>
                                                             <th scope="col">Distance Speed Range (20-25 km/h)</th>
+                                                            
+                                                            <th scope="col">Distance Speed Range (25-30 km/h)</th>
+                                                            <th scope="col">Distance Speed Range (>30 km/h)</th>
+                                                            <th scope="col"># of Sprints (>25 km/h)</th>
+                                                            <th scope="col">Avg. Speed (km/h)</th>
+                                                            <th scope="col">Max Speed (km/h)</th>
+                                                            <th scope="col">Max Acceleration (m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>4 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>4 m/s²)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -148,6 +192,17 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @foreach($periodSummary['team_1']['period1'] as $detail)
@@ -162,6 +217,17 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @else
@@ -191,6 +257,17 @@
                                                             <th scope="col">Distance Speed Range (0-15 km/h)</th>
                                                             <th scope="col">Distance Speed Range (15-20 km/h)</th>
                                                             <th scope="col">Distance Speed Range (20-25 km/h)</th>
+                                                            
+                                                            <th scope="col">Distance Speed Range (25-30 km/h)</th>
+                                                            <th scope="col">Distance Speed Range (>30 km/h)</th>
+                                                            <th scope="col"># of Sprints (>25 km/h)</th>
+                                                            <th scope="col">Avg. Speed (km/h)</th>
+                                                            <th scope="col">Max Speed (km/h)</th>
+                                                            <th scope="col">Max Acceleration (m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>4 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>4 m/s²)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -207,6 +284,17 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
+                                                            
                                                         </tr>
                                                         @endforeach
                                                         @foreach($periodSummary['team_1']['period2'] as $detail)
@@ -221,6 +309,16 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @else
@@ -390,6 +488,17 @@
                                                             <th scope="col">Distance Speed Range (0-15 km/h)</th>
                                                             <th scope="col">Distance Speed Range (15-20 km/h)</th>
                                                             <th scope="col">Distance Speed Range (20-25 km/h)</th>
+                                                            
+                                                            <th scope="col">Distance Speed Range (25-30 km/h)</th>
+                                                            <th scope="col">Distance Speed Range (>30 km/h)</th>
+                                                            <th scope="col"># of Sprints (>25 km/h)</th>
+                                                            <th scope="col">Avg. Speed (km/h)</th>
+                                                            <th scope="col">Max Speed (km/h)</th>
+                                                            <th scope="col">Max Acceleration (m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>4 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>4 m/s²)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -407,6 +516,17 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @foreach($overallSummary['team_2'] as $detail)
@@ -420,6 +540,17 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @else
@@ -449,6 +580,17 @@
                                                             <th scope="col">Distance Speed Range (0-15 km/h)</th>
                                                             <th scope="col">Distance Speed Range (15-20 km/h)</th>
                                                             <th scope="col">Distance Speed Range (20-25 km/h)</th>
+                                                            
+                                                            <th scope="col">Distance Speed Range (25-30 km/h)</th>
+                                                            <th scope="col">Distance Speed Range (>30 km/h)</th>
+                                                            <th scope="col"># of Sprints (>25 km/h)</th>
+                                                            <th scope="col">Avg. Speed (km/h)</th>
+                                                            <th scope="col">Max Speed (km/h)</th>
+                                                            <th scope="col">Max Acceleration (m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>4 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>4 m/s²)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -465,6 +607,17 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @foreach($periodSummary['team_2']['period1'] as $detail)
@@ -479,6 +632,16 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @else
@@ -508,6 +671,17 @@
                                                             <th scope="col">Distance Speed Range (0-15 km/h)</th>
                                                             <th scope="col">Distance Speed Range (15-20 km/h)</th>
                                                             <th scope="col">Distance Speed Range (20-25 km/h)</th>
+                                                            
+                                                            <th scope="col">Distance Speed Range (25-30 km/h)</th>
+                                                            <th scope="col">Distance Speed Range (>30 km/h)</th>
+                                                            <th scope="col"># of Sprints (>25 km/h)</th>
+                                                            <th scope="col">Avg. Speed (km/h)</th>
+                                                            <th scope="col">Max Speed (km/h)</th>
+                                                            <th scope="col">Max Acceleration (m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Accelerations (>4 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>3 m/s²)</th>
+                                                            <th scope="col"># of Decelerations (>4 m/s²)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -524,6 +698,17 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @foreach($periodSummary['team_2']['period2'] as $detail)
@@ -538,6 +723,17 @@
                                                             <td>{{$detail['distance_speed_range_15_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_15_20_km']}}</td>
                                                             <td>{{$detail['distance_speed_range_20_25_km']}}</td>
+                                                            
+                                                            <td>{{$detail['distance_speed_range_25_30_km']}}</td>
+                                                            <td>{{$detail['distance_speed_range_greater_30_km']}}</td>
+                                                            <td>{{$detail['no_of_sprint_greater_25_km']}}</td>
+                                                            <td>{{$detail['avg_speed_km']}}</td>
+                                                            <td>{{$detail['max_speed_km']}}</td>
+                                                            <td>{{$detail['max_acceleration']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_acceleration_4']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_3']}}</td>
+                                                            <td>{{$detail['no_of_deceleration_4']}}</td>
                                                         </tr>
                                                         @endforeach
                                                         @else
