@@ -21,7 +21,7 @@
     <h3 class="brand-color iconic-text bolder">Edit team</h3>
     <h6>Enter the information of the team below.</h6>
 
-    <div class="col-md-8 mt-5">
+    <div class="col-md-10 mt-5">
         <div class="uploadimg mb-5">
             <div class="row">
                 <div class="col-md-3 ">
