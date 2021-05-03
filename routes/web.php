@@ -72,12 +72,7 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
     Route::get('upload_match_stats/{matchId}','MatchController@uploadMatchStats');
     Route::post('upload_match_stats','MatchController@submitMatchStats')->name('team_player_stats');
     
-//    $router->group(['prefix' => 'matches'], function () use ($router) {
-//        
-//        $router->get('/create', 'MatchController@create');
-//        $router->post('/store', 'MatchController@store')->name('match.store');
-//
-//    });
+    Route::get('delete_whole_match/{matchId}','MatchController@deleteWholeMatch')->name('delete_whole_match');
     
     Route::group(['prefix' => 'roles', 'as' => 'roles.'], function () {
         Route::get('/', 'RoleController@index')->name('index');

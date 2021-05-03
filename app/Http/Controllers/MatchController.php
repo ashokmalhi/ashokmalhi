@@ -8,6 +8,7 @@ use App\Models\Match;
 use App\Models\MatchDetail;
 use App\Models\Player;
 use App\Models\MatchStatDetail;
+use DB;
 
 class MatchController extends Controller {
 
@@ -36,7 +37,8 @@ class MatchController extends Controller {
                 $nestedData['team_2'] = $match->team2->name;
                 $nestedData['match_date'] = date("Y-m-d H:i", strtotime($match->match_date));
                 $nestedData['actions'] = '<a href="/matches/' . $match->id . '" class="btn btn-primary btn-sm">Details</a> &nbsp;'
-                        . '<a href="/upload_match_stats/' . $match->id . '" class="btn btn-primary btn-sm">Upload Player Stats</a>';
+                        . '<a href="/upload_match_stats/' . $match->id . '" class="btn btn-primary btn-sm">Upload Player Stats</a>&nbsp;';
+                        //. '<a href="/delete_whole_match/' . $match->id . '" onclick="return confirm(\'Are you sure you want to delete whole match ?\')" class="btn btn-primary btn-sm">Delete Match</a>';
                 $data[] = $nestedData;
             }
         }
@@ -275,6 +277,36 @@ class MatchController extends Controller {
             }
         }
         return $csvData;
+    }
+    
+    public function deleteWholeMatch($matchId) {
+        
+        DB::beginTransaction();
+        
+        try {
+            $matchDetails = Match::find($matchId);
+            if($matchDetails){
+                //Delete player stats against this match
+                MatchStatDetail::where('match_id',$matchId)->delete();
+                
+                //Delete match stats
+                MatchDetail::where('match_id',$matchId)->delete();
+                
+                //Delete Match
+               $matchDetails->delete();
+               
+               DB::commit();
+               
+               return redirect('/matches')->with('success', 'Match data deleted successfully');
+            }else{
+               return redirect('/matches')->with('error', 'Match details not found');
+            }
+        } catch (\Exception $e) {
+            
+            DB::rollback();
+            //return $e->getMessage();
+            return redirect('/matches')->with('error', 'Match data not deleted');
+        }
     }
 
 }
