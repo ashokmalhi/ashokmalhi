@@ -17,23 +17,30 @@ function calculateAge($birthDate) {
     return $interval->y;
 }
 
-function formateDate($date,$format = false){
-    if($date){
-        if($format){
+function formateDate($date, $format = false) {
+    if ($date) {
+        if ($format) {
             return date($format, strtotime($date));
-        }else{
+        } else {
             return date('m/d/Y', $date);
         }
-    }else{
+    } else {
         return "";
     }
 }
 
-function getFileNameFromFilePath($file){
-    
+function getFileNameFromFilePath($file) {
+
     $fileName = pathinfo($file, PATHINFO_FILENAME);
     $fileName = ltrim($fileName, '0');
     return $fileName;
+}
+
+function calculatePercentage($oldPrice, $newPrice) {
+    
+    $percentChange = ($newPrice / $oldPrice) * 100;
+
+    return number_format(abs($percentChange), 2);
 }
 
 ?>
