@@ -36,7 +36,8 @@ class MatchController extends Controller {
                 $nestedData['team_1'] = $match->team1->name;
                 $nestedData['team_2'] = $match->team2->name;
                 $nestedData['match_date'] = date("Y-m-d H:i", strtotime($match->match_date));
-                $nestedData['actions'] = '<a href="/matches/' . $match->id . '" class="btn btn-primary btn-sm">Details</a> &nbsp;'
+                $nestedData['actions'] = '<a href="/matches/' . $match->id.'/'.$match->team1->id. '" class="btn btn-primary btn-sm">Team 1 Details</a> &nbsp;'
+                        .'<a href="/matches/' . $match->id .'/'.$match->team2->id. '" class="btn btn-primary btn-sm">Team 2 Details</a> &nbsp;'
                         . '<a href="/upload_match_stats/' . $match->id . '" class="btn btn-primary btn-sm">Upload Player Stats</a>&nbsp;';
                         //. '<a href="/delete_whole_match/' . $match->id . '" onclick="return confirm(\'Are you sure you want to delete whole match ?\')" class="btn btn-primary btn-sm">Delete Match</a>';
                 $data[] = $nestedData;
@@ -307,6 +308,34 @@ class MatchController extends Controller {
             //return $e->getMessage();
             return redirect('/matches')->with('error', 'Match data not deleted');
         }
+    }
+    
+    public function getTeamDetails($matchId, $teamId){
+        
+        $matchDetails = Match::getMatchDetails($matchId);
+        
+        $overAllMatchPlayerDetails = MatchDetail::getMatchDetailsById($matchId,0,$teamId);
+      
+        $periodDetail['period1'] = MatchDetail::getMatchDetailsById($matchId,1,$teamId);
+        $periodDetail['period2'] = MatchDetail::getMatchDetailsById($matchId,2,$teamId);
+
+        $overallSummary = MatchDetail::getSummaryDeatilById($matchId,0,$teamId);
+        
+        $periodSummary['period1'] = MatchDetail::getSummaryDeatilById($matchId,1,$teamId);
+        $periodSummary['period2'] = MatchDetail::getSummaryDeatilById($matchId,2,$teamId);
+        
+        $data['individualPlayers'] = MatchDetail::getMatchPlayers($matchId,$teamId);
+        $data['teamDetails'] = Team::find($teamId);
+        
+        return view('matches.match_detail', compact('periodSummary','overallSummary','matchDetails', 'overAllMatchPlayerDetails', 'periodDetail','data'));
+        
+    }
+    
+    public function getIndividualTeamMemberDetails(Request $request){
+        
+        $playerStats = MatchDetail::getMatchPlayers($request->all('matchId'),$request->all('teamId'),$request->all('playerId'));
+        //pd($playerStats);
+        return view('matches.match_player_detail',['playerStats'=>$playerStats])->render();
     }
 
 }

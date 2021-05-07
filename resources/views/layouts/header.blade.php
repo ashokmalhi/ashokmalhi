@@ -9,7 +9,7 @@
                         @if(!empty(session('player.image_path')))
                             <img src="{{URL::to('storage/'.session('player.image_path'))}}" width="50" alt="">
                         @else
-                            <img src="images/user.png" alt="">
+                            <img src="{{URL::to('images/user.png')}}" alt="">
                         @endif
                     </div>
                     <div class="colright">{{Auth::user()->name}}

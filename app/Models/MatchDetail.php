@@ -123,14 +123,19 @@ class MatchDetail extends Model
         return $this->hasMany('App\Models\MatchDetail','player_id','player_id');
     }
     
-    public static function getMatchPlayers($matchId,$teamId){
+    public static function getMatchPlayers($matchId,$teamId,$playerId = false){
         
-        return self::with(['matchStats'])
+        $playerDetails = self::with(['matchStats'])
                 ->join('players as p','p.id','match_details.player_id')
                 ->select('p.id as player_id','p.first_name','p.last_name')
                 ->where('match_details.match_id',$matchId)
-                ->where('team_id',$teamId)
-                ->groupBy('match_details.player_id')
-                ->get();
+                ->where('team_id',$teamId);
+        if($playerId){
+            $playerDetails = $playerDetails->where('player_id',$playerId)->first();
+        }else{
+            $playerDetails = $playerDetails->groupBy('match_details.player_id')->get();
+        }
+        
+        return $playerDetails;
     }
 }

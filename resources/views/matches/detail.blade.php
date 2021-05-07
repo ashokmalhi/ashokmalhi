@@ -5,7 +5,8 @@
     <div class="row">
         <div class="col-md-10">
             <p>{{formateDate($matchDetails->match_date,'d M Y H:i a')}}</p>
-            <h3 class="brand-color iconic-text"><img src="images/icon-stadium.svg" class="" alt=""><b>{{$matchDetails->name}}</b></h3>
+            <h3 class="brand-color iconic-text"><img src="{{asset('images/icon-stadium.svg')}}" class="" alt=""><b>{{$matchDetails->name}}</b></h3>
+            <input type="hidden" id="matchId" value="{{$matchDetails->id}}">
         </div>
         <div class="col-md-2"></div>
     </div>
@@ -343,14 +344,14 @@
 
                             @foreach($data['individualPlayers']['team_1'] as $player)
 
-                            <a href="javascript:void(0)"><li id="player-{{$player->player_id}}">{{$player->first_name.' '.$player->last_name}}</li></a>
+                            <a href="javascript:void(0)"><li id="player-{{$player->player_id}}" class="individualPlayerDetails" data-id="{{$player->player_id}}">{{$player->first_name.' '.$player->last_name}}</li></a>
 
                             @endforeach
 
                         </ul>
                         @endif
 
-                        <div id="player-details">
+                        <div id="player-details-team1">
                             <?php
                             $firstPlayer = isset($data['individualPlayers']['team_1'][0]) ? $data['individualPlayers']['team_1'][0] : "";
                             if (isset($firstPlayer->matchStats) && count($firstPlayer->matchStats) > 0) {
@@ -392,50 +393,50 @@
                                     </div>
                                 </div>
                                 <div class="counts mt-4">
-                                    <div class="values col"> <img src="images/icon-distance.svg" alt="">
-                                        <p>Time Played</p>
-                                        <h4 class="brand-color">{{$totalTimePlayed}}</h4>
-                                    </div>
-                                    <div class="values col"> <img src="images/icon-distance.svg" alt="">
-                                        <p>Total Distance (km)</p>
-                                        <h4 class="brand-color">{{$totalDistance}}</h4>
-                                    </div>
-                                    <div class="values col"> <img src="images/icon-running.svg" alt="">
-                                        <p># of Accelerations(>0.5 m/s²)</p>
-                                        <h4 class="brand-color">{{$noOfAcceleration1}}</h4>
-                                    </div>
-                                    <div class="values col"> <img src="images/icon-speedometer.svg" alt="">
-                                        <p># of Accelerations(>3 m/s²)</p>
-                                        <h4 class="brand-color">{{$noOfAcceleration2}}</h4>
-                                    </div>
-                                    <div class="values col"> <img src="images/icon-running.svg" alt="">
-                                        <p># of Decelerations(>0.5 m/s²)</p>
-                                        <h4 class="brand-color">{{$noOfDeceleration1}}</h4>
-                                    </div>
-                                    <div class="values col"> <img src="images/icon-distance.svg" alt="">
-                                        <p># of Decelerations(>3 m/s²)</p>
-                                        <h4 class="brand-color">{{$noOfDeceleration2}}</h4>
-                                    </div>
-                                    <div class="values col"> <img src="images/icon-clock.svg" alt="">
-                                        <p># of Sprints(>19.8 km/h)</p>
-                                        <h4 class="brand-color">{{$noOfSprints}}</h4>
-                                    </div>
-                                    <div class="values col"> <img src="images/icon-reverse.svg" alt="">
-                                        <p>HID Distance(>19.8 km/h)</p>
-                                        <h4 class="brand-color">{{$hidDistance}}</h4>
-                                    </div>
-                                    <div class="values col"> <img src="images/icon-load.svg" alt="">
-                                        <p>Avg. Speed(km/h)</p>
-                                        <h4 class="brand-color">{{$avgSpeed}}</h4>
-                                    </div>
-                                    <div class="values col"> <img src="images/icon-load.svg" alt="">
-                                        <p>Max Speed(km/h)</p>
-                                        <h4 class="brand-color">{{$maxSpeed}}</h4>
-                                    </div>
-                                    <div class="values col"> <img src="images/icon-load.svg" alt="">
-                                        <p>Max Acceleration(m/s²)</p>
-                                        <h4 class="brand-color">{{$maxAcceleration}}</h4>
-                                    </div>
+                                    <div class="values col"> <img src="{{asset('images/icon-distance.svg')}}" alt="">
+                                            <p>Time Played</p>
+                                            <h4 class="brand-color">{{$totalTimePlayed}}</h4>
+                                        </div>
+                                        <div class="values col"> <img src="{{asset('images/icon-distance.svg')}}" alt="">
+                                            <p>Total Distance (km)</p>
+                                            <h4 class="brand-color">{{$totalDistance}}</h4>
+                                        </div>
+                                        <div class="values col"> <img src="{{asset('images/icon-running.svg')}}" alt="">
+                                            <p># of Accelerations(>0.5 m/s²)</p>
+                                            <h4 class="brand-color">{{$noOfAcceleration1}}</h4>
+                                        </div>
+                                        <div class="values col"> <img src="{{asset('images/icon-speedometer.svg')}}" alt="">
+                                            <p># of Accelerations(>3 m/s²)</p>
+                                            <h4 class="brand-color">{{$noOfAcceleration2}}</h4>
+                                        </div>
+                                        <div class="values col"> <img src="{{asset('images/icon-running.svg')}}" alt="">
+                                            <p># of Decelerations(>0.5 m/s²)</p>
+                                            <h4 class="brand-color">{{$noOfDeceleration1}}</h4>
+                                        </div>
+                                        <div class="values col"> <img src="{{asset('images/icon-distance.svg')}}" alt="">
+                                            <p># of Decelerations(>3 m/s²)</p>
+                                            <h4 class="brand-color">{{$noOfDeceleration2}}</h4>
+                                        </div>
+                                        <div class="values col"> <img src="{{asset('images/icon-clock.svg')}}" alt="">
+                                            <p># of Sprints(>19.8 km/h)</p>
+                                            <h4 class="brand-color">{{$noOfSprints}}</h4>
+                                        </div>
+                                        <div class="values col"> <img src="{{asset('images/icon-reverse.svg')}}" alt="">
+                                            <p>HID Distance(>19.8 km/h)</p>
+                                            <h4 class="brand-color">{{$hidDistance}}</h4>
+                                        </div>
+                                        <div class="values col"> <img src="{{asset('images/icon-load.svg')}}" alt="">
+                                            <p>Avg. Speed(km/h)</p>
+                                            <h4 class="brand-color">{{$avgSpeed}}</h4>
+                                        </div>
+                                        <div class="values col"> <img src="{{asset('images/icon-load.svg')}}" alt="">
+                                            <p>Max Speed(km/h)</p>
+                                            <h4 class="brand-color">{{$maxSpeed}}</h4>
+                                        </div>
+                                        <div class="values col"> <img src="{{asset('images/icon-load.svg')}}" alt="">
+                                            <p>Max Acceleration(m/s²)</p>
+                                            <h4 class="brand-color">{{$maxAcceleration}}</h4>
+                                        </div>
                                 </div>
                             </div>
                             <div class="container-box mt-4">
@@ -855,7 +856,7 @@
                             </ul>
                             @endif
 
-                            <div id="player-details">
+                            <div id="player-details-team2">
                                 <?php
                                 $firstPlayer = isset($data['individualPlayers']['team_2'][0]) ? $data['individualPlayers']['team_2'][0] : "";
                                 if (isset($firstPlayer->matchStats) && count($firstPlayer->matchStats) > 0) {
@@ -890,47 +891,47 @@
                                         </div>
                                     </div>
                                     <div class="counts mt-4">
-                                        <div class="values col"> <img src="images/icon-distance.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-distance.svg')}}" alt="">
                                             <p>Time Played</p>
                                             <h4 class="brand-color">{{$totalTimePlayed}}</h4>
                                         </div>
-                                        <div class="values col"> <img src="images/icon-distance.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-distance.svg')}}" alt="">
                                             <p>Total Distance (km)</p>
                                             <h4 class="brand-color">{{$totalDistance}}</h4>
                                         </div>
-                                        <div class="values col"> <img src="images/icon-running.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-running.svg')}}" alt="">
                                             <p># of Accelerations(>0.5 m/s²)</p>
                                             <h4 class="brand-color">{{$noOfAcceleration1}}</h4>
                                         </div>
-                                        <div class="values col"> <img src="images/icon-speedometer.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-speedometer.svg')}}" alt="">
                                             <p># of Accelerations(>3 m/s²)</p>
                                             <h4 class="brand-color">{{$noOfAcceleration2}}</h4>
                                         </div>
-                                        <div class="values col"> <img src="images/icon-running.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-running.svg')}}" alt="">
                                             <p># of Decelerations(>0.5 m/s²)</p>
                                             <h4 class="brand-color">{{$noOfDeceleration1}}</h4>
                                         </div>
-                                        <div class="values col"> <img src="images/icon-distance.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-distance.svg')}}" alt="">
                                             <p># of Decelerations(>3 m/s²)</p>
                                             <h4 class="brand-color">{{$noOfDeceleration2}}</h4>
                                         </div>
-                                        <div class="values col"> <img src="images/icon-clock.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-clock.svg')}}" alt="">
                                             <p># of Sprints(>19.8 km/h)</p>
                                             <h4 class="brand-color">{{$noOfSprints}}</h4>
                                         </div>
-                                        <div class="values col"> <img src="images/icon-reverse.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-reverse.svg')}}" alt="">
                                             <p>HID Distance(>19.8 km/h)</p>
                                             <h4 class="brand-color">{{$hidDistance}}</h4>
                                         </div>
-                                        <div class="values col"> <img src="images/icon-load.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-load.svg')}}" alt="">
                                             <p>Avg. Speed(km/h)</p>
                                             <h4 class="brand-color">{{$avgSpeed}}</h4>
                                         </div>
-                                        <div class="values col"> <img src="images/icon-load.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-load.svg')}}" alt="">
                                             <p>Max Speed(km/h)</p>
                                             <h4 class="brand-color">{{$maxSpeed}}</h4>
                                         </div>
-                                        <div class="values col"> <img src="images/icon-load.svg" alt="">
+                                        <div class="values col"> <img src="{{asset('images/icon-load.svg')}}" alt="">
                                             <p>Max Acceleration(m/s²)</p>
                                             <h4 class="brand-color">{{$maxAcceleration}}</h4>
                                         </div>
@@ -946,6 +947,15 @@
 
         </div>
     </div>    
+@section('scripts')
+<script>
+    
+$(document).ready(function () {
+    
+    
+});
+</script>
+@endsection
 
-    @stop
+@stop
 

@@ -72,6 +72,12 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
     Route::get('upload_match_stats/{matchId}','MatchController@uploadMatchStats');
     Route::post('upload_match_stats','MatchController@submitMatchStats')->name('team_player_stats');
     
+    Route::post('/matches/get_team_player_details', 'MatchController@getIndividualTeamMemberDetails');
+    
+    Route::get('/matches/{matchId}/{teamId}', 'MatchController@getTeamDetails');
+    
+    //Route::get('/matches/{matchId}/{teamId}/{playerId}', 'MatchController@getIndividualTeamMemberDetails');
+    
     Route::get('delete_whole_match/{matchId}','MatchController@deleteWholeMatch')->name('delete_whole_match');
     
     Route::group(['prefix' => 'roles', 'as' => 'roles.'], function () {

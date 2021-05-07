@@ -22,7 +22,7 @@
         <table class="table" id="matches_table">
             <thead>
                 <tr>
-                    <th scope="col">Player Id</th>
+                    <th scope="col">Match Id</th>
                     <th scope="col">Match Name</th>
                     <th scope="col">Team 1</th>
                     <th scope="col">Team 2</th>
