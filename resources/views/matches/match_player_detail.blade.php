@@ -84,11 +84,12 @@ if (isset($playerStats->matchStats) && count($playerStats->matchStats) > 0) {
         </div>
     </div>
 </div>
+
 <div class="container-box mt-4">
     <div class="row">
         <div class="col">
             <div class="row">
-                <div class="col"><b>Distances Per Speed Range</b></div>
+                <div class="col"><b>Intensity vs Time</b></div>
             </div>
             <div class="box-charts mt-3">
                 <table class="table">
@@ -130,42 +131,139 @@ if (isset($playerStats->matchStats) && count($playerStats->matchStats) > 0) {
             </div>
         </div>
         <div class="col">
-            <div class="row">
-                <div class="col"><b>Recently Generated Statistics</b></div>
+            
+                <div class="row">
+                    <div class="col"><b>Distances Per Zone</b></div>
+                </div>
+                <div class="box-charts mt-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Total</th>
+                                <th scope="col">{{$totalDistance}} km</th>
+                                <th scope="col">100%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(!empty($playerStats->distancePerZone))
+                            <tr>
+                                <td>Distance Covered zone A1:</td>
+                                <td>{{$playerStats->distancePerZone->distance_zone_a1}} km</td>
+                                <td>{{calculatePercentage($totalDistance,$playerStats->distancePerZone->distance_zone_a1)}} %</td>
+                            </tr>
+                            <tr>
+                                <td>Distance Covered zone A2:</td>
+                                <td>{{$playerStats->distancePerZone->distance_zone_a2}} km</td>
+                                <td>{{calculatePercentage($totalDistance,$playerStats->distancePerZone->distance_zone_a2)}} %</td>
+                            </tr>
+                            <tr>
+                                <td>Distance Covered zone B1:</td>
+                                <td>{{$playerStats->distancePerZone->distance_zone_b1}} km</td>
+                                <td>{{calculatePercentage($totalDistance,$playerStats->distancePerZone->distance_zone_b1)}} %</td>
+                            </tr>
+                            <tr>
+                                <td>Distance Covered zone B2:</td>
+                                <td>{{$playerStats->distancePerZone->distance_zone_b2}} km</td>
+                                <td>{{calculatePercentage($totalDistance,$playerStats->distancePerZone->distance_zone_b2)}} %</td>
+                            </tr>
+                            <tr>
+                                <td>Distance Covered zone C1:</td>
+                                <td>{{$playerStats->distancePerZone->distance_zone_c1}} km</td>
+                                <td>{{calculatePercentage($totalDistance,$playerStats->distancePerZone->distance_zone_c1)}} %</td>
+                            </tr>
+                            <tr>
+                                <td>Distance Covered zone C2:</td>
+                                <td>{{$playerStats->distancePerZone->distance_zone_c2}} km</td>
+                                <td>{{calculatePercentage($totalDistance,$playerStats->distancePerZone->distance_zone_c2)}} %</td>
+                            </tr>
+                            @else
+                            <tr>
+                                <td colspan="3" style="text-align: center;">No Data</td>
+                            </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+        </div>
             </div>
-            <div class="box-charts mt-3">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Statistics Date</th>
-                            <th scope="col">Timezone</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Practice Match 1</td>
-                            <td>Practice</td>
-                            <td>Oct 31, 2018 18:57</td>
-                            <td>Europe/Zurich</td>
-                        </tr>
-                        <tr>
-                            <td>Practice Match 2</td>
-                            <td>Practice</td>
-                            <td>Oct 31, 2018 18:57</td>
-                            <td>Europe/Zurich</td>
-                        </tr>
-                        <tr>
-                            <td>Practice Match 3</td>
-                            <td>Practice</td>
-                            <td>Oct 31, 2018 18:57</td>
-                            <td>Europe/Zurich</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <br><br>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col"><b>Distances Per Speed Range</b></div>
+                </div>
+                <div class="box-charts mt-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">All Speeds</th>
+                                <th scope="col">{{$totalDistance}} km</th>
+                                <th scope="col">100%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0-15 km/h</td>
+                                <td>{{$distanceSpeedRange15}}</td>
+                                <td>{{calculatePercentage($totalDistance,$distanceSpeedRange15)}}</td>
+                            </tr>
+                            <tr>
+                                <td>15-20 km/h</td>
+                                <td>{{$distanceSpeedRange15_20}}</td>
+                                <td>{{calculatePercentage($totalDistance,$distanceSpeedRange15_20)}}</td>
+                            </tr>
+                            <tr>
+                                <td>20-25 km/h</td>
+                                <td>{{$distanceSpeedRange20_25}}</td>
+                                <td>{{calculatePercentage($totalDistance,$distanceSpeedRange20_25)}}</td>
+                            </tr>
+                            <tr>
+                                <td>25-30 km/h</td>
+                                <td>{{$distanceSpeedRange25_30}}</td>
+                                <td>{{calculatePercentage($totalDistance,$distanceSpeedRange25_30)}}</td>
+                            </tr>
+                            <tr>
+                                <td>>30 km/h</td>
+                                <td>{{$distanceSpeedRangeGreater_30}}</td>
+                                <td>{{calculatePercentage($totalDistance,$distanceSpeedRangeGreater_30)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col">
+                    <div class="row">
+                        <div class="col"><b>Distances Per Sprint (> 25 km/h)</b></div>
+                    </div>
+                    <div class="box-charts mt-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Distance (m)</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Max Speed km/h</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(count($playerStats->distancePerSprint) > 0)
+                                    @foreach ($playerStats->distancePerSprint as $sprint)
+                                    <tr>
+                                        <td>{{$sprint->sprint_time}}</td>
+                                        <td>{{$sprint->sprint_distance}}</td>
+                                        <td>{{$sprint->sprint_duration}}</td>
+                                        <td>{{$sprint->sprint_max_speed}}</td>
+                                    </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="4" style="text-align: center;">No Data</td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
             </div>
         </div>
-    </div>
     @endif
 </div>

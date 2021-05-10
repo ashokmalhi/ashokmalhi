@@ -123,9 +123,16 @@ class MatchDetail extends Model
         return $this->hasMany('App\Models\MatchDetail','player_id','player_id');
     }
     
+    public function distancePerZone(){
+        return $this->belongsTo('App\Models\DistancePerZone','player_id','player_id');
+    }
+    public function distancePerSprint(){
+        return $this->hasMany('App\Models\DistancePerSprint','player_id','player_id');
+    }
+    
     public static function getMatchPlayers($matchId,$teamId,$playerId = false){
         
-        $playerDetails = self::with(['matchStats'])
+        $playerDetails = self::with(['matchStats','distancePerZone','distancePerSprint'])
                 ->join('players as p','p.id','match_details.player_id')
                 ->select('p.id as player_id','p.first_name','p.last_name')
                 ->where('match_details.match_id',$matchId)

@@ -334,7 +334,7 @@ class MatchController extends Controller {
     public function getIndividualTeamMemberDetails(Request $request){
         
         $playerStats = MatchDetail::getMatchPlayers($request->all('matchId'),$request->all('teamId'),$request->all('playerId'));
-        //pd($playerStats);
+        #pd($playerStats);
         return view('matches.match_player_detail',['playerStats'=>$playerStats])->render();
     }
 
