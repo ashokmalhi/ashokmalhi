@@ -55,6 +55,8 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
     
     $router->group(['prefix' => 'statistics'], function () use ($router) {
         
+        $router->get('/calculate_final_stats_player/{matchId}/{teamId}', 'StatsController@calculateFinalStats');
+        
         $router->get('/', 'StatsController@index');
         $router->post('/all', 'StatsController@allStats');
         $router->get('/create', 'StatsController@create');

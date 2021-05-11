@@ -33,12 +33,12 @@ class MatchController extends Controller {
             foreach ($matches as $match) {
                 $nestedData['match_id'] = $match->id;
                 $nestedData['match_name'] = $match->name;
-                $nestedData['team_1'] = $match->team1->name;
-                $nestedData['team_2'] = $match->team2->name;
+                $nestedData['team_1'] = '<a href="/matches/' . $match->id.'/'.$match->team1->id. '" >' . $match->team1->name. '</a>';
+                $nestedData['team_2'] = '<a href="/matches/' . $match->id.'/'.$match->team2->id. '" >' . $match->team2->name. '</a>';
                 $nestedData['match_date'] = date("Y-m-d H:i", strtotime($match->match_date));
-                $nestedData['actions'] = '<a href="/matches/' . $match->id.'/'.$match->team1->id. '" class="btn btn-primary btn-sm">Team 1 Details</a> &nbsp;'
-                        .'<a href="/matches/' . $match->id .'/'.$match->team2->id. '" class="btn btn-primary btn-sm">Team 2 Details</a> &nbsp;'
-                        . '<a href="/upload_match_stats/' . $match->id . '" class="btn btn-primary btn-sm">Upload Player Stats</a>&nbsp;';
+                $nestedData['actions'] = '<a href="/upload_match_stats/' . $match->id . '" class="btn btn-primary btn-sm">Upload Player Stats</a>&nbsp;'
+                        . '<a href="/statistics/calculate_final_stats_player/' . $match->id .'/'.$match->team1->id. '" onclick="return confirm(\'Are you sure you want to calculate stats ?\')" class="btn btn-primary btn-sm">Calculate Stats Team1</a>&nbsp;'
+                        . '<a href="/statistics/calculate_final_stats_player/' . $match->id .'/'.$match->team2->id. '" onclick="return confirm(\'Are you sure you want to calculate stats ?\')" class="btn btn-primary btn-sm">Calculate Stats Team2</a>';
                         //. '<a href="/delete_whole_match/' . $match->id . '" onclick="return confirm(\'Are you sure you want to delete whole match ?\')" class="btn btn-primary btn-sm">Delete Match</a>';
                 $data[] = $nestedData;
             }
@@ -123,6 +123,7 @@ class MatchController extends Controller {
         $periodSummary['team_2']['period2'] = MatchDetail::getSummaryDeatilById($id,2,$matchDetails->second_team);
         
         $data['individualPlayers']['team_1'] = MatchDetail::getMatchPlayers($id,$matchDetails->first_team);
+        pd($data['individualPlayers']['team_1']);
         $data['individualPlayers']['team_2'] = MatchDetail::getMatchPlayers($id,$matchDetails->second_team);
         
         return view('matches.detail', compact('periodSummary','overallSummary','matchDetails', 'overAllMatchPlayerDetailsTeam1','overAllMatchPlayerDetailsTeam2', 'periodDetail','data'));
@@ -208,7 +209,8 @@ class MatchController extends Controller {
         $inputs = $request->all();
 
         $matchId = $inputs['match_id'];
-
+        $matchDetails = Match::find($matchId);
+        
         //Sensor and player id mapping
         $sensorPlayerMapping = MatchDetail::getSensorPlayerMapping($matchId);
 
@@ -223,8 +225,16 @@ class MatchController extends Controller {
 
                 $playerRow = array_map('str_getcsv', file($path));
 
-                $playerStat = $this->getPlayerCSVData($playerRow, $matchId, $playerId);
+                $playerStat = $this->getPlayerCSVData($playerRow, $matchId, $matchDetails->first_team, $playerId);
+                
                 if (count($playerStat) > 0) {
+                    //Calculate Zones
+//                    $field_y = $playerStat[0]['y_field'];
+//                    $field_x = $playerStat[2]['x_field'];
+//                    $zones = calculateZones($field_x,$field_y);
+//                    pd($zones);
+//                    unset($playerStat[0],$playerStat[1],$playerStat[2],$playerStat[3]);
+//                    pd($playerStat);
                     foreach (array_chunk($playerStat, 1000) as $t) {
                         MatchStatDetail::addBulkStat($t);
                     }
@@ -242,11 +252,22 @@ class MatchController extends Controller {
 
                 $playerRow = array_map('str_getcsv', file($path));
 
-                $playerStat = $this->getPlayerCSVData($playerRow, $matchId, $playerId);
+                $playerStat = $this->getPlayerCSVData($playerRow, $matchId, $matchDetails->second_team, $playerId);
+                
                 if (count($playerStat) > 0) {
+                    
+                    //Calculate Zones
+//                    $field_y = $playerStat[0]['y_field'];
+//                    $field_x = $playerStat[2]['x_field'];
+//                    $zones = calculateZones($field_x,$field_y);
+//                    pd($zones);
+//                    unset($playerStat[0],$playerStat[1],$playerStat[2],$playerStat[3]);
+//                    pd($playerStat);
                     foreach (array_chunk($playerStat, 1000) as $t) {
                         MatchStatDetail::addBulkStat($t);
                     }
+                }else{
+                    echo "Failed";die;
                 }
             }
         }
@@ -254,16 +275,24 @@ class MatchController extends Controller {
         return redirect('/matches')->with('success', 'Player stats uploaded successfully');
     }
 
-    public function getPlayerCSVData($data, $matchId, $playerId) {
+    public function getPlayerCSVData($data, $matchId, $teamId, $playerId) {
 
         $csvData = [];
         $iterator = 0;
         foreach ($data as $k => $d) {
 
-            if ($k > 5) {
+            if($k < 5 && $k > 0){
+            
+                //$csvData[$iterator]['x_field'] = (int)$d[0] ?? '';
+                //$csvData[$iterator]['y_field'] = (int)$d[1] ?? '';
+                
+                //$iterator++;
+                
+            }else if ($k > 5) {
 
                 $csvData[$iterator]['player_id'] = $playerId;
                 $csvData[$iterator]['match_id'] = $matchId;
+                $csvData[$iterator]['team_id'] = $teamId;
                 $csvData[$iterator]['time_played'] = $d[0] ?? '';
                 $csvData[$iterator]['x_position'] = $d[1] ?? '';
                 $csvData[$iterator]['y_position'] = $d[2] ?? '';
@@ -273,9 +302,11 @@ class MatchController extends Controller {
                 $csvData[$iterator]['hr'] = $d[6] ?? '';
                 $csvData[$iterator]['num_sat'] = $d[7] ?? '';
                 $csvData[$iterator]['h_dop'] = $d[8] ?? '';
-
+                
                 $iterator++;
+
             }
+            
         }
         return $csvData;
     }

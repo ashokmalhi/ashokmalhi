@@ -86,5 +86,16 @@ class TeamPlayer extends Model
     public static function removeMembers($ids){
         self::whereIn('id', $ids)->delete();
     }
+    
+    public static function getTeamPlayersByMatchIdAndTeamId($matchId,$teamId){
+        
+        return MatchDetail::where('match_id',$matchId)
+                        ->where('team_id',$teamId)
+                        ->whereNotNull('player_id')
+                        ->groupBy('player_id')
+                        ->pluck('player_id')
+                        ->toArray();
+        
+    }
 
 }

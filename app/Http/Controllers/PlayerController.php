@@ -104,7 +104,7 @@ class PlayerController extends Controller
     {
         //
         $player = Player::find($id);
-        $stat = StatDetail::getStatDetailByPlayerId($id);
+        $stat = [];
         return view('players.detail',compact('player','stat'));
     }
 

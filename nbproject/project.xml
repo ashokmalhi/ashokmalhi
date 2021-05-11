@@ -9,6 +9,7 @@
             <word>endforeach</word>
             <word>endforech</word>
             <word>endif</word>
+            <word>php</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

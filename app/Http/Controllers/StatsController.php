@@ -3,17 +3,91 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Image;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Stat;
 use App\Models\StatDetail;
 use App\Models\Player;
+use App\Models\MatchStatDetail;
+use App\Models\MatchDetail;
+use App\Models\TeamPlayer;
+use App\Models\IntensityTime;
+use DB;
 
 class StatsController extends Controller
 {
     public function index()
     {
         return view('stats.list');
+    }
+    
+    public function calculateFinalStats($matchId,$teamId){
+        
+        $teamPlayers = TeamPlayer::getTeamPlayersByMatchIdAndTeamId($matchId,$teamId);
+        
+        //pd($teamPlayers);
+        
+        if(count($teamPlayers) > 0){
+        
+            foreach ($teamPlayers as $playerId){
+                
+                $statDetails = MatchStatDetail::where('match_id',$matchId)
+                                ->where('player_id',$playerId)
+                                ->select('time_played','lat','long')
+                                ->get()
+                                ->toArray();
+
+                $time = 0;
+                $fiveMinInternal = [];
+                $distance = 0;
+
+                foreach($statDetails as $key => $detail){
+
+                    if(!$time){
+                        $time = $detail['time_played'];
+                    }else{
+
+                        $from_time = strtotime($time);
+                        $to_time = strtotime($detail['time_played']);
+                        $minutes = round(abs($to_time - $from_time) / 60,2);
+
+                        if($minutes >= 5.00){
+                            $fiveMinInternal[] = $distance;
+                            $distance = 0;
+                            $time = 0;
+                        }else{
+                            $lat1 = $detail['lat'];
+                            $long1 = $detail['long'];
+                            $lat2 = isset($statDetails[$key+1]['lat'])?$statDetails[$key+1]['lat']:0;
+                            $long2 = isset($statDetails[$key+1]['long'])?$statDetails[$key+1]['long']:0;
+                            if($lat2 && $long2){
+                                $calculatedDistance = getDistanceBetweenPointsNew($lat1,$long1,$lat2,$long2,'meters');
+                                if(is_numeric($calculatedDistance) && !is_nan($calculatedDistance)){
+                                    $distance = $distance + $calculatedDistance;
+                                }
+                            }else{
+                                break;
+                            }
+                        }
+                    }
+
+                }
+                //Store time and distance internal values
+                $timeIntervals = getTimeIntervals();
+                
+                foreach($fiveMinInternal as $key => $distance){
+                    
+                    $intensityTime['match_id'] = $matchId;
+                    $intensityTime['team_id'] = $teamId;
+                    $intensityTime['player_id'] = $playerId;
+                    $intensityTime['time_range'] = isset($timeIntervals[$key]) ? $timeIntervals[$key] : 0;
+                    $intensityTime['distance_covered'] = $distance;
+                    if($intensityTime['time_range']){
+                        IntensityTime::create($intensityTime);
+                    }
+                }
+            }
+        }
+        echo "Stats calculatin successfull";
+        die;
     }
     
     public function allStats(Request $request){

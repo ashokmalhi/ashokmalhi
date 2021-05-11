@@ -91,44 +91,6 @@ if (isset($playerStats->matchStats) && count($playerStats->matchStats) > 0) {
             <div class="row">
                 <div class="col"><b>Intensity vs Time</b></div>
             </div>
-            <div class="box-charts mt-3">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">All Speeds</th>
-                            <th scope="col">{{$totalDistance}} km</th>
-                            <th scope="col">100%</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>0-15 km/h</td>
-                            <td>{{$distanceSpeedRange15}}</td>
-                            <td>{{calculatePercentage($totalDistance,$distanceSpeedRange15)}}</td>
-                        </tr>
-                        <tr>
-                            <td>15-20 km/h</td>
-                            <td>{{$distanceSpeedRange15_20}}</td>
-                            <td>{{calculatePercentage($totalDistance,$distanceSpeedRange15_20)}}</td>
-                        </tr>
-                        <tr>
-                            <td>20-25 km/h</td>
-                            <td>{{$distanceSpeedRange20_25}}</td>
-                            <td>{{calculatePercentage($totalDistance,$distanceSpeedRange20_25)}}</td>
-                        </tr>
-                        <tr>
-                            <td>25-30 km/h</td>
-                            <td>{{$distanceSpeedRange25_30}}</td>
-                            <td>{{calculatePercentage($totalDistance,$distanceSpeedRange25_30)}}</td>
-                        </tr>
-                        <tr>
-                            <td>>30 km/h</td>
-                            <td>{{$distanceSpeedRangeGreater_30}}</td>
-                            <td>{{calculatePercentage($totalDistance,$distanceSpeedRangeGreater_30)}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
         <div class="col">
             
