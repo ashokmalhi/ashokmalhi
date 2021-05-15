@@ -10,6 +10,7 @@ use App\Models\MatchStatDetail;
 use App\Models\MatchDetail;
 use App\Models\TeamPlayer;
 use App\Models\IntensityTime;
+use App\Models\DistancePerZone;
 use DB;
 
 class StatsController extends Controller
@@ -27,18 +28,23 @@ class StatsController extends Controller
         
         if(count($teamPlayers) > 0){
         
+            $zones = calculateZones(112,71); //Team1
+            //$zones = calculateZones(105,65); //Team2
+            
             foreach ($teamPlayers as $playerId){
                 
                 $statDetails = MatchStatDetail::where('match_id',$matchId)
                                 ->where('player_id',$playerId)
-                                ->select('time_played','lat','long')
+                                ->select('time_played','lat','long','x_position','y_position')
                                 ->get()
                                 ->toArray();
 
                 $time = 0;
                 $fiveMinInternal = [];
                 $distance = 0;
-
+                
+                $zoneViseDistance = [];
+                
                 foreach($statDetails as $key => $detail){
 
                     if(!$time){
@@ -53,6 +59,7 @@ class StatsController extends Controller
                             $fiveMinInternal[] = $distance;
                             $distance = 0;
                             $time = 0;
+                            $calculatedDistance = 0;
                         }else{
                             $lat1 = $detail['lat'];
                             $long1 = $detail['long'];
@@ -67,9 +74,18 @@ class StatsController extends Controller
                                 break;
                             }
                         }
+                        //Save distance per zone
+                        $zone = getZoneByPoint($detail['x_position'],$detail['y_position'],$zones);
+                        if(isset($zoneViseDistance[$zone])){
+                            $zoneViseDistance[$zone] = $zoneViseDistance[$zone] + $calculatedDistance;      
+                        }else{
+                             $zoneViseDistance[$zone] = $calculatedDistance;
+                        }
                     }
 
                 }
+                
+                
                 //Store time and distance internal values
                 $timeIntervals = getTimeIntervals();
                 
@@ -84,9 +100,22 @@ class StatsController extends Controller
                         IntensityTime::create($intensityTime);
                     }
                 }
+                
+                //Distance Per Zone
+                $distanceZone['match_id'] = $matchId;
+                $distanceZone['team_id'] = $teamId;
+                $distanceZone['player_id'] = $playerId;
+                $distanceZone['distance_zone_a1'] = isset($zoneViseDistance['a1']) ? meterToKm($zoneViseDistance['a1']) : 0;
+                $distanceZone['distance_zone_a2'] = isset($zoneViseDistance['a2']) ? meterToKm($zoneViseDistance['a2']) : 0;
+                $distanceZone['distance_zone_b1'] = isset($zoneViseDistance['b1']) ? meterToKm($zoneViseDistance['b1']) : 0;
+                $distanceZone['distance_zone_b2'] = isset($zoneViseDistance['b2']) ? meterToKm($zoneViseDistance['b2']) : 0;
+                $distanceZone['distance_zone_c1'] = isset($zoneViseDistance['c1']) ? meterToKm($zoneViseDistance['c1']) : 0;
+                $distanceZone['distance_zone_c2'] = isset($zoneViseDistance['c2']) ? meterToKm($zoneViseDistance['c2']) : 0;
+                
+                DistancePerZone::create($distanceZone);
             }
         }
-        echo "Stats calculatin successfull";
+        echo "Stats calculation successfull";
         die;
     }
     

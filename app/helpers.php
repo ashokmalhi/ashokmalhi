@@ -87,7 +87,13 @@ function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longi
         case 'meters' :
             $distance = $distance * 1609.34;
     }
-    return (round($distance, 2));
+    
+    $finalDistance = round($distance, 2);
+    if(is_numeric($finalDistance) && !is_nan($finalDistance)){
+        return $finalDistance;
+    }else{
+        return 0;
+    }
 }
 
 function getTimeIntervals(){
@@ -108,4 +114,29 @@ function getTimeIntervals(){
     
     return $interval;
 }
+
+function getZoneByPoint($x,$y,$zones){
+    
+    if($x < $zones['a1']['x'] && $y < $zones['a1']['y']){
+        return 'a1';
+    }else if(($x < $zones['a2']['x']) && ($y < $zones['a2']['y'])){
+        return 'a2';
+    }else if(($x < $zones['b1']['x']) && ($y < $zones['b1']['y'])){
+        return 'b1';
+    }else if(($x < $zones['b2']['x']) && ($y < $zones['b2']['y'])){
+        return 'b2';
+    }else if(($x < $zones['c1']['x']) && ($y < $zones['c1']['y'])){
+        return 'c1';
+    }else if(($x < $zones['c2']['x']) && ($y < $zones['c2']['y'])){
+        return 'c2';
+    }else {
+        return 'none';
+    }
+}
+
+function meterToKm($distance){
+    
+    return round(($distance/ 1000),2);
+}
+
 ?>
