@@ -77,7 +77,7 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
     Route::post('/matches/get_team_player_details', 'MatchController@getIndividualTeamMemberDetails');
     
     Route::get('/matches/{matchId}/{teamId}', 'MatchController@getTeamDetails');
-    
+    Route::get('intensityTimeStat','MatchController@getIntensityStats')->name('intensity-stats');
     //Route::get('/matches/{matchId}/{teamId}/{playerId}', 'MatchController@getIndividualTeamMemberDetails');
     
     Route::get('delete_whole_match/{matchId}','MatchController@deleteWholeMatch')->name('delete_whole_match');

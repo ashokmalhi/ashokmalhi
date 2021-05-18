@@ -134,12 +134,14 @@
     </div>    
 </div>  
     </div> 
+
 @section('scripts')
 <script>        
   
     $(document).ready(function () {
         
         $(".individualPlayerDetails").click(function(){
+            
             matchId = $("#matchId").val();
             teamId = $("#teamId").val();
             playerId = $(this).attr("data-id");
@@ -155,13 +157,70 @@
                 },
                 success : function(response){
                     $("#player-details").html(response);
-                    console.log(response);
+                    // initially calling data without any filters
+                    $.get(`{{route("intensity-stats")}}?player_id=${playerId}&team_id=${teamId}`, function(response) {
+                        updateChart(response,charts);
+                    });
+                    drawChart(charts);
                 }
             });
 
         });
-
     });
+
+    playerId = $('.individualPlayerDetails').attr("data-id");
+     // initially calling data without any filters
+  $.get(`{{route("intensity-stats")}}?player_id=${playerId}`, function(response) {
+      updateChart(response,charts);
+  });
+
+  var charts = [
+    {
+        el: "userType", // div id
+        gt: "bar", // gt => graph type
+        graph: "",
+        scales: {
+            yAxes: [
+                {
+                    display: true,
+                    ticks: {
+                        suggestedMin: 0, //min
+                        // suggestedMax: 1000, //max
+                    },
+                    gridLines: {
+                  color: 'rgba(54, 53, 53)'
+             }
+                },
+            ],
+            xAxes: [{
+                barPercentage: 0.14,
+                gridLines: {
+                  color: 'rgba(54, 53, 53)'
+             }
+            }]
+        }
+    },
+    {
+        el: "stackChart", // div id
+        gt: "bar", // gt => graph type
+        graph: "",
+        options: {
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                }],
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+        }
+        
+    },
+        
+  ];
+
+  // initialize chart
+  drawChart(charts);
 </script>
 @endsection
 

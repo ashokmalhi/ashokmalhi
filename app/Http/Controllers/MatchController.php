@@ -9,6 +9,7 @@ use App\Models\MatchDetail;
 use App\Models\Player;
 use App\Models\MatchStatDetail;
 use DB;
+use App\Models\IntensityTime;
 
 class MatchController extends Controller {
 
@@ -367,6 +368,45 @@ class MatchController extends Controller {
         $playerStats = MatchDetail::getMatchPlayers($request->all('matchId'),$request->all('teamId'),$request->all('playerId'));
         #pd($playerStats);
         return view('matches.match_player_detail',['playerStats'=>$playerStats])->render();
+    }
+
+    public function getIntensityStats(Request $request){
+        $intensityTime = IntensityTime::where('player_id', $request->player_id)->where('team_id', $request->team_id)->get();
+        $result = array();
+        $response = array(
+            'label'=>array('00:00','00:05','00:10','00:15', '00:20', '00:25', '00:30', '00:35', '00:40'),
+            'value'=>array(0,0,0,0,0,0,0,0,0)
+            );
+
+        $count1 = 7;
+        $results = IntensityTime::select(\DB::raw('distance_covered as value'),
+                            \DB::raw('(CASE WHEN intensity_time.time_range = "0-5" THEN "00:00" 
+                                WHEN intensity_time.time_range = "5-10" THEN "00:05" 
+                                WHEN intensity_time.time_range = "10-15" THEN "00:10"
+                                WHEN intensity_time.time_range = "15-20" THEN "00:15"
+                                WHEN intensity_time.time_range = "20-25" THEN "00:20"
+                                WHEN intensity_time.time_range = "25-30" THEN "00:25"
+                                WHEN intensity_time.time_range = "30-35" THEN "00:30"
+                                WHEN intensity_time.time_range = "35-40" THEN "00:35"
+                                END) AS label'))->where('player_id', $request->player_id)->get()->toArray();
+                                
+      
+        if(count($results) > 0){
+            foreach ($results as $key => $value) {
+                // if($value['label'] = '00:35'){
+                //     dd(in_array($value['label'],$response['label']));
+                // }
+                if(in_array($value['label'],$response['label'])){
+                    $key = array_search($value['label'],$response['label']);
+                    $response['value'][$key] = $value['value'];
+                }
+                // $response['label'][$key] = $value['label'] ;
+                // $response['value'][$key] = $value['value'];
+            }
+        }
+        // array_push($result,$label);
+        array_push($result,$response);
+        return $result;
     }
 
 }
