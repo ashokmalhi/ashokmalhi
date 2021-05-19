@@ -282,7 +282,7 @@ class MatchController extends Controller {
         $iterator = 0;
         foreach ($data as $k => $d) {
 
-            if($k < 5 && $k > 0){
+            if($k <= 5 && $k > 0){
             
                 //$csvData[$iterator]['x_field'] = (int)$d[0] ?? '';
                 //$csvData[$iterator]['y_field'] = (int)$d[1] ?? '';

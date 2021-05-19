@@ -40,9 +40,6 @@ class TeamPlayer extends Model
                         $team_player = self::create([
                             "player_id" => $member,
                             "team_id" => $team_id,
-                            "match_id" => 1,
-                            "sensor_id" => 1,
-                            "sensor_no" => "1",
                             "position" => "1",
                             "is_manager" => ($role_id == 2) ? 1 : 0
                         ]);
@@ -60,9 +57,6 @@ class TeamPlayer extends Model
                         $team_player = self::create([
                             "player_id" => $coach,
                             "team_id" => $team_id,
-                            "match_id" => 1,
-                            "sensor_id" => 1,
-                            "sensor_no" => "1",
                             "position" => "1",
                             "is_coach" => 1
                         ]);

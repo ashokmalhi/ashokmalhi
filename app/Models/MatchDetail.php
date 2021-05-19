@@ -53,7 +53,7 @@ class MatchDetail extends Model
                 ->where('match_details.match_id', $matchId)->where('match_details.sensor','>',0)
                 ->groupBy('match_details.sensor','match_details.player_id')
                 ->orderBy('match_details.sensor')
-                ->pluck('p.player_no','sensor');
+                ->pluck('p.id','sensor');
     }
     
     public static function getMatchDetailsById($id, $period=0, $teamId = 0){

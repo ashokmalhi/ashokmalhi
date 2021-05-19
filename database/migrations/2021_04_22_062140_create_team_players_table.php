@@ -17,8 +17,6 @@ class CreateTeamPlayersTable extends Migration {
             $table->integer('match_id');
             $table->integer('team_id');
             $table->integer('player_id');
-            $table->integer('sensor_id');
-            $table->string('sensor_no');
             $table->integer('position');
             $table->boolean('is_manager')->default(0);
             $table->boolean('is_coach')->default(0);
