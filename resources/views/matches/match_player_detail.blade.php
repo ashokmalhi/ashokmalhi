@@ -91,6 +91,7 @@ if (isset($playerStats->matchStats) && count($playerStats->matchStats) > 0) {
             <div class="row">
                 <div class="col"><b>Intensity vs Time</b></div>
             </div>
+            <canvas id="userType" style="background-color: #212529; min-height: 210px; height: 200px; max-height: 350px; max-width: 100%; display: block; width: 572px;" width="715" height="470" class="chartjs-render-monitor"></canvas>
         </div>
         <div class="col">
             
