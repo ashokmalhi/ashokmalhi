@@ -213,7 +213,7 @@ class MatchController extends Controller {
         
         //Sensor and player id mapping
         $sensorPlayerMapping = MatchDetail::getSensorPlayerMapping($matchId);
-
+        
         if (isset($inputs['team_1_players']) && count($inputs['team_1_players']) > 0) {
 
             foreach ($inputs['team_1_players'] as $playerfile) {

@@ -49,10 +49,11 @@ class MatchDetail extends Model
     
     public static function getSensorPlayerMapping($matchId){
         
-        return self::where('match_id', $matchId)->where('sensor','>',0)
-                ->groupBy('sensor','player_id')
-                ->orderBy('sensor')
-                ->pluck('player_id','sensor');
+        return self::join('players as p','p.id','match_details.player_id')
+                ->where('match_details.match_id', $matchId)->where('match_details.sensor','>',0)
+                ->groupBy('match_details.sensor','match_details.player_id')
+                ->orderBy('match_details.sensor')
+                ->pluck('p.player_no','sensor');
     }
     
     public static function getMatchDetailsById($id, $period=0, $teamId = 0){
