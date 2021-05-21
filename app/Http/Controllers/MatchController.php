@@ -358,8 +358,9 @@ class MatchController extends Controller {
         
         $data['individualPlayers'] = MatchDetail::getMatchPlayers($matchId,$teamId);
         $data['teamDetails'] = Team::find($teamId);
+        $heatMapCoordinates = MatchStatDetail::where('team_id', $teamId)->where('match_id', $matchId)->get();
         
-        return view('matches.match_detail', compact('periodSummary','overallSummary','matchDetails', 'overAllMatchPlayerDetails', 'periodDetail','data'));
+        return view('matches.match_detail', compact('heatMapCoordinates','periodSummary','overallSummary','matchDetails', 'overAllMatchPlayerDetails', 'periodDetail','data'));
         
     }
     

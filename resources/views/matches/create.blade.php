@@ -2,8 +2,9 @@
 
 @section('content')
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/jquery.datetimepicker.min.css" />
 
-<form action="{{route('matches.store')}}" method="post" id="match" enctype="multipart/form-data">
+<form action="{{route('matches.store')}}" method="post" id="match" autocomplete="off" enctype="multipart/form-data">
     @csrf
     <h3 class="brand-color iconic-text bolder">New Match</h3>
     <!-- <h6>Upload the stats below.</h6> -->
@@ -92,10 +93,12 @@
 
 @stop
 @section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
+
 <script>
     $(document).ready(function(){
         $('.datetimepicker').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm',
+            format: 'Y-m-d H:m',
         });
     });
 </script>

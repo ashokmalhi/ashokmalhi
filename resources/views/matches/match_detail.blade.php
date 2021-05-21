@@ -170,9 +170,9 @@
 
     playerId = $('.individualPlayerDetails').attr("data-id");
      // initially calling data without any filters
-  $.get(`{{route("intensity-stats")}}?player_id=${playerId}`, function(response) {
-      updateChart(response,charts);
-  });
+    $.get(`{{route("intensity-stats")}}?player_id=${playerId}`, function(response) {
+        updateChart(response,charts);
+    });
 
   var charts = [
     {
@@ -222,6 +222,37 @@
   // initialize chart
   drawChart(charts);
 </script>
+<script>
+
+    let map, heatmap;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 13,
+            center: { lat: 46.451975, lng: 6.893813 },
+            mapTypeId: "satellite",
+        });
+        heatmap = new google.maps.visualization.HeatmapLayer({
+            data: getPoints(),
+            map: map,
+        });
+    }
+
+    // Heatmap data: 500 Points
+    function getPoints() {
+        var heatMap = <?php echo $heatMapCoordinates;?>;
+        array = [];
+        for(let i = 0; i < heatMap.length; i++) {
+            array[i] = new google.maps.LatLng(heatMap[i].lat, heatMap[i].long);
+        }
+        return array;
+    }
+</script>
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF_kaY7T7X22opiDIzdfCjETT-8Or0c-0&callback=initMap&libraries=visualization&v=weekly"
+      asyncheatmap
+    ></script>
 @endsection
 
 @stop
