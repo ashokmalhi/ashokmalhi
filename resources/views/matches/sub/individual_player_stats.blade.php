@@ -54,9 +54,17 @@
     <div class="row">
         <div class="col">
             <div class="row">
-                <div class="col"><b>Intensity vs Time</b></div>
-                <div id="map" style="width:90%; height:500px" ></div>
+                <div class="col"><b>Field Position Heat Map Period 1</b></div>
             </div>
+            <br>
+            <div id="heatmapPeriod1" style="width:100%; height:500px;" ></div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col"><b>Field Position Heat Map Period 2</b></div>
+            </div>
+            <br>
+            <div id="heatmapPeriod2" style="width:100%; height:500px;" ></div>
         </div>
     </div>
   
@@ -168,7 +176,7 @@
             </div>
         </div>
         <div class="col">
-            <?php if (isset($firstPlayer->distancePerSprint) && count($firstPlayer->distancePerSprint) > 0) { ?>
+            
                 <div class="row">
                     <div class="col"><b>Distances Per Sprint (> 25 km/h)</b></div>
                 </div>
@@ -183,18 +191,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($firstPlayer->distancePerSprint as $sprint)
-                            <tr>
-                                <td>{{$sprint->sprint_time}}</td>
-                                <td>{{$sprint->sprint_distance}}</td>
-                                <td>{{$sprint->sprint_duration}}</td>
-                                <td>{{$sprint->sprint_max_speed}}</td>
-                            </tr>
-                            @endforeach
+                            @if(count($firstPlayer->distancePerSprint) > 0)
+                                @foreach ($firstPlayer->distancePerSprint as $sprint)
+                                <tr>
+                                    <td>{{$sprint->sprint_time}}</td>
+                                    <td>{{$sprint->sprint_distance}}</td>
+                                    <td>{{$sprint->sprint_duration}}</td>
+                                    <td>{{$sprint->sprint_max_speed}}</td>
+                                </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
-            <?php } ?>
         </div>
     </div>
 

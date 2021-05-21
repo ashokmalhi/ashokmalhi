@@ -357,10 +357,18 @@ class MatchController extends Controller {
         $periodSummary['period2'] = MatchDetail::getSummaryDeatilById($matchId,2,$teamId);
         
         $data['individualPlayers'] = MatchDetail::getMatchPlayers($matchId,$teamId);
-        $data['teamDetails'] = Team::find($teamId);
-        $heatMapCoordinates = MatchStatDetail::where('team_id', $teamId)->where('match_id', $matchId)->get();
+        $firstPlayer = isset($data['individualPlayers'][0]->player_id)?$data['individualPlayers'][0]->player_id:0;
         
-        return view('matches.match_detail', compact('heatMapCoordinates','periodSummary','overallSummary','matchDetails', 'overAllMatchPlayerDetails', 'periodDetail','data'));
+        $data['teamDetails'] = Team::find($teamId);
+        
+        $totalPoints = MatchStatDetail::where('team_id', $teamId)->where('match_id', $matchId)->where('player_id',$firstPlayer)->count();
+        
+        $eachPeriod = ceil($totalPoints / 2);
+        
+        $heatMapCoordinatesPeriod1 = MatchStatDetail::where('team_id', $teamId)->where('match_id', $matchId)->where('player_id',$firstPlayer)->skip(0)->take($eachPeriod)->get();
+        $heatMapCoordinatesPeriod2 = MatchStatDetail::where('team_id', $teamId)->where('match_id', $matchId)->where('player_id',$firstPlayer)->skip($eachPeriod)->take($totalPoints)->get();
+        
+        return view('matches.match_detail', compact('heatMapCoordinatesPeriod1','heatMapCoordinatesPeriod2','periodSummary','overallSummary','matchDetails', 'overAllMatchPlayerDetails', 'periodDetail','data'));
         
     }
     

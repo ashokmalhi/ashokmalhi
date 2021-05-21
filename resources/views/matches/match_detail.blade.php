@@ -134,7 +134,13 @@
     </div>    
 </div>  
     </div> 
+<?php 
+$firstLat = $heatMapCoordinatesPeriod1[0]->lat;
+$firstLong = $heatMapCoordinatesPeriod1[0]->long;
 
+$secondLat = $heatMapCoordinatesPeriod2[0]->lat;
+$secondLong = $heatMapCoordinatesPeriod2[0]->long;
+?>
 @section('scripts')
 <script>        
   
@@ -224,23 +230,44 @@
 </script>
 <script>
 
-    let map, heatmap;
+    let mapPeriod1, heatmapPeriod1;
 
     function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 13,
-            center: { lat: 46.451975, lng: 6.893813 },
+        
+        mapPeriod1 = new google.maps.Map(document.getElementById("heatmapPeriod1"), {
+            zoom: 19,
+            center: { lat: <?php echo $firstLat;?>, lng: <?php echo $firstLong;?> },
             mapTypeId: "satellite",
+            scaleControl: false,
+            mapTypeControl: false,
+            streetViewControl: false,
         });
-        heatmap = new google.maps.visualization.HeatmapLayer({
-            data: getPoints(),
-            map: map,
+        heatmapPeriod1 = new google.maps.visualization.HeatmapLayer({
+            data: getPoints(1),
+            map: mapPeriod1,
+        });
+        
+        mapPeriod2 = new google.maps.Map(document.getElementById("heatmapPeriod2"), {
+            zoom: 19,
+            center: { lat: <?php echo $secondLat;?>, lng: <?php echo $secondLong;?> },
+            mapTypeId: "satellite",
+            scaleControl: false,
+            mapTypeControl: false,
+            streetViewControl: false,
+        });
+        heatmapPeriod2 = new google.maps.visualization.HeatmapLayer({
+            data: getPoints(2),
+            map: mapPeriod2,
         });
     }
 
     // Heatmap data: 500 Points
-    function getPoints() {
-        var heatMap = <?php echo $heatMapCoordinates;?>;
+    function getPoints(period) {
+        if(period == 1){
+            var heatMap = <?php echo $heatMapCoordinatesPeriod1;?>;
+        }else{
+            var heatMap = <?php echo $heatMapCoordinatesPeriod2;?>;
+        }
         array = [];
         for(let i = 0; i < heatMap.length; i++) {
             array[i] = new google.maps.LatLng(heatMap[i].lat, heatMap[i].long);
