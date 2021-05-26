@@ -22,14 +22,17 @@ class StatsController extends Controller
     
     public function calculateFinalStats($matchId,$teamId){
         
+        //Delete existing stats
+        Stat::deleteOldTeamStats($matchId,$teamId);
+        
         $teamPlayers = TeamPlayer::getTeamPlayersByMatchIdAndTeamId($matchId,$teamId);
         
         //pd($teamPlayers);
         
         if(count($teamPlayers) > 0){
         
-            $zones = calculateZones(112,71); //Team1
-            //$zones = calculateZones(105,65); //Team2
+            //$zones = calculateZones(112,71); //Team1
+            $zones = calculateZones(105,65); //Team2
             
             foreach ($teamPlayers as $playerId){
                 
