@@ -32,7 +32,7 @@ class StatsController extends Controller
         if(count($teamPlayers) > 0){
         
             //$zones = calculateZones(112,71); //Team1
-            $zones = calculateZones(105,65); //Team2
+            $zones = calculateZones(106,65); //Team2
             
             foreach ($teamPlayers as $playerId){
                 
@@ -118,8 +118,11 @@ class StatsController extends Controller
                 DistancePerZone::create($distanceZone);
             }
         }
-        echo "Stats calculation successfull";
-        die;
+        
+        return redirect('/matches')->with('success', 'Stats calculated successfully!');
+        
+        //echo "Stats calculation successfull";
+        //die;
     }
     
     public function allStats(Request $request){

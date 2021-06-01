@@ -113,8 +113,12 @@
                                     $noOfSprints += $stat->no_of_sprint_greater_25_km;
                                     $hidDistance += $stat->hid_distance_15_km;
                                     $avgSpeed += $stat->avg_speed_km;
-                                    $maxSpeed += $stat->max_speed_km;
-                                    $maxAcceleration += $stat->max_acceleration;
+                                    if($stat->max_speed_km > $maxSpeed){
+                                        $maxSpeed = $stat->max_speed_km;
+                                    }
+                                    if($stat->max_acceleration > $maxAcceleration){
+                                        $maxAcceleration = $stat->max_acceleration;
+                                    }
 
                                     $distanceSpeedRange15 += $stat->distance_speed_range_15_km;
                                     $distanceSpeedRange15_20 += $stat->distance_speed_range_15_20_km;
@@ -277,7 +281,7 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
 </script>
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF_kaY7T7X22opiDIzdfCjETT-8Or0c-0&callback=initMap&libraries=visualization&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmtzu5KhBH-N5RvBFhkZI06Lus8eWZwFg&callback=initMap&libraries=visualization&v=weekly"
       asyncheatmap
     ></script>
 @endsection

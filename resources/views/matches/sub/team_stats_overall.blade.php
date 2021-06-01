@@ -45,7 +45,10 @@
                                         <tr>
                                             <td>{{$detail['sensor']}}</td>
                                             <td>{{$detail['players']['player_no']}}</td>
-                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
+                                            <td>@if(isset($detail['players']))
+                                                {{$detail['players']['first_name'].' '.$detail['players']['last_name']}}
+                                                @endif
+                                            </td>
                                             <td>{{$detail['players']['position']}}</td>
                                             <td>{{$detail['time_played']}}</td>
                                             <td>{{$detail['distance_km']}}</td>
@@ -71,7 +74,10 @@
                                         <tr>
                                             <td>{{!empty($detail['sensor'])??''}}</td>
                                             <td>{{$detail['players']['player_no']??''}}</td>
-                                            <td>{{$detail['players']['first_name'].' '.$detail['players']['last_name']}}</td>
+                                            <td>@if(isset($detail['players']))
+                                                {{$detail['players']['first_name'].' '.$detail['players']['last_name']}}
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if($key == 0)
                                                     Total

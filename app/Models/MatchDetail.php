@@ -80,7 +80,7 @@ class MatchDetail extends Model
         if($teamId){
             $query = $query->where('team_id', $teamId);
         }
-        return $query->groupBy('player_id')->orderBy('player_id', 'DESC')->get()->toArray();
+        return $query->groupBy('player_id')->orderBy('player_id', 'ASC')->get()->toArray();
     }
     
         public static function getMatchDetailsByPeriodById($id, $period=0){

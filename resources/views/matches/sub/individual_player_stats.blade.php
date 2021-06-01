@@ -38,7 +38,7 @@
         </div>
         <div class="values col"> <img src="{{asset('images/icon-load.svg')}}" alt="">
             <p>Avg. Speed(km/h)</p>
-            <h4 class="brand-color">{{$avgSpeed}}</h4>
+            <h4 class="brand-color">{{formateNumber($avgSpeed/2)}}</h4>
         </div>
         <div class="values col"> <img src="{{asset('images/icon-load.svg')}}" alt="">
             <p>Max Speed(km/h)</p>

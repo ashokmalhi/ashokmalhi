@@ -139,4 +139,10 @@ function meterToKm($distance){
     return round(($distance/ 1000),2);
 }
 
+function formateNumber($number,$digit = 2){
+    
+    
+    return number_format($number,$digit);
+    
+}
 ?>

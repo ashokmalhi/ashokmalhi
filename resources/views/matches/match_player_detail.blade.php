@@ -20,8 +20,12 @@ if (isset($playerStats->matchStats) && count($playerStats->matchStats) > 0) {
         $noOfSprints += $stat->no_of_sprint_greater_25_km;
         $hidDistance += $stat->hid_distance_15_km;
         $avgSpeed += $stat->avg_speed_km;
-        $maxSpeed += $stat->max_speed_km;
-        $maxAcceleration += $stat->max_acceleration;
+        if($stat->max_speed_km > $maxSpeed){
+            $maxSpeed = $stat->max_speed_km;
+        }
+        if($stat->max_acceleration > $maxAcceleration){
+            $maxAcceleration = $stat->max_acceleration;
+        }
 
         $distanceSpeedRange15 += $stat->distance_speed_range_15_km;
         $distanceSpeedRange15_20 += $stat->distance_speed_range_15_20_km;
@@ -72,7 +76,7 @@ if (isset($playerStats->matchStats) && count($playerStats->matchStats) > 0) {
         </div>
         <div class="values col"> <img src="{{asset('images/icon-load.svg')}}" alt="">
             <p>Avg. Speed(km/h)</p>
-            <h4 class="brand-color">{{$avgSpeed}}</h4>
+            <h4 class="brand-color">{{formateNumber($avgSpeed/2)}}</h4>
         </div>
         <div class="values col"> <img src="{{asset('images/icon-load.svg')}}" alt="">
             <p>Max Speed(km/h)</p>
