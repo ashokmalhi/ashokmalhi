@@ -427,4 +427,14 @@ class MatchController extends Controller {
         return $result;
     }
 
+    public function heatMapStats(Request $request){
+        $totalPoints = MatchStatDetail::where('team_id', $request->team_id)->where('player_id',$request->player_id)->count();
+        
+        $eachPeriod = ceil($totalPoints / 2);
+        
+        $data['heatMapCoordinatesPeriod1'] = MatchStatDetail::where('team_id', $request->team_id)->where('player_id',$request->player_id)->skip(0)->take($eachPeriod)->get();
+        $data['heatMapCoordinatesPeriod2'] = MatchStatDetail::where('team_id', $request->team_id)->where('player_id',$request->player_id)->skip($eachPeriod)->take($totalPoints)->get();
+        return $data;
+    }
+
 }

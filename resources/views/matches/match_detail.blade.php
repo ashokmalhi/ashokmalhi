@@ -171,7 +171,13 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
                     $.get(`{{route("intensity-stats")}}?player_id=${playerId}&team_id=${teamId}`, function(response) {
                         updateChart(response,charts);
                     });
+                    $.get(`{{route("heat-map")}}?player_id=${playerId}&team_id=${teamId}`, function(response) {
+                        initialMap(response);
+                    });
+                    
                     drawChart(charts);
+                   
+                    
                 }
             });
 
@@ -179,9 +185,13 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
     });
 
     playerId = $('.individualPlayerDetails').attr("data-id");
+    teamId = $('#teamId').val();
      // initially calling data without any filters
     $.get(`{{route("intensity-stats")}}?player_id=${playerId}`, function(response) {
         updateChart(response,charts);
+    });
+    $.get(`{{route("heat-map")}}?player_id=${playerId}&team_id=${teamId}`, function(response) {
+        initialMap(response);
     });
 
   var charts = [
@@ -203,7 +213,7 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
                 },
             ],
             xAxes: [{
-                barPercentage: 0.14,
+                barPercentage: 1.0,
                 gridLines: {
                   color: 'rgba(54, 53, 53)'
              }
@@ -263,6 +273,50 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
             data: getPoints(2),
             map: mapPeriod2,
         });
+    }
+
+    
+    function initialMap(response) {
+        firstLat = response['heatMapCoordinatesPeriod1'][0].lat;
+        firstLong = response['heatMapCoordinatesPeriod1'][0].long;
+
+        secondLat = response['heatMapCoordinatesPeriod2'][0].lat;
+        secondLong = response['heatMapCoordinatesPeriod2'][0].long;
+
+        mapPeriod1 = new google.maps.Map(document.getElementById("heatmapPeriod1"), {
+            zoom: 19,
+            center: { lat: firstLat, lng: firstLong },
+            mapTypeId: "satellite",
+            scaleControl: false,
+            mapTypeControl: false,
+            streetViewControl: false,
+        });
+        heatMap = response['heatMapCoordinatesPeriod1'];
+        for(let i = 0; i < heatMap.length; i++) {
+            array[i] = new google.maps.LatLng(heatMap[i].lat, heatMap[i].long);
+        }
+        heatmapPeriod1 = new google.maps.visualization.HeatmapLayer({
+            data: array,
+            map: mapPeriod1,
+        });
+        
+        mapPeriod2 = new google.maps.Map(document.getElementById("heatmapPeriod2"), {
+            zoom: 19,
+            center: { lat: secondLat, lng: secondLong },
+            mapTypeId: "satellite",
+            scaleControl: false,
+            mapTypeControl: false,
+            streetViewControl: false,
+        });
+        heatMap = response['heatMapCoordinatesPeriod2'];
+        for(let i = 0; i < heatMap.length; i++) {
+            array[i] = new google.maps.LatLng(heatMap[i].lat, heatMap[i].long);
+        }
+        heatmapPeriod2 = new google.maps.visualization.HeatmapLayer({
+            data: array,
+            map: mapPeriod2,
+        });
+
     }
 
     // Heatmap data: 500 Points
