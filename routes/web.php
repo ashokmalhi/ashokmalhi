@@ -78,6 +78,7 @@ $router->group(['middleware' => ['auth']], function () use ($router) {
     
     Route::get('/matches/{matchId}/{teamId}', 'MatchController@getTeamDetails');
     Route::get('intensityTimeStat','MatchController@getIntensityStats')->name('intensity-stats');
+    Route::get('heatMapStats','MatchController@heatMapStats')->name('heat-map');
     //Route::get('/matches/{matchId}/{teamId}/{playerId}', 'MatchController@getIndividualTeamMemberDetails');
     
     Route::get('delete_whole_match/{matchId}','MatchController@deleteWholeMatch')->name('delete_whole_match');

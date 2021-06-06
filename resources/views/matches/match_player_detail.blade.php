@@ -88,7 +88,25 @@ if (isset($playerStats->matchStats) && count($playerStats->matchStats) > 0) {
         </div>
     </div>
 </div>
-
+<div class="container-box mt-4">
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col"><b>Field Position Heat Map Period 1</b></div>
+            </div>
+            <br>
+            <div id="heatmapPeriod1" style="width:100%; height:500px;" ></div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col"><b>Field Position Heat Map Period 2</b></div>
+            </div>
+            <br>
+            <div id="heatmapPeriod2" style="width:100%; height:500px;" ></div>
+        </div>
+    </div>
+  
+</div>
 <div class="container-box mt-4">
     <div class="row">
         <div class="col">
