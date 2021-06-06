@@ -11,4 +11,14 @@ class MatchStatDetail extends Model
 
         return MatchStatDetail::insert($input);
     }
+    
+    public static function getMaxSpeedLastEntryByPlayerID($matchId,$playerId){
+
+        return MatchStatDetail::where('match_id',$matchId)
+                            ->where('player_id',$playerId)
+                            ->where('speed','>',25)
+                            ->select('id')
+                            ->orderBy('id','desc')
+                            ->first();
+    }
 }

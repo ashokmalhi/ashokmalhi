@@ -10,6 +10,7 @@ use App\Models\Player;
 use App\Models\MatchStatDetail;
 use DB;
 use App\Models\IntensityTime;
+use App\Models\TeamPosition;
 
 class MatchController extends Controller {
 
@@ -217,7 +218,7 @@ class MatchController extends Controller {
         
         if (isset($inputs['team_1_players']) && count($inputs['team_1_players']) > 0) {
 
-            foreach ($inputs['team_1_players'] as $playerfile) {
+            foreach ($inputs['team_1_players'] as $team1Key => $playerfile) {
 
                 $path = $playerfile->getRealPath();
 
@@ -226,16 +227,19 @@ class MatchController extends Controller {
 
                 $playerRow = array_map('str_getcsv', file($path));
 
+                //Save group position
+                if($team1Key == 0){
+                    
+                    $position['match_id'] = $matchId;
+                    $position['team_id'] = $matchDetails->first_team;
+                    $position['x_axis'] = isset($playerRow[4][0])?$playerRow[4][0]:0;
+                    $position['y_axis'] = isset($playerRow[4][1])?$playerRow[4][1]:0;
+                    TeamPosition::createOrUpdate($position);
+                }
+                
                 $playerStat = $this->getPlayerCSVData($playerRow, $matchId, $matchDetails->first_team, $playerId);
                 
                 if (count($playerStat) > 0) {
-                    //Calculate Zones
-//                    $field_y = $playerStat[0]['y_field'];
-//                    $field_x = $playerStat[2]['x_field'];
-//                    $zones = calculateZones($field_x,$field_y);
-//                    pd($zones);
-//                    unset($playerStat[0],$playerStat[1],$playerStat[2],$playerStat[3]);
-//                    pd($playerStat);
                     foreach (array_chunk($playerStat, 1000) as $t) {
                         MatchStatDetail::addBulkStat($t);
                     }
@@ -244,7 +248,7 @@ class MatchController extends Controller {
         }
         if (isset($inputs['team_2_players']) && count($inputs['team_2_players']) > 0) {
 
-            foreach ($inputs['team_2_players'] as $playerfile) {
+            foreach ($inputs['team_2_players'] as $team2Key => $playerfile) {
 
                 $path = $playerfile->getRealPath();
 
@@ -255,15 +259,17 @@ class MatchController extends Controller {
 
                 $playerStat = $this->getPlayerCSVData($playerRow, $matchId, $matchDetails->second_team, $playerId);
                 
-                if (count($playerStat) > 0) {
+                //Save group position
+                if($team2Key == 0){
                     
-                    //Calculate Zones
-//                    $field_y = $playerStat[0]['y_field'];
-//                    $field_x = $playerStat[2]['x_field'];
-//                    $zones = calculateZones($field_x,$field_y);
-//                    pd($zones);
-//                    unset($playerStat[0],$playerStat[1],$playerStat[2],$playerStat[3]);
-//                    pd($playerStat);
+                    $position['match_id'] = $matchId;
+                    $position['team_id'] = $matchDetails->second_team;
+                    $position['x_axis'] = isset($playerRow[4][0])?$playerRow[4][0]:0;
+                    $position['y_axis'] = isset($playerRow[4][1])?$playerRow[4][1]:0;
+                    TeamPosition::createOrUpdate($position);
+                }
+                
+                if (count($playerStat) > 0) {
                     foreach (array_chunk($playerStat, 1000) as $t) {
                         MatchStatDetail::addBulkStat($t);
                     }

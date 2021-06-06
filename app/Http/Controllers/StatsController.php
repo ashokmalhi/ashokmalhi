@@ -11,7 +11,10 @@ use App\Models\MatchDetail;
 use App\Models\TeamPlayer;
 use App\Models\IntensityTime;
 use App\Models\DistancePerZone;
+use App\Models\DistancePerSprint;
 use DB;
+use App\Models\TeamPosition;
+use Illuminate\Support\Facades\Log;
 
 class StatsController extends Controller
 {
@@ -31,25 +34,39 @@ class StatsController extends Controller
         
         if(count($teamPlayers) > 0){
         
-            //$zones = calculateZones(112,71); //Team1
-            $zones = calculateZones(106,65); //Team2
+            //Set Default team position
+            $xAxis = 112; 
+            $yAxis = 65;
+            
+            $teamPosition = TeamPosition::getPositionByTeam($matchId,$teamId);
+            if($teamPosition){
+                
+                $xAxis = $teamPosition->x_axis;
+                $yAxis = $teamPosition->y_axis;
+            }
+            
+            $zones = calculateZones($xAxis,$yAxis); //Team2
             
             foreach ($teamPlayers as $playerId){
                 
                 $statDetails = MatchStatDetail::where('match_id',$matchId)
                                 ->where('player_id',$playerId)
-                                ->select('time_played','lat','long','x_position','y_position')
+                                ->select('id','time_played','lat','long','x_position','y_position','speed')
                                 ->get()
                                 ->toArray();
 
+                $maxSpeedLastEntry = MatchStatDetail::getMaxSpeedLastEntryByPlayerID($matchId,$playerId);
+                
                 $time = 0;
                 $fiveMinInternal = [];
-                $distance = 0;
+                $distance = $maxSpeeddistance = 0;
                 
                 $zoneViseDistance = [];
                 
+                $maxSpeed = $maxSpeedTime = 0;
+                
                 foreach($statDetails as $key => $detail){
-
+                    
                     if(!$time){
                         $time = $detail['time_played'];
                     }else{
@@ -85,7 +102,68 @@ class StatsController extends Controller
                              $zoneViseDistance[$zone] = $calculatedDistance;
                         }
                     }
+                    
+                    //Calculate Max speed - Distance per sprint
+                    if($detail['speed'] >= 25){   
+                        
+                        if(!$maxSpeedTime){
+                            $lastLat = $detail['lat'];
+                            $lastLong = $detail['long'];
+                            $maxSpeedTime = $detail['time_played'];
+                        }
+                        
+                        if(!$maxSpeed){
+                            $maxSpeed = $detail['speed'];
+                        }else{
+                            if($detail['speed'] > $maxSpeed){
+                                $maxSpeed = $detail['speed'];
+                            }
+                            $from_time = strtotime($maxSpeedTime);
+                            $to_time = strtotime($detail['time_played']);
+                            $maxSpeedminutes = round(abs($to_time - $from_time) / 60,2);
+                            Log::debug("max time = ".$maxSpeedminutes);
+                            if($maxSpeedminutes < 1.5){
+                             
+                                $lat1 = $lastLat;
+                                $long1 = $lastLong;
+                                $lat2 = $detail['lat'];
+                                $long2 = $detail['long'];
+                                if($lat2 && $long2){
+                                    $calculatedDistance = getDistanceBetweenPointsNew($lat1,$long1,$lat2,$long2,'meters');
+                                    if(is_numeric($calculatedDistance) && !is_nan($calculatedDistance)){
+                                        $maxSpeeddistance = $maxSpeeddistance + $calculatedDistance;
+                                    }
+                                }
+                                //If player max speed entry is last entry
+                                if(isset($maxSpeedLastEntry['id']) && $maxSpeedLastEntry['id'] == $detail['id']){
+                                    
+                                    $maxSpeedRow['match_id'] = $matchId;
+                                    $maxSpeedRow['team_id'] = $teamId;
+                                    $maxSpeedRow['player_id'] = $playerId;
+                                    $maxSpeedRow['sprint_distance'] = $maxSpeeddistance+config('constants.margin_to_add');
+                                    $maxSpeedRow['sprint_max_speed'] = $maxSpeed;
 
+                                    DistancePerSprint::create($maxSpeedRow);
+                                }
+                                
+                            }else{
+                                //Insert in to db
+
+                                $maxSpeedRow['match_id'] = $matchId;
+                                $maxSpeedRow['team_id'] = $teamId;
+                                $maxSpeedRow['player_id'] = $playerId;
+                                $maxSpeedRow['sprint_distance'] = $maxSpeeddistance+config('constants.margin_to_add');
+                                $maxSpeedRow['sprint_max_speed'] = $maxSpeed;
+
+                                DistancePerSprint::create($maxSpeedRow);
+
+                                $maxSpeeddistance = $maxSpeed = 0;
+                            }
+                            $maxSpeedTime = $detail['time_played'];
+                            $lastLat = $detail['lat'];
+                            $lastLong = $detail['long'];
+                        }
+                    }
                 }
                 
                 
