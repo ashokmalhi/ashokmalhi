@@ -99,38 +99,6 @@ class MatchController extends Controller {
         return redirect('/matches')->with('error', 'New Match creating failed!');
     }
 
-    public function show(Request $request, $id) {
-
-        //$match = new Match();
-        die("Test");
-        $matchDetails = Match::getMatchDetails($id);
-        $overAllMatchPlayerDetailsTeam1 = MatchDetail::getMatchDetailsById($id,0,$matchDetails->first_team);
-        //pd($overAllMatchPlayerDetailsTeam1);
-        $overAllMatchPlayerDetailsTeam2 = MatchDetail::getMatchDetailsById($id,0,$matchDetails->second_team);
-      
-        $periodDetail['team_1']['period1'] = MatchDetail::getMatchDetailsById($id,1,$matchDetails->first_team);
-        $periodDetail['team_1']['period2'] = MatchDetail::getMatchDetailsById($id,2,$matchDetails->first_team);
-        
-        $periodDetail['team_2']['period1'] = MatchDetail::getMatchDetailsById($id,1,$matchDetails->second_team);
-        $periodDetail['team_2']['period2'] = MatchDetail::getMatchDetailsById($id,2,$matchDetails->second_team);
-
-        $overallSummary['team_1'] = MatchDetail::getSummaryDeatilById($id,0,$matchDetails->first_team);
-//        /pd($overallSummary);
-        $overallSummary['team_2'] = MatchDetail::getSummaryDeatilById($id,0,$matchDetails->second_team);
-        
-        $periodSummary['team_1']['period1'] = MatchDetail::getSummaryDeatilById($id,1,$matchDetails->first_team);
-        $periodSummary['team_1']['period2'] = MatchDetail::getSummaryDeatilById($id,2,$matchDetails->first_team);
-        
-        $periodSummary['team_2']['period1'] = MatchDetail::getSummaryDeatilById($id,1,$matchDetails->second_team);
-        $periodSummary['team_2']['period2'] = MatchDetail::getSummaryDeatilById($id,2,$matchDetails->second_team);
-        pd($periodSummary);
-        $data['individualPlayers']['team_1'] = MatchDetail::getMatchPlayers($id,$matchDetails->first_team);
-        pd($data['individualPlayers']['team_1']);
-        $data['individualPlayers']['team_2'] = MatchDetail::getMatchPlayers($id,$matchDetails->second_team);
-        
-        return view('matches.detail', compact('periodSummary','overallSummary','matchDetails', 'overAllMatchPlayerDetailsTeam1','overAllMatchPlayerDetailsTeam2', 'periodDetail','data'));
-    }
-
     public function uploadFile($matchId, $data, $period, $teamId) {
 
         if (count($data) > 0) {

@@ -190,9 +190,6 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
     $.get(`{{route("intensity-stats")}}?player_id=${playerId}`, function(response) {
         updateChart(response,charts);
     });
-    $.get(`{{route("heat-map")}}?player_id=${playerId}&team_id=${teamId}`, function(response) {
-        initialMap(response);
-    });
 
   var charts = [
     {
@@ -244,7 +241,7 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
 </script>
 <script>
 
-    let mapPeriod1, heatmapPeriod1;
+    let mapPeriod1,mapPeriod2, heatmapPeriod1,heatmapPeriod2;
 
     function initMap() {
         
@@ -291,12 +288,15 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
             mapTypeControl: false,
             streetViewControl: false,
         });
+
         heatMap = response['heatMapCoordinatesPeriod1'];
+
+        arrayPeriod1 = [];
         for(let i = 0; i < heatMap.length; i++) {
-            array[i] = new google.maps.LatLng(heatMap[i].lat, heatMap[i].long);
+            arrayPeriod1[i] = new google.maps.LatLng(heatMap[i].lat, heatMap[i].long);
         }
         heatmapPeriod1 = new google.maps.visualization.HeatmapLayer({
-            data: array,
+            data: arrayPeriod1,
             map: mapPeriod1,
         });
         
@@ -309,11 +309,12 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
             streetViewControl: false,
         });
         heatMap = response['heatMapCoordinatesPeriod2'];
+        arrayPeriod2 = [];
         for(let i = 0; i < heatMap.length; i++) {
-            array[i] = new google.maps.LatLng(heatMap[i].lat, heatMap[i].long);
+            arrayPeriod2[i] = new google.maps.LatLng(heatMap[i].lat, heatMap[i].long);
         }
         heatmapPeriod2 = new google.maps.visualization.HeatmapLayer({
-            data: array,
+            data: arrayPeriod2,
             map: mapPeriod2,
         });
 
