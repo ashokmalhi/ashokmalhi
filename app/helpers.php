@@ -72,13 +72,13 @@ function calculateZones($x, $y) {
 }
 
 function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longitude2, $unit = 'miles') {
-    
+
     $theta = $longitude1 - $longitude2;
     $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)));
     $distance = acos($distance);
     $distance = rad2deg($distance);
     $distance = $distance * 60 * 1.1515;
-    
+
     switch ($unit) {
         case 'miles':
             break;
@@ -87,17 +87,17 @@ function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longi
         case 'meters' :
             $distance = $distance * 1609.34;
     }
-    
+
     $finalDistance = round($distance, 2);
-    if(is_numeric($finalDistance) && !is_nan($finalDistance)){
+    if (is_numeric($finalDistance) && !is_nan($finalDistance)) {
         return $finalDistance;
-    }else{
+    } else {
         return 0;
     }
 }
 
-function getTimeIntervals(){
-    
+function getTimeIntervals() {
+
     $interval[0] = '0-5';
     $interval[1] = '5-10';
     $interval[2] = '10-15';
@@ -111,38 +111,66 @@ function getTimeIntervals(){
     $interval[9] = '65-70';
     $interval[9] = '70-75';
     $interval[9] = '75-80';
-    
+
     return $interval;
 }
 
-function getZoneByPoint($x,$y,$zones){
-    
-    if($x < $zones['a1']['x'] && $y < $zones['a1']['y']){
+function getZoneByPoint($x, $y, $zones) {
+
+    if ($x < $zones['a1']['x'] && $y < $zones['a1']['y']) {
         return 'a1';
-    }else if(($x < $zones['a2']['x']) && ($y < $zones['a2']['y'])){
+    } else if (($x < $zones['a2']['x']) && ($y < $zones['a2']['y'])) {
         return 'a2';
-    }else if(($x < $zones['b1']['x']) && ($y < $zones['b1']['y'])){
+    } else if (($x < $zones['b1']['x']) && ($y < $zones['b1']['y'])) {
         return 'b1';
-    }else if(($x < $zones['b2']['x']) && ($y < $zones['b2']['y'])){
+    } else if (($x < $zones['b2']['x']) && ($y < $zones['b2']['y'])) {
         return 'b2';
-    }else if(($x < $zones['c1']['x']) && ($y < $zones['c1']['y'])){
+    } else if (($x < $zones['c1']['x']) && ($y < $zones['c1']['y'])) {
         return 'c1';
-    }else if(($x < $zones['c2']['x']) && ($y < $zones['c2']['y'])){
+    } else if (($x < $zones['c2']['x']) && ($y < $zones['c2']['y'])) {
         return 'c2';
-    }else {
+    } else {
         return 'none';
     }
 }
 
-function meterToKm($distance){
-    
-    return round(($distance/ 1000),2);
+function meterToKm($distance) {
+
+    return round(($distance / 1000), 2);
 }
 
-function formateNumber($number,$digit = 2){
-    
-    
-    return number_format($number,$digit);
-    
+function formateNumber($number, $digit = 2) {
+
+
+    return number_format($number, $digit);
 }
+
+//Return date difference in seconds
+function getDateDifferenceInSec($firstDate, $secondDate) {
+
+//    $diff = abs(strtotime($secondDate) - strtotime($firstDate));
+//
+//    $years = floor($diff / (365 * 60 * 60 * 24));
+//    
+//    $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+//    $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+//
+//    $hours = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24) / (60 * 60));
+//
+//    $minuts = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24 - $hours * 60 * 60) / 60);
+//
+//    return floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24 - $hours * 60 * 60 - $minuts * 60));
+    
+    $pageTime = new DateTime($firstDate);
+    $rowTime  = new DateTime($secondDate);
+    $diff = $pageTime->diff($rowTime);
+    
+    $mili = $diff->format('%f');
+    $sec = $diff->format('%s');
+//    if($mili >= 900){
+//        $sec = $sec + 1;
+//    }
+    return $sec;
+}
+
 ?>

@@ -184,7 +184,6 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Time</th>
                                 <th scope="col">Distance (m)</th>
                                 <th scope="col">Duration</th>
                                 <th scope="col">Max Speed km/h</th>
@@ -194,9 +193,8 @@
                             @if(count($firstPlayer->distancePerSprint) > 0)
                                 @foreach ($firstPlayer->distancePerSprint as $sprint)
                                 <tr>
-                                    <td>{{$sprint->sprint_time}}</td>
                                     <td>{{$sprint->sprint_distance}}</td>
-                                    <td>{{$sprint->sprint_duration}}</td>
+                                    <td>{{formateDate($sprint->sprint_duration,'i:s')}}</td>
                                     <td>{{$sprint->sprint_max_speed}}</td>
                                 </tr>
                                 @endforeach

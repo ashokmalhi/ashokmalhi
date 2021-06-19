@@ -268,7 +268,8 @@ class MatchController extends Controller {
                 $csvData[$iterator]['player_id'] = $playerId;
                 $csvData[$iterator]['match_id'] = $matchId;
                 $csvData[$iterator]['team_id'] = $teamId;
-                $csvData[$iterator]['time_played'] = $d[0] ?? '';
+                $csvData[$iterator]['time_played'] = $d[0] ? $d[0].".".substr($d[0], -3) : "";
+                $csvData[$iterator]['time_mili_sec'] = $d[0] ? substr($d[0], -3) : "";
                 $csvData[$iterator]['x_position'] = $d[1] ?? '';
                 $csvData[$iterator]['y_position'] = $d[2] ?? '';
                 $csvData[$iterator]['lat'] = $d[3] ?? '';

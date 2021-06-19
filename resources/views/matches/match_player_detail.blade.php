@@ -224,7 +224,6 @@ if (isset($playerStats->matchStats) && count($playerStats->matchStats) > 0) {
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Time</th>
                                     <th scope="col">Distance (m)</th>
                                     <th scope="col">Duration</th>
                                     <th scope="col">Max Speed km/h</th>
@@ -234,9 +233,8 @@ if (isset($playerStats->matchStats) && count($playerStats->matchStats) > 0) {
                                 @if(count($playerStats->distancePerSprint) > 0)
                                     @foreach ($playerStats->distancePerSprint as $sprint)
                                     <tr>
-                                        <td>{{$sprint->sprint_time}}</td>
                                         <td>{{$sprint->sprint_distance}}</td>
-                                        <td>{{$sprint->sprint_duration}}</td>
+                                        <td>{{formateDate($sprint->sprint_duration,'i:s')}}</td>
                                         <td>{{$sprint->sprint_max_speed}}</td>
                                     </tr>
                                     @endforeach

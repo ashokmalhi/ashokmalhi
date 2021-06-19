@@ -51,7 +51,7 @@ class StatsController extends Controller
                 
                 $statDetails = MatchStatDetail::where('match_id',$matchId)
                                 ->where('player_id',$playerId)
-                                ->select('id','time_played','lat','long','x_position','y_position','speed')
+                                ->select('id','time_played','time_mili_sec','lat','long','x_position','y_position','speed')
                                 ->get()
                                 ->toArray();
 
@@ -64,6 +64,8 @@ class StatsController extends Controller
                 $zoneViseDistance = [];
                 
                 $maxSpeed = $maxSpeedTime = 0;
+                
+                $maxSpeedFirstTime = $maxSpeedSecondTime = 0;
                 
                 foreach($statDetails as $key => $detail){
                     
@@ -110,6 +112,7 @@ class StatsController extends Controller
                             $lastLat = $detail['lat'];
                             $lastLong = $detail['long'];
                             $maxSpeedTime = $detail['time_played'];
+                            $maxSpeedFirstTime = $detail['time_played'].'.'.$detail['time_mili_sec'];
                         }
                         
                         if(!$maxSpeed){
@@ -121,7 +124,7 @@ class StatsController extends Controller
                             $from_time = strtotime($maxSpeedTime);
                             $to_time = strtotime($detail['time_played']);
                             $maxSpeedminutes = round(abs($to_time - $from_time) / 60,2);
-                            Log::debug("max time = ".$maxSpeedminutes);
+                            //Log::debug("max time = ".$maxSpeedminutes);
                             if($maxSpeedminutes < 1.5){
                              
                                 $lat1 = $lastLat;
@@ -137,10 +140,14 @@ class StatsController extends Controller
                                 //If player max speed entry is last entry
                                 if(isset($maxSpeedLastEntry['id']) && $maxSpeedLastEntry['id'] == $detail['id']){
                                     
+                                    Log::debug("maxSpeedFirstTime = ".$maxSpeedFirstTime);
+                                    Log::debug("maxSpeedSecondTime = ".$maxSpeedSecondTime);
+                                
                                     $maxSpeedRow['match_id'] = $matchId;
                                     $maxSpeedRow['team_id'] = $teamId;
                                     $maxSpeedRow['player_id'] = $playerId;
                                     $maxSpeedRow['sprint_distance'] = $maxSpeeddistance+config('constants.margin_to_add');
+                                    $maxSpeedRow['sprint_duration'] = getDateDifferenceInSec($maxSpeedSecondTime ,$maxSpeedFirstTime);;
                                     $maxSpeedRow['sprint_max_speed'] = $maxSpeed;
 
                                     DistancePerSprint::create($maxSpeedRow);
@@ -148,18 +155,21 @@ class StatsController extends Controller
                                 
                             }else{
                                 //Insert in to db
-
+                                Log::debug("maxSpeedFirstTime = ".$maxSpeedFirstTime);
+                                Log::debug("maxSpeedSecondTime = ".$maxSpeedSecondTime);
                                 $maxSpeedRow['match_id'] = $matchId;
                                 $maxSpeedRow['team_id'] = $teamId;
                                 $maxSpeedRow['player_id'] = $playerId;
+                                $maxSpeedRow['sprint_duration'] = getDateDifferenceInSec($maxSpeedSecondTime ,$maxSpeedFirstTime);
                                 $maxSpeedRow['sprint_distance'] = $maxSpeeddistance+config('constants.margin_to_add');
                                 $maxSpeedRow['sprint_max_speed'] = $maxSpeed;
 
                                 DistancePerSprint::create($maxSpeedRow);
-
+                                $maxSpeedFirstTime = $detail['time_played'].'.'.$detail['time_mili_sec']; 
                                 $maxSpeeddistance = $maxSpeed = 0;
                             }
                             $maxSpeedTime = $detail['time_played'];
+                            $maxSpeedSecondTime = $detail['time_played'].'.'.$detail['time_mili_sec'];
                             $lastLat = $detail['lat'];
                             $lastLong = $detail['long'];
                         }
