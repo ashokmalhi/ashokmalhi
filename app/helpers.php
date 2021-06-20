@@ -106,11 +106,10 @@ function getTimeIntervals() {
     $interval[5] = '25-30';
     $interval[6] = '30-35';
     $interval[7] = '35-40';
-    $interval[8] = '45-50';
-    $interval[9] = '55-60';
-    $interval[9] = '65-70';
-    $interval[9] = '70-75';
-    $interval[9] = '75-80';
+    $interval[8] = '40-45';
+    $interval[9] = '45-50';
+    $interval[10] = '50-55';
+    $interval[11] = '55-60';
 
     return $interval;
 }

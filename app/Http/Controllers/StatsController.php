@@ -78,7 +78,13 @@ class StatsController extends Controller
                         $minutes = round(abs($to_time - $from_time) / 60,2);
 
                         if($minutes >= 5.00){
+                            Log::debug("from time = ".$time);
+                            Log::debug("to time = ".$detail['time_played']);
+                            Log::debug("=>>>>>>>>>>>>>>>");
                             $fiveMinInternal[] = $distance;
+                            if($minutes >= 9.00){
+                                $fiveMinInternal[] = 0;
+                            }
                             $distance = 0;
                             $time = 0;
                             $calculatedDistance = 0;
@@ -179,7 +185,6 @@ class StatsController extends Controller
                 
                 //Store time and distance internal values
                 $timeIntervals = getTimeIntervals();
-                
                 foreach($fiveMinInternal as $key => $distance){
                     
                     $intensityTime['match_id'] = $matchId;

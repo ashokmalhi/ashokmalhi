@@ -359,8 +359,8 @@ class MatchController extends Controller {
         $intensityTime = IntensityTime::where('player_id', $request->player_id)->where('team_id', $request->team_id)->get();
         $result = array();
         $response = array(
-            'label'=>array('00:00','00:05','00:10','00:15', '00:20', '00:25', '00:30', '00:35', '00:40', '00:45', '00:50', '00:55', '00:60', '00:65', '00:70', '00:75', '00:80'),
-            'value'=>array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+            'label'=>array('00:00','00:05','00:10','00:15', '00:20', '00:25', '00:30', '00:35', '00:40', '00:45', '00:50', '00:55'),
+            'value'=>array(0,0,0,0,0,0,0,0,0,0,0,0)
             );
 
         $count1 = 7;
@@ -376,11 +376,6 @@ class MatchController extends Controller {
                                 WHEN intensity_time.time_range = "40-45" THEN "00:40"
                                 WHEN intensity_time.time_range = "45-50" THEN "00:45"
                                 WHEN intensity_time.time_range = "50-55" THEN "00:50"
-                                WHEN intensity_time.time_range = "55-60" THEN "00:55"
-                                WHEN intensity_time.time_range = "60-65" THEN "00:60"
-                                WHEN intensity_time.time_range = "65-70" THEN "00:65"
-                                WHEN intensity_time.time_range = "70-75" THEN "00:70"
-                                WHEN intensity_time.time_range = "75-80" THEN "00:75"
                                 END) AS label'))->where('player_id', $request->player_id)->get()->toArray();
                                 
       
