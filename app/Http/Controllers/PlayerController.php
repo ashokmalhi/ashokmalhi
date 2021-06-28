@@ -188,9 +188,11 @@ class PlayerController extends Controller
                         }
                         $team = Team::where('name', $d[7]??'')->first();
                         if($team){
-                            $id = Player::where('email', $createPlayer['email'])->first()->id;
-                            $playerId['player_ids']=[$id];
-                            TeamPlayer::addTeamPlayer($playerId,$team->id);
+                            $playerDetails = Player::where('email', $createPlayer['email'])->first();
+                            if($playerDetails){
+                                $playerId['player_ids']=[$playerDetails->id];
+                                TeamPlayer::addTeamPlayer($playerId,$team->id);
+                            }
                         }
                     }
                 }
