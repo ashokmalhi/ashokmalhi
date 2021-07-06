@@ -54,16 +54,16 @@
             </div>
             <div class="col">
                 <div class="inputfield  mb-3">
-                    <label>Team 1 Period 2</label>
-                    <input type="file" name="file_team1_period2" class="form-control">
+                    <label>Team 2 Period 1</label>
+                    <input type="file" name="file_team2_period1" class="form-control">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <div class="inputfield  mb-3">
-                    <label>Team 2 Period 1</label>
-                    <input type="file" name="file_team2_period1" class="form-control">
+                    <label>Team 1 Period 2</label>
+                    <input type="file" name="file_team1_period2" class="form-control">
                 </div>
             </div>
             <div class="col">
