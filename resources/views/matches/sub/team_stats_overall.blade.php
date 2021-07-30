@@ -36,6 +36,9 @@
                                             <th scope="col"># of Accelerations (>4 m/s²)</th>
                                             <th scope="col"># of Decelerations (>3 m/s²)</th>
                                             <th scope="col"># of Decelerations (>4 m/s²)</th>
+                                            @if($type == 'overall')
+                                                <th scope="col">Work Rate (m / minutes)</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,6 +70,9 @@
                                             <td>{{$detail['no_of_acceleration_4']}}</td>
                                             <td>{{$detail['no_of_deceleration_3']}}</td>
                                             <td>{{$detail['no_of_deceleration_4']}}</td>
+                                            @if($type == 'overall')
+                                                <td>{{calculateWorkRate($detail['distance_km'],$detail['time_played'])}}</td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                         
@@ -102,6 +108,9 @@
                                             <td>{{$detail['no_of_acceleration_4']}}</td>
                                             <td>{{$detail['no_of_deceleration_3']}}</td>
                                             <td>{{$detail['no_of_deceleration_4']}}</td>
+                                            @if($type == 'overall')
+                                            <td></td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                         @else

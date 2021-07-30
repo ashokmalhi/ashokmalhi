@@ -172,4 +172,16 @@ function getDateDifferenceInSec($firstDate, $secondDate) {
     return $sec;
 }
 
+function calculateWorkRate($distance, $time){
+    
+    $time = explode(':', $time);
+    $timeInMinutes = ($time[0]*60) + ($time[1]) + ($time[2]/60); // in minutes
+    
+    $distance = $distance * 1000; // in meters
+    
+    $workRate = number_format(($distance / $timeInMinutes), 2);
+    
+    return $workRate;
+}
+
 ?>
