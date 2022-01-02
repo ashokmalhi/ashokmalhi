@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Mail\PlayerMail;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use Mail;
 use App\Models\PasswordReset;
 
-class Player extends Model
+class Player extends Authenticatable
 {
 
     /**
@@ -17,7 +19,7 @@ class Player extends Model
      */
     protected $fillable = ['fk_user',
         'first_name', 'last_name','full_name','email','mobile','player_no', 'date_of_birth', 'image_path','gender', 'height', 'weight',
-        'max_heart_rate','target_heart_rate','max_speed','track_heart_rate', 'sensor_no', 'position'
+        'max_heart_rate','target_heart_rate','max_speed','track_heart_rate', 'sensor_no', 'position','password'
     ];
 
     /**
@@ -26,16 +28,22 @@ class Player extends Model
      * @var array
      */
     protected $hidden = [
-        'updated_at', 'deleted_at',
+        'updated_at', 'deleted_at','password'
     ];
-    
+
     public function user()
     {
         return $this->belongsTo('App\User','fk_user');
     }
-    
+
+    public function getNameAttribute(){
+        return $this->first_name.' '.$this->last_name;
+    }
+
+
+
     public static function addPlayer($input,$user_id,$resetPassword=false){
-        
+
         if(isset($input['track_heart_rate'])){
             $input['track_heart_rate'] = 1;
         }else{
@@ -43,7 +51,7 @@ class Player extends Model
         }
         $input['fk_user'] = $user_id;
         $player = self::create($input);
-        
+
         if($resetPassword){
             $result = PasswordReset::createToken($player->email);
             $data = ['message' => "<a href='".route('reset-password',['email'=>$player->email, 'token'=>$result->token])."'>Verify Email</a>"];
@@ -51,10 +59,10 @@ class Player extends Model
                 Mail::to($player->email)->send(new PlayerMail($data));
             }
         }
-        
+
         return $player;
     }
-    
+
     public static function updatePlayer($input, $playerId) {
 
         $player = Player::find($playerId);
@@ -77,12 +85,12 @@ class Player extends Model
     }
 
     public static function checkIfAlreadyExists($email){
-        
+
         return self::where('email',$email)->first();
     }
-    
+
     public static function getOrCreatePlayer($input){
-        
+
         $player = [];
         if(isset($input['player_no']) && !empty($input['player_no'])){
             $player = self::where('player_no',$input['player_no'])->first();
@@ -101,7 +109,7 @@ class Player extends Model
     }
 
     public static function totalPlayers($filter){
-        
+
         $players = self::select("*");
         if(isset($filter['first_name']) && !empty($filter['first_name'])){
             $players = $players->where('first_name','like','%'.$filter['first_name'].'%');
@@ -119,16 +127,16 @@ class Player extends Model
     public static function playerNoExists($playerNo){
         return self::where('player_no', $playerNo)->first();
     }
-    
+
     public static function getAllPlayers(){
-        
+
         $allPlayers = [];
-        
+
         $players = Player::join('users','fk_user', 'users.id')
                 ->select('first_name','last_name','players.email','players.id', 'users.id as user_id')
                 ->get()
                 ->toArray();
-        
+
         if(count($players) > 0){
             foreach ($players as $key => $player){
                 $allPlayers[$key]['label'] = $player['first_name'].' '.$player['last_name'].' ('.$player['email'].')';

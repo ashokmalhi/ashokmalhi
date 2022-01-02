@@ -15,6 +15,7 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
+        "laravel/ui": "2.4",
         "laravelcollective/html": "^6.2",
         "shanmuga/laravel-entrust": "^2.2"
     },

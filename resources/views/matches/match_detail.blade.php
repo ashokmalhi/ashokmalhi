@@ -135,10 +135,10 @@
                 </div>
             </div>
         </div>
-    </div>    
-</div>  
-    </div> 
-<?php 
+    </div>
+</div>
+    </div>
+<?php
 $firstLat = $heatMapCoordinatesPeriod1[0]->lat;
 $firstLong = $heatMapCoordinatesPeriod1[0]->long;
 
@@ -146,16 +146,16 @@ $secondLat = $heatMapCoordinatesPeriod2[0]->lat;
 $secondLong = $heatMapCoordinatesPeriod2[0]->long;
 ?>
 @section('scripts')
-<script>        
-  
+<script>
+
     $(document).ready(function () {
-        
+
         $(".individualPlayerDetails").click(function(){
-            
+
             matchId = $("#matchId").val();
             teamId = $("#teamId").val();
             playerId = $(this).attr("data-id");
-            
+
             $.ajax({
                 url     : "{{URL::to('matches/get_team_player_details')}}",
                 method  : 'post',
@@ -174,10 +174,10 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
                     $.get(`{{route("heat-map")}}?player_id=${playerId}&team_id=${teamId}`, function(response) {
                         initialMap(response);
                     });
-                    
+
                     drawChart(charts);
-                   
-                    
+
+
                 }
             });
 
@@ -205,7 +205,7 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
                         // suggestedMax: 1000, //max
                     },
                     gridLines: {
-                  color: 'rgba(54, 53, 53)'
+                    color: 'rgba(54, 53, 53)'
              }
                 },
             ],
@@ -231,9 +231,9 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
                 }]
             }
         }
-        
+
     },
-        
+
   ];
 
   // initialize chart
@@ -244,7 +244,7 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
     let mapPeriod1,mapPeriod2, heatmapPeriod1,heatmapPeriod2;
 
     function initMap() {
-        
+
         mapPeriod1 = new google.maps.Map(document.getElementById("heatmapPeriod1"), {
             zoom: 19,
             center: { lat: <?php echo $firstLat;?>, lng: <?php echo $firstLong;?> },
@@ -257,7 +257,7 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
             data: getPoints(1),
             map: mapPeriod1,
         });
-        
+
         mapPeriod2 = new google.maps.Map(document.getElementById("heatmapPeriod2"), {
             zoom: 19,
             center: { lat: <?php echo $secondLat;?>, lng: <?php echo $secondLong;?> },
@@ -272,7 +272,7 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
         });
     }
 
-    
+
     function initialMap(response) {
         firstLat = response['heatMapCoordinatesPeriod1'][0].lat;
         firstLong = response['heatMapCoordinatesPeriod1'][0].long;
@@ -299,7 +299,7 @@ $secondLong = $heatMapCoordinatesPeriod2[0]->long;
             data: arrayPeriod1,
             map: mapPeriod1,
         });
-        
+
         mapPeriod2 = new google.maps.Map(document.getElementById("heatmapPeriod2"), {
             zoom: 19,
             center: { lat: secondLat, lng: secondLong },

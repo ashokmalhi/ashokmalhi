@@ -1,6 +1,6 @@
 <div class="container-box mt-4">
     <div class="userarea ">
-        <div class="colright">{{$firstPlayer->first_name.' '.$firstPlayer->last_name}} 
+        <div class="colright">{{$firstPlayer->first_name.' '.$firstPlayer->last_name}}
         </div>
     </div>
     <div class="counts mt-4">
@@ -67,7 +67,7 @@
             <div id="heatmapPeriod2" style="width:100%; height:500px;" ></div>
         </div>
     </div>
-  
+
 </div>
 <div class="container-box mt-4">
     <div class="row">
@@ -128,8 +128,8 @@
             <?php } ?>
         </div>
     </div>
-  
 </div>
+
 <div class="container-box mt-4">
     <div class="row">
         <div class="col">
@@ -176,7 +176,7 @@
             </div>
         </div>
         <div class="col">
-            
+
                 <div class="row">
                     <div class="col"><b>Distances Per Sprint (> 25 km/h)</b></div>
                 </div>
